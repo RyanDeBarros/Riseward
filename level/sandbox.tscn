@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cc0ht0k6gds55"]
+[gd_scene load_steps=11 format=3 uid="uid://cc0ht0k6gds55"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_p2vdp"]
 [ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="2_5qcdi"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cja61ltgmryov" path="res://player/player.tscn" id="5_nmk7c"]
 [ext_resource type="PackedScene" uid="uid://cj0xqb18wmhil" path="res://gameobjects/ball.tscn" id="6_yyir6"]
 [ext_resource type="PackedScene" uid="uid://bem4dv1hls5hn" path="res://enemies/enemy_1.tscn" id="7_p5vba"]
+[ext_resource type="PackedScene" uid="uid://yjk5880rm47r" path="res://gameobjects/bat.tscn" id="8_fusiw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_584ba"]
 texture = ExtResource("4_gowhp")
@@ -118,5 +119,11 @@ border_width = 50.0
 [node name="Ball" parent="." instance=ExtResource("6_yyir6")]
 position = Vector2(1185, 1504)
 
+[node name="Ball2" parent="." instance=ExtResource("6_yyir6")]
+position = Vector2(1565, 1685)
+
 [node name="Enemy1" parent="." instance=ExtResource("7_p5vba")]
 position = Vector2(5317, 1152)
+
+[node name="Bat" parent="." instance=ExtResource("8_fusiw")]
+position = Vector2(2116, 1179)

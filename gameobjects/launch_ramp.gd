@@ -2,8 +2,8 @@ class_name LaunchRamp
 extends StaticBody2D
 
 
-@export var launch_angle := -0.4
-@export var launch_magnitude := 6000.0
+@export var launch_angle := -0.5
+@export var launch_magnitude := 7000.0
 
 @onready var launch_impulse := launch_magnitude * Vector2.RIGHT.rotated(launch_angle)
 

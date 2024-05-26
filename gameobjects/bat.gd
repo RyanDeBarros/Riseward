@@ -1,8 +1,8 @@
-class_name Ball
+class_name Bat
 extends RigidBody2D
 
 
-@export var grab_rotation := 0.0
+@export var grab_rotation := -2.0
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -15,5 +15,5 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		body.remove_overlapping(self)
 
 
-func launch(strength: Vector2) -> void:
-	apply_central_force(strength * mass)
+func is_attacking(attack: bool) -> void:
+	pass

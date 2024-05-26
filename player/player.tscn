@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cja61ltgmryov"]
+[gd_scene load_steps=14 format=3 uid="uid://cja61ltgmryov"]
 
 [ext_resource type="Texture2D" uid="uid://qqaldacnsua5" path="res://assets/shapes/blue_body_circle.png" id="1_vaepl"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_yik3g"]
@@ -11,6 +11,72 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_se1fq"]
 radius = 80.0
+
+[sub_resource type="Animation" id="Animation_vo25n"]
+resource_name = "swing_l"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlueBodyCircle/HandL:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0944, -4.18879]
+}
+
+[sub_resource type="Animation" id="Animation_gnnpt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlueBodyCircle/HandL:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0944]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlueBodyCircle/HandR:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0472]
+}
+
+[sub_resource type="Animation" id="Animation_ojilm"]
+resource_name = "swing_r"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlueBodyCircle/HandR:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0472, 7.33038]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d3goa"]
+_data = {
+"RESET": SubResource("Animation_gnnpt"),
+"swing_l": SubResource("Animation_vo25n"),
+"swing_r": SubResource("Animation_ojilm")
+}
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -27,6 +93,11 @@ position_smoothing_speed = 2.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_se1fq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d3goa")
+}
 
 [node name="BlueBodyCircle" type="Sprite2D" parent="."]
 texture = ExtResource("1_vaepl")
@@ -52,7 +123,7 @@ rotation = 2.0944
 position = Vector2(-11, -15)
 
 [node name="Closed" type="Sprite2D" parent="BlueBodyCircle/HandL"]
-visible = false
+rotation = -0.261799
 texture = ExtResource("3_4d1lb")
 
 [node name="Open" type="Sprite2D" parent="BlueBodyCircle/HandL"]
@@ -61,6 +132,7 @@ rotation = 0.785398
 texture = ExtResource("5_vw8iy")
 
 [node name="Thumb" type="Sprite2D" parent="BlueBodyCircle/HandL"]
+visible = false
 rotation = -2.09439
 texture = ExtResource("6_02wwc")
 
@@ -73,6 +145,7 @@ scale = Vector2(1, -1)
 position = Vector2(-11, -15)
 
 [node name="Closed" type="Sprite2D" parent="BlueBodyCircle/HandR"]
+rotation = -0.261799
 texture = ExtResource("3_4d1lb")
 
 [node name="Open" type="Sprite2D" parent="BlueBodyCircle/HandR"]

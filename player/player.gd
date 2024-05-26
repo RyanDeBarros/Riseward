@@ -32,6 +32,8 @@ var overlapping_nodes := [] as Array[RigidBody2D]
 var left_hand_node: RigidBody2D
 var right_hand_node: RigidBody2D
 
+var can_let_go_left := {true: true, false: true}
+
 var dash_current_time := 0.0
 var dash_num_air_dashed = 0
 
@@ -47,6 +49,7 @@ var dash_velocity: Vector2
 @onready var jumps_left := max_air_jumps
 @onready var grabber_l: Node2D = $BlueBodyCircle/HandL/GrabberL
 @onready var grabber_r: Node2D = $BlueBodyCircle/HandR/GrabberR
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func _process(delta: float) -> void:
@@ -75,6 +78,8 @@ func _input(event: InputEvent) -> void:
 		action(false)
 	if event.is_action_pressed("dash"):
 		dash()
+	if event.is_action_pressed("parry"):
+		parry()
 
 
 func _physics_process(delta: float) -> void:
@@ -139,6 +144,8 @@ func launch(impulse: Vector2) -> void:
 
 
 func pickup(left_handed: bool) -> void:
+	if not can_let_go_left[left_handed] and (left_hand_node if left_handed else right_hand_node):
+		return
 	var to_pickup: RigidBody2D
 	if not overlapping_nodes.is_empty():
 		to_pickup = overlapping_nodes[0]
@@ -151,12 +158,14 @@ func pickup(left_handed: bool) -> void:
 	if (left_handed and left_hand_node) or (not left_handed and right_hand_node):
 		if left_handed:
 			left_hand_node.reparent(grabber_l)
+			left_hand_node.rotation = left_hand_node.grab_rotation
 			left_hand_node.freeze = true
 		else:
 			right_hand_node.reparent(grabber_r)
+			right_hand_node.rotation = right_hand_node.grab_rotation + PI
 			right_hand_node.freeze = true
 		var collision := (left_hand_node if left_handed else right_hand_node)\
-				.find_child("ImpactCollision") as CollisionShape2D
+				.find_child("RBCollision") as CollisionShape2D
 		if collision:
 			collision.disabled = true
 		if left_handed:
@@ -166,17 +175,18 @@ func pickup(left_handed: bool) -> void:
 
 
 func let_go_hand(left_handed: bool) -> void:
-	if (left_handed and left_hand_node) or (not left_handed and right_hand_node):
+	if can_let_go_left[left_handed] and ((left_handed and left_hand_node)\
+			or (not left_handed and right_hand_node)):
 		if left_handed:
 			overlapping_nodes.append(left_hand_node)
-			left_hand_node.reparent(get_tree().root)
+			left_hand_node.reparent(get_tree().get_first_node_in_group(&"level"))
 			left_hand_node.freeze = false
 		else:
 			overlapping_nodes.append(right_hand_node)
-			right_hand_node.reparent(get_tree().root)
+			right_hand_node.reparent(get_tree().get_first_node_in_group(&"level"))
 			right_hand_node.freeze = false
 		var collision := (left_hand_node if left_handed else right_hand_node)\
-				.find_child("ImpactCollision") as CollisionShape2D
+				.find_child("RBCollision") as CollisionShape2D
 		if collision:
 			collision.disabled = false
 		if left_handed:
@@ -186,8 +196,10 @@ func let_go_hand(left_handed: bool) -> void:
 
 
 func action(left_handed: bool) -> void:
-	if left_hand_node is Ball:
+	if (left_handed and left_hand_node is Ball) or (not left_handed and right_hand_node is Ball):
 		launch_ball(left_handed)
+	elif (left_handed and left_hand_node is Bat) or (not left_handed and right_hand_node is Bat):
+		swing_bat(left_handed)
 
 
 func launch_ball(left_handed: bool) -> void:
@@ -196,10 +208,27 @@ func launch_ball(left_handed: bool) -> void:
 			* abs(angular_velocity / angular_max_velocity)) as float
 	if left_handed:
 		left_hand_node.launch(strength * direction)
-		let_go_hand(true)
 	else:
 		right_hand_node.launch(strength * direction)
-		let_go_hand(false)
+	let_go_hand(left_handed)
+
+
+func swing_bat(left_handed: bool) -> void:
+	can_let_go_left[left_handed] = false
+	(left_hand_node if left_handed else right_hand_node).is_attacking(true)
+	if left_handed:
+		if angular_velocity >= 0:
+			animation_player.play_backwards(&"swing_l")
+		else:
+			animation_player.play(&"swing_l")
+	else:
+		if angular_velocity <= 0:
+			animation_player.play_backwards(&"swing_r")
+		else:
+			animation_player.play(&"swing_r")
+	await animation_player.animation_finished
+	can_let_go_left[left_handed] = true
+	(left_hand_node if left_handed else right_hand_node).is_attacking(false)
 
 
 func add_overlapping(node: RigidBody2D) -> void:
@@ -234,20 +263,8 @@ func update_dashing(delta: float) -> void:
 			dash_current_time += delta
 		else:
 			dash_phase = DashPhase.CAN_DASH
-	
-	
-	
-	
-	#if dash_current_time < dash_time:
-		#velocity = dash_velocity
-		#dash_current_time += delta
-	#else:
-		#velocity = velocity.normalized() * dash_end_speed
-		#await get_tree().create_timer(dash_cooldown).timeout
-		#is_dashing = false
-		#dash_current_time = 0.0
-		##if dash_current_time < dash_time + dash_cooldown:
-			##dash_current_time += delta
-		##else:
-			##dash_current_time = 0.0
-			##is_dashing = false
+
+
+func parry() -> void:
+	#TODO
+	pass

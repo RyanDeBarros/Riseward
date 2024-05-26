@@ -3,3 +3,5 @@ My submission for GameDevTV's 2024 10-day game jam! This is my first game jam ev
 
 ## CREDITS:
 Massive thanks to Kenney.nl for providing a free source of great assets.
+Other sources:
+	* Clker-Free-Vector-Images (pixabay.com)
