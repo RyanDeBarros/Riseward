@@ -12,5 +12,5 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		body.remove_overlapping(self)
 
 
-func action() -> void:
-	print('action!')
+func launch(strength: Vector2) -> void:
+	apply_central_force(strength)

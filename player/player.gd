@@ -1,14 +1,16 @@
 class_name Player
 extends CharacterBody2D
 
+
 @export var level: Level
 
 @export var collision_radius := 80.0
+@export var throw_angular_factor := 2.0
 
 @export_group("Jumping & Airtime")
-@export var max_air_jumps := 2
-@export var jump_initial_speed := [1300.0, 1150.0, 1000.0]
-@export var jump_deceleration := [1300.0, 1150.0, 1000.0]
+@export var max_air_jumps := 3
+@export var jump_initial_speed := [1300.0, 1150.0, 1000.0, 850.0]
+@export var jump_deceleration := [1300.0, 1150.0, 1000.0, 850.0]
 @export var fall_acceleration := 1600.0
 @export var launch_deceleration := 80.0
 
@@ -151,13 +153,25 @@ func let_go_right_hand() -> void:
 
 
 func action_left() -> void:
-	if left_hand_node:
-		left_hand_node.action()
+	if left_hand_node is Ball:
+		launch_ball(true)
 
 
 func action_right() -> void:
-	if right_hand_node:
-		right_hand_node.action()
+	if right_hand_node is Ball:
+		launch_ball(false)
+
+
+func launch_ball(left_handed: bool) -> void:
+	var direction := get_local_mouse_position().rotated(rotation).normalized()
+	var strength := 100000 * (1 + throw_angular_factor\
+			* abs(angular_velocity / angular_max_velocity)) as float
+	if left_handed:
+		left_hand_node.launch(strength * direction)
+		let_go_left_hand()
+	else:
+		right_hand_node.launch(strength * direction)
+		let_go_right_hand()
 
 
 func add_overlapping(node: RigidBody2D) -> void:
