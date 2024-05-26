@@ -14,8 +14,16 @@ radius = 80.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 9
 floor_stop_on_slope = false
 script = ExtResource("1_yik3g")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
+limit_bottom = 3300
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 2.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_se1fq")
@@ -76,10 +84,3 @@ texture = ExtResource("5_vw8iy")
 visible = false
 rotation = -2.09439
 texture = ExtResource("6_02wwc")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.7, 0.7)
-limit_bottom = 3300
-limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 2.5

@@ -2,10 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 
-@export var level: Level
-
 @export var collision_radius := 80.0
-@export var throw_angular_factor := 2.0
+@export var throw_angular_factor := 1.5
 
 @export_group("Jumping & Airtime")
 @export var max_air_jumps := 3
@@ -18,7 +16,7 @@ extends CharacterBody2D
 @export var angular_acceleration := 5.0
 @export var angular_deceleration := 20.0
 @export var angular_slowdown := 3.0
-@export var angular_max_velocity := 15.0
+@export var angular_max_velocity := 20.0
 @export var angular_inair_factor := 1.8
 
 var angular_velocity := 0.0
@@ -27,6 +25,7 @@ var overlapping_nodes := [] as Array[RigidBody2D]
 var left_hand_node: RigidBody2D
 var right_hand_node: RigidBody2D
 
+@onready var level := get_tree().get_first_node_in_group(&"level") as Level
 @onready var jumps_left := max_air_jumps
 @onready var grabber_l: Node2D = $BlueBodyCircle/HandL/GrabberL
 @onready var grabber_r: Node2D = $BlueBodyCircle/HandR/GrabberR
@@ -34,16 +33,22 @@ var right_hand_node: RigidBody2D
 
 func _process(delta: float) -> void:
 	if position.y > level.deathzone_y:
-		get_tree().reload_current_scene()
+		_reload_scene()
+
+
+func _reload_scene() -> void:
+	set_process_input(false)
+	await get_tree().create_timer(1.0).timeout
+	get_tree().reload_current_scene()
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
 	if event.is_action_pressed("ui_text_backspace"):
-		get_tree().reload_current_scene()
+		_reload_scene()
 	if event.is_action_pressed("pickup_left"):
-		pickup_left()
+		pickup(true)
 	elif event.is_action_pressed("action_left"):
 		action_left()
 	if event.is_action_pressed("pickup_right"):
@@ -63,7 +68,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _apply_locomotion(delta: float) -> void:
-	var move_axis := Input.get_axis("move_left", "move_right")
+	var move_axis := Input.get_axis("move_left", "move_right") if is_processing_input() else 0.0
 	var change := _calculate_change_in_angular_velocity(move_axis, delta)\
 			* (angular_inair_factor if not is_on_floor() else 1.0)
 	angular_velocity = clampf(angular_velocity + change,\
@@ -72,7 +77,8 @@ func _apply_locomotion(delta: float) -> void:
 
 
 func _try_jump() -> void:
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or jumps_left > 0):
+	if is_processing_input() and Input.is_action_just_pressed("jump")\
+			and (is_on_floor() or jumps_left > 0):
 		if not is_on_floor():
 			jumps_left -= 1
 		velocity.y = -jump_initial_speed[max_air_jumps - jumps_left]
@@ -110,6 +116,33 @@ func launch(impulse: Vector2) -> void:
 	velocity = impulse
 
 
+func pickup(left_handed: bool) -> void:
+	var to_pickup: RigidBody2D
+	if not overlapping_nodes.is_empty():
+		to_pickup = overlapping_nodes[0]
+		overlapping_nodes.remove_at(0)
+	let_go_hand(left_handed)
+	if left_handed:
+		left_hand_node = to_pickup
+	else:
+		right_hand_node = to_pickup
+	if (left_handed and left_hand_node) or (not left_handed and right_hand_node):
+		if left_handed:
+			left_hand_node.reparent(grabber_l)
+			left_hand_node.freeze = true
+		else:
+			right_hand_node.reparent(grabber_r)
+			right_hand_node.freeze = true
+		var collision := (left_hand_node if left_handed else right_hand_node)\
+				.find_child("ImpactCollision") as CollisionShape2D
+		if collision:
+			collision.disabled = true
+		if left_handed:
+			left_hand_node.position = Vector2.ZERO
+		else:
+			right_hand_node.position = Vector2.ZERO
+
+
 func pickup_left() -> void:
 	var to_pickup: RigidBody2D
 	if not overlapping_nodes.is_empty():
@@ -120,6 +153,9 @@ func pickup_left() -> void:
 	if left_hand_node:
 		left_hand_node.reparent(grabber_l)
 		left_hand_node.freeze = true
+		var collision := left_hand_node.find_child("ImpactCollision") as CollisionShape2D
+		if collision:
+			collision.disabled = true
 		left_hand_node.position = Vector2.ZERO
 
 
@@ -133,7 +169,30 @@ func pickup_right() -> void:
 	if right_hand_node:
 		right_hand_node.reparent(grabber_r)
 		right_hand_node.freeze = true
+		var collision := right_hand_node.find_child("ImpactCollision") as CollisionShape2D
+		if collision:
+			collision.disabled = true
 		right_hand_node.position = Vector2.ZERO
+
+
+func let_go_hand(left_handed: bool) -> void:
+	if (left_handed and left_hand_node) or (not left_handed and right_hand_node):
+		if left_handed:
+			overlapping_nodes.append(left_hand_node)
+			left_hand_node.reparent(get_tree().root)
+			left_hand_node.freeze = false
+		else:
+			overlapping_nodes.append(right_hand_node)
+			right_hand_node.reparent(get_tree().root)
+			right_hand_node.freeze = false
+		var collision := (left_hand_node if left_handed else right_hand_node)\
+				.find_child("ImpactCollision") as CollisionShape2D
+		if collision:
+			collision.disabled = false
+		if left_handed:
+			left_hand_node = null
+		else:
+			right_hand_node = null
 
 
 func let_go_left_hand() -> void:
@@ -141,6 +200,9 @@ func let_go_left_hand() -> void:
 		overlapping_nodes.append(left_hand_node)
 		left_hand_node.reparent(get_tree().root)
 		left_hand_node.freeze = false
+		var collision := left_hand_node.find_child("ImpactCollision") as CollisionShape2D
+		if collision:
+			collision.disabled = false
 		left_hand_node = null
 
 
@@ -149,6 +211,9 @@ func let_go_right_hand() -> void:
 		overlapping_nodes.append(right_hand_node)
 		right_hand_node.reparent(get_tree().root)
 		right_hand_node.freeze = false
+		var collision := right_hand_node.find_child("ImpactCollision") as CollisionShape2D
+		if collision:
+			collision.disabled = false
 		right_hand_node = null
 
 

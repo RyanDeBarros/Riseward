@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bpmgr7ew7h6jl" path="res://assets/tiles/tile_ramp_left.png" id="1_rese6"]
 
 [node name="LaunchRamp" type="StaticBody2D"]
-collision_mask = 7
+collision_mask = 15
 script = ExtResource("1_0hxny")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -16,11 +16,11 @@ texture = ExtResource("1_rese6")
 offset = Vector2(-46, -46)
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_mask = 7
+collision_mask = 2
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(-158, 4)
 scale = Vector2(1.2, 1.2)
-polygon = PackedVector2Array(0, 0, 0, 25, 160, 25, 160, -135, 135, -135)
+polygon = PackedVector2Array(0, 0, 0, 25, 155, 25, 155, -135, 135, -135)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
