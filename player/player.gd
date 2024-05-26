@@ -5,6 +5,13 @@ extends CharacterBody2D
 @export var collision_radius := 80.0
 @export var throw_angular_factor := 1.5
 
+@export_group("Dashing", "dash_")
+@export var dash_speed := 5000.0
+@export var dash_time := 0.15
+@export var dash_cooldown := 1.0
+@export var dash_end_speed := 1300.0
+@export var dash_max_air_dashes := 1
+
 @export_group("Jumping & Airtime")
 @export var max_air_jumps := 3
 @export var jump_initial_speed := [1300.0, 1150.0, 1000.0, 850.0]
@@ -24,6 +31,17 @@ var angular_velocity := 0.0
 var overlapping_nodes := [] as Array[RigidBody2D]
 var left_hand_node: RigidBody2D
 var right_hand_node: RigidBody2D
+
+var dash_current_time := 0.0
+var dash_num_air_dashed = 0
+
+enum DashPhase {
+	CAN_DASH,
+	IS_DASHING,
+	DASH_COOLDOWN
+}
+var dash_phase := DashPhase.CAN_DASH
+var dash_velocity: Vector2
 
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
 @onready var jumps_left := max_air_jumps
@@ -50,11 +68,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pickup_left"):
 		pickup(true)
 	elif event.is_action_pressed("action_left"):
-		action_left()
+		action(true)
 	if event.is_action_pressed("pickup_right"):
-		pickup_right()
+		pickup(false)
 	elif event.is_action_pressed("action_right"):
-		action_right()
+		action(false)
+	if event.is_action_pressed("dash"):
+		dash()
 
 
 func _physics_process(delta: float) -> void:
@@ -62,8 +82,10 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		velocity.x = angular_velocity * collision_radius
 		jumps_left = max_air_jumps
+		dash_num_air_dashed = 0
 	_try_jump()
 	_apply_gravity(delta)
+	update_dashing(delta)
 	move_and_slide()
 
 
@@ -143,38 +165,6 @@ func pickup(left_handed: bool) -> void:
 			right_hand_node.position = Vector2.ZERO
 
 
-func pickup_left() -> void:
-	var to_pickup: RigidBody2D
-	if not overlapping_nodes.is_empty():
-		to_pickup = overlapping_nodes[0]
-		overlapping_nodes.remove_at(0)
-	let_go_left_hand()
-	left_hand_node = to_pickup
-	if left_hand_node:
-		left_hand_node.reparent(grabber_l)
-		left_hand_node.freeze = true
-		var collision := left_hand_node.find_child("ImpactCollision") as CollisionShape2D
-		if collision:
-			collision.disabled = true
-		left_hand_node.position = Vector2.ZERO
-
-
-func pickup_right() -> void:
-	var to_pickup: RigidBody2D
-	if not overlapping_nodes.is_empty():
-		to_pickup = overlapping_nodes[0]
-		overlapping_nodes.remove_at(0)
-	let_go_right_hand()
-	right_hand_node = to_pickup
-	if right_hand_node:
-		right_hand_node.reparent(grabber_r)
-		right_hand_node.freeze = true
-		var collision := right_hand_node.find_child("ImpactCollision") as CollisionShape2D
-		if collision:
-			collision.disabled = true
-		right_hand_node.position = Vector2.ZERO
-
-
 func let_go_hand(left_handed: bool) -> void:
 	if (left_handed and left_hand_node) or (not left_handed and right_hand_node):
 		if left_handed:
@@ -195,36 +185,9 @@ func let_go_hand(left_handed: bool) -> void:
 			right_hand_node = null
 
 
-func let_go_left_hand() -> void:
-	if left_hand_node:
-		overlapping_nodes.append(left_hand_node)
-		left_hand_node.reparent(get_tree().root)
-		left_hand_node.freeze = false
-		var collision := left_hand_node.find_child("ImpactCollision") as CollisionShape2D
-		if collision:
-			collision.disabled = false
-		left_hand_node = null
-
-
-func let_go_right_hand() -> void:
-	if right_hand_node:
-		overlapping_nodes.append(right_hand_node)
-		right_hand_node.reparent(get_tree().root)
-		right_hand_node.freeze = false
-		var collision := right_hand_node.find_child("ImpactCollision") as CollisionShape2D
-		if collision:
-			collision.disabled = false
-		right_hand_node = null
-
-
-func action_left() -> void:
+func action(left_handed: bool) -> void:
 	if left_hand_node is Ball:
-		launch_ball(true)
-
-
-func action_right() -> void:
-	if right_hand_node is Ball:
-		launch_ball(false)
+		launch_ball(left_handed)
 
 
 func launch_ball(left_handed: bool) -> void:
@@ -233,10 +196,10 @@ func launch_ball(left_handed: bool) -> void:
 			* abs(angular_velocity / angular_max_velocity)) as float
 	if left_handed:
 		left_hand_node.launch(strength * direction)
-		let_go_left_hand()
+		let_go_hand(true)
 	else:
 		right_hand_node.launch(strength * direction)
-		let_go_right_hand()
+		let_go_hand(false)
 
 
 func add_overlapping(node: RigidBody2D) -> void:
@@ -246,3 +209,45 @@ func add_overlapping(node: RigidBody2D) -> void:
 
 func remove_overlapping(node: RigidBody2D) -> void:
 	overlapping_nodes.erase(node)
+
+
+func dash() -> void:
+	if dash_phase == DashPhase.CAN_DASH and (is_on_floor() or dash_num_air_dashed < dash_max_air_dashes):
+		dash_phase = DashPhase.IS_DASHING
+		dash_current_time = 0.0
+		dash_velocity = dash_speed * get_local_mouse_position().rotated(rotation).normalized()
+		if not is_on_floor():
+			dash_num_air_dashed += 1
+
+
+func update_dashing(delta: float) -> void:
+	if dash_phase == DashPhase.IS_DASHING:
+		if dash_current_time < dash_time:
+			velocity = dash_velocity
+			dash_current_time += delta
+		else:
+			dash_phase = DashPhase.DASH_COOLDOWN
+			dash_current_time = 0.0
+			velocity = dash_end_speed * velocity.normalized()
+	elif dash_phase == DashPhase.DASH_COOLDOWN:
+		if dash_current_time < dash_cooldown:
+			dash_current_time += delta
+		else:
+			dash_phase = DashPhase.CAN_DASH
+	
+	
+	
+	
+	#if dash_current_time < dash_time:
+		#velocity = dash_velocity
+		#dash_current_time += delta
+	#else:
+		#velocity = velocity.normalized() * dash_end_speed
+		#await get_tree().create_timer(dash_cooldown).timeout
+		#is_dashing = false
+		#dash_current_time = 0.0
+		##if dash_current_time < dash_time + dash_cooldown:
+			##dash_current_time += delta
+		##else:
+			##dash_current_time = 0.0
+			##is_dashing = false
