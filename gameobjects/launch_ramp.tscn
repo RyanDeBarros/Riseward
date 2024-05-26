@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cv4s5ssa3ouue"]
 
-[ext_resource type="Script" path="res://launch_ramp.gd" id="1_0hxny"]
+[ext_resource type="Script" path="res://gameobjects/launch_ramp.gd" id="1_0hxny"]
 [ext_resource type="Texture2D" uid="uid://bpmgr7ew7h6jl" path="res://assets/tiles/tile_ramp_left.png" id="1_rese6"]
 
 [node name="LaunchRamp" type="StaticBody2D"]
-collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_0hxny")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -16,6 +16,7 @@ texture = ExtResource("1_rese6")
 offset = Vector2(-46, -46)
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 7
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(-158, 4)

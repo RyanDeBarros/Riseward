@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://cja61ltgmryov"]
+
+[ext_resource type="Texture2D" uid="uid://qqaldacnsua5" path="res://assets/shapes/blue_body_circle.png" id="1_vaepl"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_yik3g"]
+[ext_resource type="Texture2D" uid="uid://kkx0l0x5ct2x" path="res://assets/faces/face_c.png" id="2_7f3ff"]
+[ext_resource type="Texture2D" uid="uid://ceeonv17ieamm" path="res://assets/hands/blue_hand_closed.png" id="3_4d1lb"]
+[ext_resource type="Texture2D" uid="uid://chc5jflu6rumi" path="res://assets/faces/face_g.png" id="4_4a5wv"]
+[ext_resource type="Texture2D" uid="uid://w13wib82wlfv" path="res://assets/faces/face_i.png" id="5_0mqp7"]
+[ext_resource type="Texture2D" uid="uid://b1xl2833rsw05" path="res://assets/hands/blue_hand_open.png" id="5_vw8iy"]
+[ext_resource type="Texture2D" uid="uid://ccl2p0kk6ff8e" path="res://assets/hands/blue_hand_thumb.png" id="6_02wwc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_se1fq"]
+radius = 80.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+floor_stop_on_slope = false
+script = ExtResource("1_yik3g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_se1fq")
+
+[node name="BlueBodyCircle" type="Sprite2D" parent="."]
+texture = ExtResource("1_vaepl")
+
+[node name="Face" type="Node2D" parent="BlueBodyCircle"]
+
+[node name="FaceA" type="Sprite2D" parent="BlueBodyCircle/Face"]
+texture = ExtResource("2_7f3ff")
+
+[node name="FaceG" type="Sprite2D" parent="BlueBodyCircle/Face"]
+visible = false
+texture = ExtResource("4_4a5wv")
+
+[node name="FaceI" type="Sprite2D" parent="BlueBodyCircle/Face"]
+visible = false
+texture = ExtResource("5_0mqp7")
+
+[node name="HandL" type="Node2D" parent="BlueBodyCircle"]
+position = Vector2(-105, 55)
+rotation = 2.0944
+
+[node name="GrabberL" type="Node2D" parent="BlueBodyCircle/HandL"]
+position = Vector2(-11, -15)
+
+[node name="Closed" type="Sprite2D" parent="BlueBodyCircle/HandL"]
+visible = false
+texture = ExtResource("3_4d1lb")
+
+[node name="Open" type="Sprite2D" parent="BlueBodyCircle/HandL"]
+visible = false
+rotation = 0.785398
+texture = ExtResource("5_vw8iy")
+
+[node name="Thumb" type="Sprite2D" parent="BlueBodyCircle/HandL"]
+rotation = -2.09439
+texture = ExtResource("6_02wwc")
+
+[node name="HandR" type="Node2D" parent="BlueBodyCircle"]
+position = Vector2(105, 55)
+rotation = 1.0472
+scale = Vector2(1, -1)
+
+[node name="GrabberR" type="Node2D" parent="BlueBodyCircle/HandR"]
+position = Vector2(-11, -15)
+
+[node name="Closed" type="Sprite2D" parent="BlueBodyCircle/HandR"]
+texture = ExtResource("3_4d1lb")
+
+[node name="Open" type="Sprite2D" parent="BlueBodyCircle/HandR"]
+visible = false
+rotation = 0.523599
+texture = ExtResource("5_vw8iy")
+
+[node name="Thumb" type="Sprite2D" parent="BlueBodyCircle/HandR"]
+visible = false
+rotation = -2.09439
+texture = ExtResource("6_02wwc")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
+limit_bottom = 3300
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 2.5

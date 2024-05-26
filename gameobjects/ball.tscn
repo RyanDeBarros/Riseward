@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj0xqb18wmhil"]
+
+[ext_resource type="Script" path="res://gameobjects/ball.gd" id="1_tmad0"]
+[ext_resource type="Texture2D" uid="uid://cfufs6troxwwh" path="res://assets/tiles/tile_coin.png" id="1_trp3m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6uggo"]
+radius = 140.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l5gr6"]
+radius = 45.0
+
+[node name="Ball" type="RigidBody2D"]
+collision_layer = 4
+script = ExtResource("1_tmad0")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="PickupCollision" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6uggo")
+
+[node name="ImpactCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_l5gr6")
+
+[node name="TileCoin" type="Sprite2D" parent="."]
+texture = ExtResource("1_trp3m")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
