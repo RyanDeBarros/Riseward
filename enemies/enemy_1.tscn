@@ -65,4 +65,6 @@ shape = SubResource("CircleShape2D_nmlbh")
 texture = ExtResource("3_13dr0")
 
 [connection signal="body_entered" from="HandL/HitAreaL" to="." method="_on_hit_area_l_body_entered"]
+[connection signal="body_exited" from="HandL/HitAreaL" to="." method="_on_hit_area_l_body_exited"]
 [connection signal="body_entered" from="HandR/HitAreaR" to="." method="_on_hit_area_r_body_entered"]
+[connection signal="body_exited" from="HandR/HitAreaR" to="." method="_on_hit_area_r_body_exited"]

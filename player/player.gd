@@ -18,6 +18,7 @@ extends CharacterBody2D
 @export var jump_deceleration := [1300.0, 1150.0, 1000.0, 850.0]
 @export var fall_acceleration := 1600.0
 @export var launch_deceleration := 80.0
+@export var jump_consume_factor := 0.8
 
 @export_group("Angular Motion", "angular_")
 @export var angular_acceleration := 5.0
@@ -106,8 +107,11 @@ func _try_jump() -> void:
 			and (is_on_floor() or jumps_left > 0):
 		if not is_on_floor():
 			jumps_left -= 1
-		velocity.y = -jump_initial_speed[max_air_jumps - jumps_left]
-		velocity.x = angular_velocity * collision_radius
+		velocity.y = (1 - jump_consume_factor) * (1 if velocity.y < 0 else 0.5) * velocity.y\
+				- jump_consume_factor * jump_initial_speed[max_air_jumps - jumps_left]
+		velocity.x = (1 - jump_consume_factor)\
+				* (1 if signf(velocity.x) == signf(angular_velocity) else 0.5) * velocity.x\
+				+ jump_consume_factor * angular_velocity * collision_radius
 
 
 func _apply_gravity(delta: float) -> void:
@@ -243,9 +247,11 @@ func dash() -> void:
 	if dash_phase == DashPhase.CAN_DASH and (is_on_floor() or dash_num_air_dashed < dash_max_air_dashes):
 		dash_phase = DashPhase.IS_DASHING
 		dash_current_time = 0.0
-		dash_velocity = dash_speed * get_local_mouse_position().rotated(rotation).normalized()
-		if not is_on_floor():
+		dash_velocity = velocity + dash_speed * get_local_mouse_position().rotated(rotation).normalized()
+		if not is_on_floor() or dash_velocity.y < 0:
 			dash_num_air_dashed += 1
+		velocity = dash_velocity
+		move_and_slide()
 
 
 func update_dashing(delta: float) -> void:
@@ -273,6 +279,9 @@ func bounce_back(force: Vector2) -> void:
 	if is_on_floor():
 		global_position.y -= 1
 		velocity = Vector2(force.length() * signf(force.x), -1000)
+	elif is_on_ceiling():
+		global_position.y += 1
+		velocity = Vector2(force.length() * signf(force.x), 1000)
 	else:
 		velocity = force
 	move_and_slide()
