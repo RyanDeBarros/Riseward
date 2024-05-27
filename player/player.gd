@@ -6,6 +6,11 @@ extends CharacterBody2D
 @export var throw_angular_factor := 1.5
 @export var stun_total_time := 0.6
 
+@export_group("Parrying", "parry_")
+@export var parry_recovery_factor := 0.5
+@export var parry_force_reduction := 0.5
+@export var parry_cooldown := 0.5
+
 @export_group("Dashing", "dash_")
 @export var dash_speed := 5000.0
 @export var dash_time := 0.15
@@ -47,6 +52,8 @@ var dash_phase := DashPhase.CAN_DASH
 var dash_velocity: Vector2
 
 var stun_time := 0.0
+var is_parrying := false
+var can_parry := true
 
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
 @onready var jumps_left := max_air_jumps
@@ -203,6 +210,8 @@ func let_go_hand(left_handed: bool) -> void:
 
 
 func action(left_handed: bool) -> void:
+	if is_parrying:
+		return
 	if (left_handed and left_hand_node is Ball) or (not left_handed and right_hand_node is Ball):
 		launch_ball(left_handed)
 	elif (left_handed and left_hand_node is Bat) or (not left_handed and right_hand_node is Bat):
@@ -276,12 +285,24 @@ func update_dashing(delta: float) -> void:
 
 
 func parry() -> void:
-	#TODO
-	pass
+	if not is_parrying and can_parry:
+		is_parrying = true
+		can_parry = false
+		animation_player.play(&"parry")
+		await animation_player.animation_finished
+		is_parrying = false
+		await get_tree().create_timer(parry_cooldown).timeout
+		can_parry = true
 
 
 func bounce_back(force: Vector2) -> void:
-	stun_time = stun_total_time
+	if is_parrying:
+		print('parry success')
+		force *= parry_force_reduction
+		stun_time = parry_recovery_factor * stun_total_time
+	else:
+		print('parry fail')
+		stun_time = stun_total_time
 	if is_on_floor():
 		global_position.y -= 1
 		velocity = Vector2(force.length() * signf(force.x), -1000)
