@@ -2,8 +2,9 @@ class_name Player
 extends CharacterBody2D
 
 
-@export var collision_radius := 80.0
+@export var body_radius := 80.0
 @export var throw_angular_factor := 1.5
+@export var stun_total_time := 0.6
 
 @export_group("Dashing", "dash_")
 @export var dash_speed := 5000.0
@@ -37,7 +38,6 @@ var can_let_go_left := {true: true, false: true}
 
 var dash_current_time := 0.0
 var dash_num_air_dashed = 0
-
 enum DashPhase {
 	CAN_DASH,
 	IS_DASHING,
@@ -45,6 +45,8 @@ enum DashPhase {
 }
 var dash_phase := DashPhase.CAN_DASH
 var dash_velocity: Vector2
+
+var stun_time := 0.0
 
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
 @onready var jumps_left := max_air_jumps
@@ -84,12 +86,12 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	_apply_locomotion(delta)
 	if is_on_floor():
-		velocity.x = angular_velocity * collision_radius
 		jumps_left = max_air_jumps
 		dash_num_air_dashed = 0
 	_try_jump()
 	_apply_gravity(delta)
 	update_dashing(delta)
+	update_stun(delta)
 	move_and_slide()
 
 
@@ -100,18 +102,20 @@ func _apply_locomotion(delta: float) -> void:
 	angular_velocity = clampf(angular_velocity + change,\
 			-angular_max_velocity, angular_max_velocity)
 	rotation += angular_velocity * delta
+	if is_on_floor() and move_axis != 0 and stun_time <= 0.0:
+		velocity.x = angular_velocity * body_radius
 
 
 func _try_jump() -> void:
 	if is_processing_input() and Input.is_action_just_pressed("jump")\
-			and (is_on_floor() or jumps_left > 0):
+			and (is_on_floor() or jumps_left > 0) and stun_time <= 0.0:
 		if not is_on_floor():
 			jumps_left -= 1
 		velocity.y = (1 - jump_consume_factor) * (1 if velocity.y < 0 else 0.5) * velocity.y\
 				- jump_consume_factor * jump_initial_speed[max_air_jumps - jumps_left]
 		velocity.x = (1 - jump_consume_factor)\
 				* (1 if signf(velocity.x) == signf(angular_velocity) else 0.5) * velocity.x\
-				+ jump_consume_factor * angular_velocity * collision_radius
+				+ jump_consume_factor * angular_velocity * body_radius
 
 
 func _apply_gravity(delta: float) -> void:
@@ -244,7 +248,8 @@ func remove_overlapping(node: RigidBody2D) -> void:
 
 
 func dash() -> void:
-	if dash_phase == DashPhase.CAN_DASH and (is_on_floor() or dash_num_air_dashed < dash_max_air_dashes):
+	if dash_phase == DashPhase.CAN_DASH and stun_time <= 0.0\
+			and (is_on_floor() or dash_num_air_dashed < dash_max_air_dashes):
 		dash_phase = DashPhase.IS_DASHING
 		dash_current_time = 0.0
 		dash_velocity = velocity + dash_speed * get_local_mouse_position().rotated(rotation).normalized()
@@ -276,6 +281,7 @@ func parry() -> void:
 
 
 func bounce_back(force: Vector2) -> void:
+	stun_time = stun_total_time
 	if is_on_floor():
 		global_position.y -= 1
 		velocity = Vector2(force.length() * signf(force.x), -1000)
@@ -285,3 +291,8 @@ func bounce_back(force: Vector2) -> void:
 	else:
 		velocity = force
 	move_and_slide()
+
+
+func update_stun(delta: float) -> void:
+	if stun_time > 0.0:
+		stun_time -= delta
