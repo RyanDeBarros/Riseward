@@ -215,7 +215,7 @@ func launch_ball(left_handed: bool) -> void:
 
 func swing_bat(left_handed: bool) -> void:
 	can_let_go_left[left_handed] = false
-	(left_hand_node if left_handed else right_hand_node).is_attacking(true)
+	(left_hand_node if left_handed else right_hand_node).is_attacking(self)
 	if left_handed:
 		if angular_velocity >= 0:
 			animation_player.play_backwards(&"swing_l")
@@ -228,7 +228,7 @@ func swing_bat(left_handed: bool) -> void:
 			animation_player.play(&"swing_r")
 	await animation_player.animation_finished
 	can_let_go_left[left_handed] = true
-	(left_hand_node if left_handed else right_hand_node).is_attacking(false)
+	(left_hand_node if left_handed else right_hand_node).is_attacking(null)
 
 
 func add_overlapping(node: RigidBody2D) -> void:

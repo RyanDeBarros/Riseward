@@ -11,10 +11,13 @@ size = Vector2(384, 384)
 [sub_resource type="CircleShape2D" id="CircleShape2D_30mm4"]
 radius = 34.9386
 
-[node name="Enemy1" type="RigidBody2D"]
+[node name="Enemy1" type="RigidBody2D" groups=["enemy"]]
 collision_layer = 8
-collision_mask = 15
+collision_mask = 13
 mass = 3.5
+gravity_scale = 2.0
+linear_damp = 1.0
+angular_damp = 1.0
 script = ExtResource("1_giv7u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -35,6 +38,8 @@ position = Vector2(-280, 0)
 scale = Vector2(-1.6, 1.6)
 
 [node name="HitAreaL" type="Area2D" parent="HandL"]
+collision_layer = 16
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HandL/HitAreaL"]
 shape = SubResource("CircleShape2D_30mm4")
@@ -47,6 +52,8 @@ position = Vector2(264, 0)
 scale = Vector2(1.6, 1.6)
 
 [node name="HitAreaR" type="Area2D" parent="HandR"]
+collision_layer = 16
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HandR/HitAreaR"]
 shape = SubResource("CircleShape2D_30mm4")

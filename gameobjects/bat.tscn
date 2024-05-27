@@ -8,8 +8,8 @@ radius = 129.0
 height = 436.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h5l70"]
-radius = 40.0
-height = 232.0
+radius = 64.0
+height = 278.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oqxcf"]
 radius = 20.0
@@ -30,8 +30,11 @@ shape = SubResource("CapsuleShape2D_q76jl")
 
 [node name="HitArea" type="Area2D" parent="."]
 position = Vector2(0, -147)
+collision_layer = 0
+collision_mask = 8
 
 [node name="ImpactCollision" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_h5l70")
 
 [node name="RBCollision" type="CollisionShape2D" parent="."]
@@ -46,3 +49,4 @@ offset = Vector2(190, -204)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]

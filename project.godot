@@ -27,6 +27,7 @@ window/stretch/mode="canvas_items"
 
 folder_colors={
 "res://assets/": "orange",
+"res://enemies/": "pink",
 "res://gameobjects/": "green",
 "res://level/": "teal",
 "res://player/": "purple"
@@ -88,3 +89,4 @@ pickup_right={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="PlayerItems"
 2d_physics/layer_4="Enemy"
+2d_physics/layer_5="EnemyAttack"

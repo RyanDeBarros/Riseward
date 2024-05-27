@@ -8,7 +8,3 @@ extends RigidBody2D
 func _physics_process(delta: float) -> void:
 	if position.y > level.deathzone_y:
 		queue_free()
-
-
-func _process(delta: float) -> void:
-	pass
