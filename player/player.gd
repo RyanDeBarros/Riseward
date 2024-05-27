@@ -4,9 +4,9 @@ extends CharacterBody2D
 
 @export var body_radius := 80.0
 @export var throw_angular_factor := 1.5
-@export var stun_total_time := 0.6
 
-@export_group("Parrying", "parry_")
+@export_group("Parrying & Stunning")
+@export var stun_total_time := 0.8
 @export var parry_recovery_factor := 0.5
 @export var parry_force_reduction := 0.5
 @export var parry_cooldown := 0.5
@@ -109,7 +109,7 @@ func _apply_locomotion(delta: float) -> void:
 	angular_velocity = clampf(angular_velocity + change,\
 			-angular_max_velocity, angular_max_velocity)
 	rotation += angular_velocity * delta
-	if is_on_floor() and move_axis != 0 and stun_time <= 0.0:
+	if is_on_floor() and stun_time <= 0.0:
 		velocity.x = angular_velocity * body_radius
 
 
