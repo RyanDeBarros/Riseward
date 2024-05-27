@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var parry_recovery_factor := 0.5
 @export var parry_force_reduction := 0.5
 @export var parry_cooldown := 0.5
+@export var parry_reposte_factor := 0.5
 
 @export_group("Dashing", "dash_")
 @export var dash_speed := 5000.0
@@ -295,11 +296,14 @@ func parry() -> void:
 		can_parry = true
 
 
-func bounce_back(force: Vector2) -> void:
+func bounce_back(force: Vector2) -> Vector2:
+	var reply := Vector2.ZERO
 	if is_parrying:
 		print('parry success')
+		reply = -parry_reposte_factor * force
 		force *= parry_force_reduction
 		stun_time = parry_recovery_factor * stun_total_time
+		
 	else:
 		print('parry fail')
 		stun_time = stun_total_time
@@ -312,6 +316,9 @@ func bounce_back(force: Vector2) -> void:
 	else:
 		velocity = force
 	move_and_slide()
+	jumps_left = max_air_jumps - 1
+	dash_num_air_dashed = 0
+	return reply
 
 
 func update_stun(delta: float) -> void:
