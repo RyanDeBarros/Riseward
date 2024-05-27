@@ -64,8 +64,6 @@ func _reload_scene() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		get_tree().quit()
 	if event.is_action_pressed("ui_text_backspace"):
 		_reload_scene()
 	if event.is_action_pressed("pickup_left"):
@@ -141,6 +139,7 @@ func _calculate_change_in_angular_velocity(move_axis: float, delta: float) -> fl
 
 func launch(impulse: Vector2) -> void:
 	velocity = impulse
+	move_and_slide()
 
 
 func pickup(left_handed: bool) -> void:
@@ -268,3 +267,12 @@ func update_dashing(delta: float) -> void:
 func parry() -> void:
 	#TODO
 	pass
+
+
+func bounce_back(force: Vector2) -> void:
+	if is_on_floor():
+		global_position.y -= 1
+		velocity = Vector2(force.length() * signf(force.x), -1000)
+	else:
+		velocity = force
+	move_and_slide()
