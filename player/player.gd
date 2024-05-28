@@ -192,6 +192,8 @@ func pickup(left_handed: bool) -> void:
 			left_hand_node.position = Vector2.ZERO
 		else:
 			right_hand_node.position = Vector2.ZERO
+	if to_pickup:
+		to_pickup.pickup()
 
 
 func let_go_hand(left_handed: bool) -> void:
@@ -199,12 +201,14 @@ func let_go_hand(left_handed: bool) -> void:
 			or (not left_handed and right_hand_node)):
 		if left_handed:
 			overlapping_nodes.append(left_hand_node)
-			left_hand_node.reparent(get_tree().get_first_node_in_group(&"level"))
+			left_hand_node.reparent(get_tree().get_first_node_in_group(&"items_dir"))
 			left_hand_node.freeze = false
+			left_hand_node.let_go()
 		else:
 			overlapping_nodes.append(right_hand_node)
-			right_hand_node.reparent(get_tree().get_first_node_in_group(&"level"))
+			right_hand_node.reparent(get_tree().get_first_node_in_group(&"items_dir"))
 			right_hand_node.freeze = false
+			right_hand_node.let_go()
 		var collision := (left_hand_node if left_handed else right_hand_node)\
 				.find_child("RBCollision") as CollisionShape2D
 		if collision:
@@ -320,9 +324,9 @@ func bounce_back(force: Vector2) -> Vector2:
 		reply = -parry_reposte_factor * force
 		force *= parry_force_reduction
 		stun_time = parry_recovery_factor * stun_total_time
-		
 	else:
 		print('parry fail')
+		lose_random_item()
 		stun_time = stun_total_time
 	if is_on_floor():
 		global_position.y -= 1
@@ -341,3 +345,14 @@ func bounce_back(force: Vector2) -> Vector2:
 func update_stun(delta: float) -> void:
 	if stun_time > 0.0:
 		stun_time -= delta
+
+
+func lose_random_item() -> void:
+	if not left_hand_node:
+		if right_hand_node:
+			call_deferred("let_go_hand", false)
+	else:
+		if not right_hand_node:
+			call_deferred("let_go_hand", true)
+		else:
+			call_deferred("let_go_hand", true if randi_range(0, 1) == 0 else false)

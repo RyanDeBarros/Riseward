@@ -9,7 +9,7 @@ enum SpawnSit {
 	ONE_BAT
 }
 
-@export var cooldown_speed_mult := 0.15
+@export var cooldown_speed_mult := 0.1
 @export var initial_velocity := 300.0
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -31,7 +31,6 @@ func _on_body_exited(body: Node2D) -> void:
 
 func pop() -> void:
 	collision_shape_2d.disabled = true
-	spawn_items()
 	animation_player.play(&"pop")
 	await animation_player.animation_finished
 	animation_player.play(&"cooldown", -1, cooldown_speed_mult)

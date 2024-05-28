@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cc0ht0k6gds55"]
+[gd_scene load_steps=19 format=3 uid="uid://cc0ht0k6gds55"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_p2vdp"]
 [ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="2_5qcdi"]
@@ -19,6 +19,9 @@ load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8d
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hh87e"]
 size = Vector2(2210, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pr2sd"]
+size = Vector2(1750, 360)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_584ba"]
 texture = ExtResource("4_gowhp")
@@ -181,6 +184,76 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform1/EnemyDetect"]
 position = Vector2(1035, -60)
 shape = SubResource("RectangleShape2D_hh87e")
+
+[node name="Platform2" type="RigidBody2D" parent="Platforms" node_paths=PackedStringArray("enemy_detect")]
+position = Vector2(-1820, 500)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("2_lsksp")
+enemy_detect = NodePath("../Platform1/EnemyDetect")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform2"]
+polygon = PackedVector2Array(20, 0, 1580, 0, 1600, 80, 0, 80)
+one_way_collision = true
+
+[node name="Tiles" type="Node2D" parent="Platforms/Platform2"]
+
+[node name="Support" type="NinePatchRect" parent="Platforms/Platform2/Tiles"]
+offset_right = 1600.0
+offset_bottom = 3020.0
+texture = SubResource("CompressedTexture2D_t1pf6")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(80, 40)
+texture = ExtResource("9_fysam")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(240, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(400, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(560, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(720, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(880, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(1040, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(1200, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter8" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(1360, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(1520, 40)
+texture = ExtResource("11_ws1pv")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/Platform2"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2/EnemyDetect"]
+position = Vector2(805, -60)
+shape = SubResource("RectangleShape2D_pr2sd")
 
 [node name="ItemBox" parent="." instance=ExtResource("13_axk0l")]
 position = Vector2(3240, 1120)

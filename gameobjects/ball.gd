@@ -3,8 +3,18 @@ extends RigidBody2D
 
 
 @export var grab_rotation := 0.0
+@export var despawn_time := 22.0
 
+var despawning_tween: Tween
+
+@onready var tile_coin: Sprite2D = $TileCoin
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
+
+
+func _ready() -> void:
+	despawning_tween = create_tween()
+	despawning_tween.finished.connect(queue_free)
+	despawning_tween.tween_property(tile_coin, "modulate:a", 0, despawn_time)
 
 
 func _physics_process(delta: float) -> void:
@@ -24,3 +34,12 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func launch(strength: Vector2) -> void:
 	apply_central_force(strength * mass)
+
+
+func pickup() -> void:
+	despawning_tween.stop()
+	tile_coin.modulate.a = 1.0
+
+
+func let_go() -> void:
+	despawning_tween.play()
