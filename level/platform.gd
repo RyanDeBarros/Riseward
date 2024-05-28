@@ -10,12 +10,12 @@ enum Phase {
 
 @export var enemy_detect: Area2D
 
-@export_category("Config")
+@export_group("Dropping & Shaking")
 @export var drop_countdown_time := 5.0
-@export var shake_countdown_time := 2.0
+@export var shake_countdown_time := 3.0
 @export var shake_speed := 40.0
 @export var shake_amplitude := 20.0
-@export var drop_speed := 300.0
+@export var drop_speed := 500.0
 
 var drop_timer: Timer
 var phase := Phase.WAITING

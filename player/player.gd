@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 
 @export var body_radius := 80.0
+
+@export_group("Combat")
 @export var throw_angular_factor := 1.5
 @export var swing_cooldown := 0.15
 
@@ -37,7 +39,7 @@ extends CharacterBody2D
 
 var angular_velocity := 0.0
 
-var overlapping_nodes := [] as Array[RigidBody2D]
+var overlapping_nodes := [] as Array[Node2D]
 var left_hand_node: RigidBody2D
 var right_hand_node: RigidBody2D
 
@@ -256,12 +258,12 @@ func swing_bat(left_handed: bool) -> void:
 	can_swing = true
 
 
-func add_overlapping(node: RigidBody2D) -> void:
+func add_overlapping(node: Node2D) -> void:
 	if left_hand_node != node and right_hand_node != node:
 		overlapping_nodes.append(node)
 
 
-func remove_overlapping(node: RigidBody2D) -> void:
+func remove_overlapping(node: Node2D) -> void:
 	overlapping_nodes.erase(node)
 
 
@@ -297,11 +299,18 @@ func parry() -> void:
 	if not is_parrying and can_parry:
 		is_parrying = true
 		can_parry = false
+		check_for_itembox()
 		animation_player.play(&"parry")
 		await animation_player.animation_finished
 		is_parrying = false
 		await get_tree().create_timer(parry_cooldown).timeout
 		can_parry = true
+
+
+func check_for_itembox() -> void:
+	for node in overlapping_nodes:
+		if node is ItemBox:
+			node.pop()
 
 
 func bounce_back(force: Vector2) -> Vector2:

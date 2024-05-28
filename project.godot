@@ -15,6 +15,10 @@ run/main_scene="res://level/sandbox.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Scenes="*res://autoloads/scenes.gd"
+
 [display]
 
 window/size/viewport_width=4320
@@ -27,6 +31,7 @@ window/stretch/mode="canvas_items"
 
 folder_colors={
 "res://assets/": "orange",
+"res://autoloads/": "yellow",
 "res://enemies/": "pink",
 "res://gameobjects/": "green",
 "res://level/": "teal",

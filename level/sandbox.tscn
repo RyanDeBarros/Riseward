@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cc0ht0k6gds55"]
+[gd_scene load_steps=18 format=3 uid="uid://cc0ht0k6gds55"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_p2vdp"]
 [ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="2_5qcdi"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://chmj55s7xy46r" path="res://assets/tiles/tile_half_left.png" id="9_fysam"]
 [ext_resource type="Texture2D" uid="uid://bj06ubsgfqumv" path="res://assets/tiles/tile_half_center.png" id="10_bluwe"]
 [ext_resource type="Texture2D" uid="uid://cim7jtrs0dip1" path="res://assets/tiles/tile_half_right.png" id="11_ws1pv"]
+[ext_resource type="PackedScene" uid="uid://3tw5gw5ep7xr" path="res://gameobjects/item_box.tscn" id="13_axk0l"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1pf6"]
 load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8df.ctex"
@@ -181,6 +182,9 @@ collision_mask = 8
 position = Vector2(1035, -60)
 shape = SubResource("RectangleShape2D_hh87e")
 
+[node name="ItemBox" parent="." instance=ExtResource("13_axk0l")]
+position = Vector2(3240, 1120)
+
 [node name="LaunchRamp" parent="." instance=ExtResource("3_06y5f")]
 position = Vector2(2564, 1906)
 
@@ -198,7 +202,7 @@ patch_margin_bottom = 100
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_kaij5")
 format = 2
-layer_0/tile_data = PackedInt32Array(1572875, 458777, 0, 1572877, 458777, 0, 1572879, 458777, 0, 1572881, 458777, 0, 1572869, 65561, 2, 1572871, 458777, 0, 1572873, 458777, 0, 1572883, 458777, 0, 1572885, 458777, 0, 1572887, 458777, 0, 1572889, 458777, 0, 1245222, 327705, 11, 1245224, 65561, 11, 1245226, 589849, 11, 1572891, 458777, 0, 1572893, 458777, 0, 1572895, 458777, 0, 1572897, 458777, 0, 1572899, 458777, 0, 1572901, 458777, 0, 1572903, 458777, 0, 1572905, 458777, 0, 1114131, 458777, 0, 1114133, 458777, 0, 1114135, 458777, 0, 1114137, 458777, 0, 1572907, 327705, 2, 1114139, 327705, 2, 1114129, 65561, 2, 917543, 589849, 3)
+layer_0/tile_data = PackedInt32Array(1572875, 458777, 0, 1572877, 458777, 0, 1572879, 458777, 0, 1572881, 458777, 0, 1572869, 65561, 2, 1572871, 458777, 0, 1572873, 458777, 0, 1572883, 458777, 0, 1572885, 458777, 0, 1572887, 458777, 0, 1572889, 458777, 0, 1245222, 327705, 11, 1245224, 65561, 11, 1245226, 589849, 11, 1572891, 458777, 0, 1572893, 458777, 0, 1572895, 458777, 0, 1572897, 458777, 0, 1572899, 458777, 0, 1572901, 458777, 0, 1572903, 458777, 0, 1572905, 458777, 0, 1114131, 458777, 0, 1114133, 458777, 0, 1114135, 458777, 0, 1114137, 458777, 0, 1572907, 327705, 2, 1114139, 327705, 2, 1114129, 65561, 2)
 
 [node name="Player" parent="." instance=ExtResource("5_nmk7c")]
 position = Vector2(924, 229)
@@ -210,14 +214,16 @@ offset_right = 500000.0
 offset_bottom = 3475.0
 border_width = 50.0
 
-[node name="Ball" parent="." instance=ExtResource("6_yyir6")]
-position = Vector2(1185, 1504)
-
-[node name="Ball2" parent="." instance=ExtResource("6_yyir6")]
-position = Vector2(1565, 1685)
-
 [node name="Enemy1" parent="." instance=ExtResource("7_p5vba")]
 position = Vector2(5317, 1152)
 
-[node name="Bat" parent="." instance=ExtResource("8_fusiw")]
+[node name="ItemsDirectory" type="Node2D" parent="." groups=["items_dir"]]
+
+[node name="Ball" parent="ItemsDirectory" instance=ExtResource("6_yyir6")]
+position = Vector2(1185, 1504)
+
+[node name="Ball2" parent="ItemsDirectory" instance=ExtResource("6_yyir6")]
+position = Vector2(1565, 1685)
+
+[node name="Bat" parent="ItemsDirectory" instance=ExtResource("8_fusiw")]
 position = Vector2(2116, 1179)
