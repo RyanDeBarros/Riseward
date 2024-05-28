@@ -4,6 +4,7 @@ extends CharacterBody2D
 
 @export var body_radius := 80.0
 @export var throw_angular_factor := 1.5
+@export var swing_cooldown := 0.15
 
 @export_group("Parrying & Stunning")
 @export var stun_total_time := 0.8
@@ -55,6 +56,8 @@ var dash_velocity: Vector2
 var stun_time := 0.0
 var is_parrying := false
 var can_parry := true
+
+var can_swing := true
 
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
 @onready var jumps_left := max_air_jumps
@@ -231,7 +234,9 @@ func launch_ball(left_handed: bool) -> void:
 
 
 func swing_bat(left_handed: bool) -> void:
-	# TODO add cooldown to attack
+	if not can_swing:
+		return
+	can_swing = false
 	can_let_go_left[left_handed] = false
 	(left_hand_node if left_handed else right_hand_node).is_attacking(self)
 	if left_handed:
@@ -247,6 +252,8 @@ func swing_bat(left_handed: bool) -> void:
 	await animation_player.animation_finished
 	can_let_go_left[left_handed] = true
 	(left_hand_node if left_handed else right_hand_node).is_attacking(null)
+	await get_tree().create_timer(swing_cooldown).timeout
+	can_swing = true
 
 
 func add_overlapping(node: RigidBody2D) -> void:
