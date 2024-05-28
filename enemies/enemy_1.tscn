@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bem4dv1hls5hn"]
+[gd_scene load_steps=9 format=3 uid="uid://bem4dv1hls5hn"]
 
 [ext_resource type="Texture2D" uid="uid://c3mh1jftkpebp" path="res://assets/shapes/red_body_square.png" id="1_1p0uw"]
 [ext_resource type="Script" path="res://enemies/enemy_1.gd" id="1_giv7u"]
 [ext_resource type="Texture2D" uid="uid://mvcpnqkkbadv" path="res://assets/faces/face_f.png" id="2_1wnvu"]
 [ext_resource type="Texture2D" uid="uid://0vd5mloomfx" path="res://assets/hands/red_hand_closed.png" id="3_13dr0"]
+[ext_resource type="Texture2D" uid="uid://bemr7armx2tmw" path="res://assets/faces/face_e.png" id="4_5syge"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2omh"]
 size = Vector2(384, 384)
@@ -22,6 +23,7 @@ gravity_scale = 2.0
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_giv7u")
+face_max_x = 30.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p2omh")
@@ -31,10 +33,16 @@ scale = Vector2(2.4, 2.4)
 texture = ExtResource("1_1p0uw")
 
 [node name="Face" type="Node2D" parent="."]
-position = Vector2(-20, -15)
+position = Vector2(-30, -20)
+scale = Vector2(-1, 1)
 
-[node name="Face" type="Sprite2D" parent="Face"]
+[node name="FaceF" type="Sprite2D" parent="Face"]
+visible = false
 texture = ExtResource("2_1wnvu")
+
+[node name="FaceE" type="Sprite2D" parent="Face"]
+scale = Vector2(-1, 1)
+texture = ExtResource("4_5syge")
 
 [node name="HandL" type="Node2D" parent="."]
 position = Vector2(-280, 0)
