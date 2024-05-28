@@ -54,7 +54,7 @@ texture = ExtResource("3_13dr0")
 position = Vector2(264, 0)
 scale = Vector2(1.6, 1.6)
 
-[node name="HitAreaR" type="Area2D" parent="HandR"]
+[node name="HitAreaR" type="Area2D" parent="HandR" groups=["enemy"]]
 collision_layer = 16
 collision_mask = 2
 

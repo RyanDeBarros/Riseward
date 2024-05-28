@@ -1,41 +1,76 @@
 class_name Platform
-extends Node
+extends RigidBody2D
 
 
-@export var waypoint_1: Marker2D
-@export var waypoint_2: Marker2D
-@export var landing_target: Marker2D
+enum Phase {
+	WAITING,
+	SHAKING,
+	DROPPING
+}
+
+@export var enemy_detect: Area2D
+
+@export_category("Config")
+@export var drop_countdown_time := 5.0
+@export var shake_countdown_time := 2.0
+@export var shake_speed := 40.0
+@export var shake_amplitude := 20.0
+@export var drop_speed := 300.0
+
+var drop_timer: Timer
+var phase := Phase.WAITING
+var shake_t := 0.0
+var initial_x := 0.0
+
+@onready var level := get_tree().get_first_node_in_group(&"level") as Level
 
 
-class WaypointSession:
-	var current_target: Vector2
-	var other_target: Vector2
-	var current_position: Vector2
-	var threshold: float
-	
-	func _init(platform: Platform, first_wp_first := true, threshold_qdr := 2.0) -> void:
-		if first_wp_first:
-			current_target = platform.waypoint_1.global_position
-		else:
-			current_target = platform.waypoint_2.global_position
-		threshold = threshold_qdr
-	
-	func next_dir(position: Vector2, speed: float) -> Vector2:
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		var offset := position - current_position
-		var delta := (current_target - current_position) * speed
-		if abs(delta.length_squared()) < threshold:
-			var temp := current_target
-			current_target = other_target
-			other_target = temp
-		
-		current_position += delta
-		return current_position + offset
+func _ready() -> void:
+	drop_timer = Timer.new()
+	add_child(drop_timer)
+	drop_timer.timeout.connect(begin_shake)
+	drop_timer.one_shot = true
+	drop_timer.wait_time = drop_countdown_time
+
+
+func _physics_process(delta: float) -> void:
+	if phase == Phase.WAITING:
+		for body in enemy_detect.get_overlapping_bodies():
+			if body.is_in_group(&"enemy"):
+				cancel_drop_timer()
+				return
+		init_drop_timer()
+	elif phase == Phase.SHAKING:
+		shake_x(delta)
+	elif phase == Phase.DROPPING:
+		shake_x(delta)
+		position.y += drop_speed * delta
+		if position.y > level.deathzone_y:
+			queue_free()
+
+
+func init_drop_timer() -> void:
+	if drop_timer.is_stopped():
+		drop_timer.start()
+
+
+func cancel_drop_timer() -> void:
+	drop_timer.stop()
+
+
+func begin_shake() -> void:
+	phase = Phase.SHAKING
+	drop_timer.wait_time = shake_countdown_time
+	drop_timer.timeout.disconnect(begin_shake)
+	drop_timer.timeout.connect(begin_drop)
+	drop_timer.start()
+	initial_x = position.x
+
+
+func begin_drop() -> void:
+	phase = Phase.DROPPING
+
+
+func shake_x(delta: float) -> void:
+	shake_t += delta
+	position.x = initial_x + shake_amplitude * sin(shake_speed * shake_t)

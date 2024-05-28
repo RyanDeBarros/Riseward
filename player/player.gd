@@ -9,13 +9,13 @@ extends CharacterBody2D
 @export var stun_total_time := 0.8
 @export var parry_recovery_factor := 0.5
 @export var parry_force_reduction := 0.5
-@export var parry_cooldown := 0.5
+@export var parry_cooldown := 0.7
 @export var parry_reposte_factor := 0.5
 
 @export_group("Dashing", "dash_")
 @export var dash_speed := 5000.0
 @export var dash_time := 0.15
-@export var dash_cooldown := 1.0
+@export var dash_cooldown := 1.6
 @export var dash_end_speed := 1300.0
 @export var dash_max_air_dashes := 1
 
@@ -63,7 +63,7 @@ var can_parry := true
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if position.y > level.deathzone_y:
 		_reload_scene()
 
@@ -119,10 +119,10 @@ func _try_jump() -> void:
 			and (is_on_floor() or jumps_left > 0) and stun_time <= 0.0:
 		if not is_on_floor():
 			jumps_left -= 1
-		velocity.y = (1 - jump_consume_factor) * (1 if velocity.y < 0 else 0.5) * velocity.y\
+		velocity.y = (1 - jump_consume_factor) * (1.0 if velocity.y < 0 else 0.5) * velocity.y\
 				- jump_consume_factor * jump_initial_speed[max_air_jumps - jumps_left]
 		velocity.x = (1 - jump_consume_factor)\
-				* (1 if signf(velocity.x) == signf(angular_velocity) else 0.5) * velocity.x\
+				* (1.0 if signf(velocity.x) == signf(angular_velocity) else 0.5) * velocity.x\
 				+ jump_consume_factor * angular_velocity * body_radius
 
 
@@ -231,6 +231,7 @@ func launch_ball(left_handed: bool) -> void:
 
 
 func swing_bat(left_handed: bool) -> void:
+	# TODO add cooldown to attack
 	can_let_go_left[left_handed] = false
 	(left_hand_node if left_handed else right_hand_node).is_attacking(self)
 	if left_handed:

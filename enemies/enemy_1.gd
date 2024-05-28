@@ -3,7 +3,7 @@ extends RigidBody2D
 
 
 @export var hit_strength := 3000.0
-@export var reposte_susceptibility := 20.0
+@export var reposte_susceptibility := 10.0
 
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
 @onready var hit_area_l: Area2D = $HandL/HitAreaL
