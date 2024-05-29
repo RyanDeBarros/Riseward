@@ -30,6 +30,7 @@ enum Phase {
 @export var punch_time := 0.5
 @export var punch_return_time := 0.8
 @export var punch_scale_factor := 1.5
+@export var punch_chance_in_spin_range := 0.1
 
 var attack_delay := 0.0
 var phase := Phase.CHILLING
@@ -57,7 +58,10 @@ func _process(delta: float) -> void:
 	if phase == Phase.CHILLING:
 		var quadrance := (player.global_position - global_position).length_squared()
 		if quadrance <= spin_range_qdr:
-			init_spin_attack()
+			if randf() < punch_chance_in_spin_range:
+				init_punch_attack()
+			else:
+				init_spin_attack()
 		elif quadrance <= punch_range_qdr:
 			init_punch_attack()
 	elif phase == Phase.SPINNING_C:
@@ -136,38 +140,34 @@ func spin_attack(delta: float, clockwise: bool) -> void:
 
 
 func punch_attack() -> void:
-	if not is_punching:
-		if punch_count < number_of_punches:
-			# punch again
-			if punch_with_l:
-				var trajectory := player.global_position - hand_l.global_position
-				trajectory = trajectory.normalized()\
-						* sqrt(minf(punch_range_qdr, trajectory.length_squared()))
-				var target = hand_l.global_position + trajectory
-				var punch_tween = create_tween()
-				punch_tween.tween_property(hand_l, "global_position", target, punch_time)
-				punch_tween.parallel().tween_property(hand_l, "scale",\
-						normal_hand_l_scale * punch_scale_factor, punch_time)
-				punch_tween.finished.connect(punch_return)
-			else:
-				var trajectory := player.global_position - hand_r.global_position
-				trajectory = trajectory.normalized()\
-						* sqrt(minf(punch_range_qdr, trajectory.length_squared()))
-				var target = hand_r.global_position + trajectory
-				var punch_tween = create_tween()
-				punch_tween.tween_property(hand_r, "global_position", target, punch_time)
-				punch_tween.parallel().tween_property(hand_r, "scale",\
-						normal_hand_r_scale * punch_scale_factor, punch_time)
-				punch_tween.finished.connect(punch_return)
-			
-			punch_count += 1
-			is_punching = true
+	if not is_punching and punch_count < number_of_punches:
+		is_punching = true
+		# punch again
+		if punch_with_l:
+			var trajectory := player.global_position - hand_l.global_position
+			trajectory = trajectory.normalized()\
+					* sqrt(minf(punch_range_qdr, trajectory.length_squared()))
+			var target = hand_l.global_position + trajectory
+			var punch_tween = create_tween()
+			punch_tween.tween_property(hand_l, "global_position", target, punch_time)
+			punch_tween.parallel().tween_property(hand_l, "scale",\
+					normal_hand_l_scale * punch_scale_factor, punch_time)
+			punch_tween.finished.connect(punch_return)
 		else:
-			animation_player.play(&"RESET")
-			phase = Phase.DELAYING
+			var trajectory := player.global_position - hand_r.global_position
+			trajectory = trajectory.normalized()\
+					* sqrt(minf(punch_range_qdr, trajectory.length_squared()))
+			var target = hand_r.global_position + trajectory
+			var punch_tween = create_tween()
+			punch_tween.tween_property(hand_r, "global_position", target, punch_time)
+			punch_tween.parallel().tween_property(hand_r, "scale",\
+					normal_hand_r_scale * punch_scale_factor, punch_time)
+			punch_tween.finished.connect(punch_return)
 
 
 func punch_return() -> void:
+	is_punching = false
+	punch_count += 1
 	var punch_tween := create_tween()
 	if punch_with_l:
 		punch_tween.tween_property(hand_l, "position", normal_hand_l_position, punch_return_time)
@@ -183,4 +183,6 @@ func punch_return() -> void:
 
 
 func end_punch() -> void:
-	is_punching = false
+	if punch_count >= number_of_punches:
+		animation_player.play(&"RESET")
+		phase = Phase.DELAYING
