@@ -17,7 +17,7 @@ func _ready() -> void:
 	despawning_tween.tween_property(tile_coin, "modulate:a", 0, despawn_time)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if global_position.y > level.deathzone_y:
 		queue_free()
 

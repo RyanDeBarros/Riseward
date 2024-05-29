@@ -9,7 +9,6 @@ extends CharacterBody2D
 @export var swing_cooldown := 0.15
 
 @export_group("Parrying & Stunning")
-@export var stun_total_time := 0.8
 @export var parry_recovery_factor := 0.5
 @export var parry_force_reduction := 0.5
 @export var parry_cooldown := 0.7
@@ -317,7 +316,7 @@ func check_for_itembox() -> void:
 			node.pop()
 
 
-func bounce_back(force: Vector2) -> Vector2:
+func bounce_back(force: Vector2, stun_total_time := 0.8) -> Vector2:
 	var reply := Vector2.ZERO
 	if is_parrying:
 		print('parry success')
@@ -339,6 +338,8 @@ func bounce_back(force: Vector2) -> Vector2:
 	move_and_slide()
 	jumps_left = max_air_jumps - 1
 	dash_num_air_dashed = 0
+	# TODO don't reply here. this happens when fist hits player. only reposte when player parries and is touching enemy *body*
+	# (or overlapping some area2D that is slightly around enemy body). that extra area2d should also bounce back the player.
 	return reply
 
 
