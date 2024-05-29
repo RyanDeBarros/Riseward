@@ -2,12 +2,6 @@ class_name Enemy1
 extends RigidBody2D
 
 
-enum Attacks {
-	SPIN_C,
-	SPIN_CC,
-	PUNCH
-}
-
 enum Phase {
 	CHILLING,
 	SPINNING_C,
@@ -24,17 +18,24 @@ enum Phase {
 
 @export_group("Attack")
 @export var attack_delay_min := 0.5
-@export var attack_delay_max := 3.0
+@export var attack_delay_max := 3.5
 @export_group("Spin")
 @export var spin_range_qdr := 750.0 ** 2
 @export var angular_speed := 10.0
 @export var total_spin_radians := 5 * PI
 @export_group("Punch")
 @export var punch_range_qdr := 2000.0 ** 2
+@export var number_of_punches := 2
+@export var punch_time := 0.5
+@export var punch_return_time := 0.8
+@export var punch_scale_factor := 1.5
 
 var attack_delay := 0.0
 var phase := Phase.CHILLING
 var total_spin := 0.0
+var punch_count := 0
+var is_punching := false
+var punch_with_l := true
 
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
 @onready var face: Node2D = $Face
@@ -44,6 +45,10 @@ var total_spin := 0.0
 @onready var hit_area_r: Area2D = $HandR/HitAreaR
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var player := get_tree().get_first_node_in_group(&"player") as Player
+@onready var normal_hand_l_scale := hand_l.scale
+@onready var normal_hand_r_scale := hand_r.scale
+@onready var normal_hand_l_position := hand_l.position
+@onready var normal_hand_r_position := hand_r.position
 
 
 func _process(delta: float) -> void:
@@ -59,7 +64,7 @@ func _process(delta: float) -> void:
 	elif phase == Phase.SPINNING_CC:
 		spin_attack(delta, false)
 	elif phase == Phase.PUNCHING:
-		punch_attack(delta)
+		punch_attack()
 	elif phase == Phase.DELAYING:
 		attack_delay -= delta
 		if attack_delay <= 0.0:
@@ -138,7 +143,52 @@ func spin_attack(delta: float, clockwise: bool) -> void:
 		hand_r.position = hand_r.position.rotated(dtheta)
 
 
-func punch_attack(delta: float) -> void:
-	await get_tree().create_timer(1.0).timeout
-	animation_player.play(&"RESET")
-	phase = Phase.DELAYING
+func punch_attack() -> void:
+	if not is_punching:
+		if punch_count < number_of_punches:
+			# punch again
+			if punch_with_l:
+				var trajectory := player.global_position - hand_l.global_position
+				trajectory = trajectory.normalized()\
+						* sqrt(minf(punch_range_qdr, trajectory.length_squared()))
+				var target = hand_l.global_position + trajectory
+				var punch_tween = create_tween()
+				punch_tween.tween_property(hand_l, "global_position", target, punch_time)
+				punch_tween.parallel().tween_property(hand_l, "scale",\
+						normal_hand_l_scale * punch_scale_factor, punch_time)
+				punch_tween.finished.connect(punch_return)
+			else:
+				var trajectory := player.global_position - hand_r.global_position
+				trajectory = trajectory.normalized()\
+						* sqrt(minf(punch_range_qdr, trajectory.length_squared()))
+				var target = hand_r.global_position + trajectory
+				var punch_tween = create_tween()
+				punch_tween.tween_property(hand_r, "global_position", target, punch_time)
+				punch_tween.parallel().tween_property(hand_r, "scale",\
+						normal_hand_r_scale * punch_scale_factor, punch_time)
+				punch_tween.finished.connect(punch_return)
+			
+			punch_count += 1
+			is_punching = true
+		else:
+			animation_player.play(&"RESET")
+			phase = Phase.DELAYING
+
+
+func punch_return() -> void:
+	var punch_tween := create_tween()
+	if punch_with_l:
+		punch_tween.tween_property(hand_l, "position", normal_hand_l_position, punch_return_time)
+		punch_tween.parallel().tween_property(hand_l, "scale",\
+				normal_hand_l_scale, punch_return_time)
+		punch_tween.finished.connect(end_punch)
+	else:
+		punch_tween.tween_property(hand_r, "position", normal_hand_r_position, punch_return_time)
+		punch_tween.parallel().tween_property(hand_r, "scale",\
+				normal_hand_r_scale, punch_return_time)
+		punch_tween.finished.connect(end_punch)
+	punch_with_l = not punch_with_l
+
+
+func end_punch() -> void:
+	is_punching = false
