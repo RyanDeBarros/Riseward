@@ -14,16 +14,20 @@ enum Phase {
 @export_group("Player Collision")
 @export var hit_strength := 3800.0
 @export var ball_hit_strength := 230000.0
-@export var reposte_susceptibility := 10.0
-@export var face_max_x := 20.0
+@export var reposte_susceptibility := 20.0
+@export var face_max_x := 30.0
+@export var stun_time := 1.2
+@export var parry_improvement := 1.5
 
 @export_group("Attack")
 @export var attack_delay_min := 1.0
 @export var attack_delay_max := 4.0
+
 @export_group("Spin")
 @export var spin_range_qdr := 1200.0 ** 2
 @export var angular_speed := 10.0
 @export var total_spin_radians := 5 * PI
+
 @export_group("Punch")
 @export var punch_range_qdr := 2000.0 ** 2
 @export var number_of_punches := 2
@@ -85,14 +89,21 @@ func _on_hit_area_r_body_entered(body: Node2D) -> void:
 
 
 func _hit_area_entered(body: Node2D, hit_area: Area2D) -> void:
-	if body is Player:
-		var direction := (body.global_position - hit_area.global_position).normalized()
-		var reposte := player.bounce_back(direction * hit_strength, 1.2) as Vector2
-		apply_central_force(reposte * mass * reposte_susceptibility)
-	elif body is Ball:
-		if phase == Phase.SPINNING_C or phase == Phase.SPINNING_CC or phase == Phase.PUNCHING:
+	if phase == Phase.SPINNING_C or phase == Phase.SPINNING_CC or phase == Phase.PUNCHING:
+		if body is Player:
+			var direction := (body.global_position - hit_area.global_position).normalized()
+			player.bounce_back(direction * hit_strength, stun_time, 1)
+		elif body is Ball:
 			var direction := (body.global_position - hit_area.global_position).normalized()
 			body.apply_central_force(direction * ball_hit_strength)
+
+
+func _on_bounce_back_area_body_entered(body: Node2D) -> void:
+	if body is Player:
+		var direction := (body.global_position - global_position).normalized()
+		var reposte := player.bounce_back(direction * hit_strength, stun_time, parry_improvement)
+		reposte = Vector2(reposte.x, 0)
+		apply_central_force(reposte * mass * reposte_susceptibility)
 
 
 func look_at_player() -> void:

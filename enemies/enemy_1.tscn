@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bem4dv1hls5hn"]
+[gd_scene load_steps=18 format=3 uid="uid://bem4dv1hls5hn"]
 
 [ext_resource type="Texture2D" uid="uid://c3mh1jftkpebp" path="res://assets/shapes/red_body_square.png" id="1_1p0uw"]
 [ext_resource type="Script" path="res://enemies/enemy_1.gd" id="1_giv7u"]
@@ -11,6 +11,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2omh"]
 size = Vector2(384, 384)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00t5i"]
+size = Vector2(466, 466)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_30mm4"]
 radius = 40.0
@@ -529,10 +532,16 @@ gravity_scale = 2.0
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_giv7u")
-face_max_x = 30.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p2omh")
+
+[node name="BounceBackArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBackArea"]
+shape = SubResource("RectangleShape2D_00t5i")
 
 [node name="RedBodySquare" type="Sprite2D" parent="."]
 scale = Vector2(2.4, 2.4)
@@ -606,5 +615,6 @@ libraries = {
 "": SubResource("AnimationLibrary_c61g4")
 }
 
+[connection signal="body_entered" from="BounceBackArea" to="." method="_on_bounce_back_area_body_entered"]
 [connection signal="body_entered" from="HandL/HitAreaL" to="." method="_on_hit_area_l_body_entered"]
 [connection signal="body_entered" from="HandR/HitAreaR" to="." method="_on_hit_area_r_body_entered"]

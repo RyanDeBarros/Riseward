@@ -10,9 +10,10 @@ extends CharacterBody2D
 
 @export_group("Parrying & Stunning")
 @export var parry_recovery_factor := 0.5
-@export var parry_force_reduction := 0.5
+@export var parry_force_reduction := 0.3
 @export var parry_cooldown := 0.7
 @export var parry_reposte_factor := 0.5
+@export var parry_window_scale_factor := 0.85
 
 @export_group("Dashing", "dash_")
 @export var dash_speed := 5000.0
@@ -303,7 +304,7 @@ func parry() -> void:
 		is_parrying = true
 		can_parry = false
 		check_for_itembox()
-		animation_player.play(&"parry")
+		animation_player.play(&"parry", -1, parry_window_scale_factor)
 		await animation_player.animation_finished
 		is_parrying = false
 		await get_tree().create_timer(parry_cooldown).timeout
@@ -316,12 +317,12 @@ func check_for_itembox() -> void:
 			node.pop()
 
 
-func bounce_back(force: Vector2, stun_total_time := 0.8) -> Vector2:
+func bounce_back(force: Vector2, stun_total_time := 0.8, parry_improvement := 1.0) -> Vector2:
 	var reply := Vector2.ZERO
 	if is_parrying:
 		print('parry success')
 		reply = -parry_reposte_factor * force
-		force *= parry_force_reduction
+		force *= parry_force_reduction / parry_improvement
 		stun_time = parry_recovery_factor * stun_total_time
 	else:
 		print('parry fail')
@@ -338,8 +339,6 @@ func bounce_back(force: Vector2, stun_total_time := 0.8) -> Vector2:
 	move_and_slide()
 	jumps_left = max_air_jumps - 1
 	dash_num_air_dashed = 0
-	# TODO don't reply here. this happens when fist hits player. only reposte when player parries and is touching enemy *body*
-	# (or overlapping some area2D that is slightly around enemy body). that extra area2d should also bounce back the player.
 	return reply
 
 
