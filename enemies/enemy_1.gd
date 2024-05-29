@@ -13,14 +13,15 @@ enum Phase {
 
 @export_group("Player Collision")
 @export var hit_strength := 3800.0
+@export var ball_hit_strength := 230000.0
 @export var reposte_susceptibility := 10.0
 @export var face_max_x := 20.0
 
 @export_group("Attack")
-@export var attack_delay_min := 0.5
-@export var attack_delay_max := 3.5
+@export var attack_delay_min := 1.0
+@export var attack_delay_max := 4.0
 @export_group("Spin")
-@export var spin_range_qdr := 750.0 ** 2
+@export var spin_range_qdr := 1200.0 ** 2
 @export var angular_speed := 10.0
 @export var total_spin_radians := 5 * PI
 @export_group("Punch")
@@ -72,32 +73,22 @@ func _process(delta: float) -> void:
 
 
 func _on_hit_area_l_body_entered(body: Node2D) -> void:
-	if body is Player:
-		var direction := (body.global_position - hit_area_l.global_position).normalized()
-		attack_hits(direction)
-
-
-func _on_hit_area_l_body_exited(body: Node2D) -> void:
-	if body is Player:
-		var direction := (body.global_position - hit_area_l.global_position).normalized()
-		attack_hits(direction)
+	_hit_area_entered(body, hit_area_l)
 
 
 func _on_hit_area_r_body_entered(body: Node2D) -> void:
+	_hit_area_entered(body, hit_area_r)
+
+
+func _hit_area_entered(body: Node2D, hit_area: Area2D) -> void:
 	if body is Player:
-		var direction := (body.global_position - hit_area_r.global_position).normalized()
-		attack_hits(direction)
-
-
-func _on_hit_area_r_body_exited(body: Node2D) -> void:
-	if body is Player:
-		var direction := (body.global_position - hit_area_r.global_position).normalized()
-		attack_hits(direction)
-
-
-func attack_hits(direction: Vector2) -> void:
-	var reposte := player.bounce_back(direction * hit_strength, 1.2) as Vector2
-	apply_central_force(reposte * mass * reposte_susceptibility)
+		var direction := (body.global_position - hit_area.global_position).normalized()
+		var reposte := player.bounce_back(direction * hit_strength, 1.2) as Vector2
+		apply_central_force(reposte * mass * reposte_susceptibility)
+	elif body is Ball:
+		if phase == Phase.SPINNING_C or phase == Phase.SPINNING_CC or phase == Phase.PUNCHING:
+			var direction := (body.global_position - hit_area.global_position).normalized()
+			body.apply_central_force(direction * ball_hit_strength)
 
 
 func look_at_player() -> void:
@@ -128,6 +119,7 @@ func init_punch_attack() -> void:
 	phase = Phase.ASYNCING
 	animation_player.play(&"telegraph_punch", -1, 0.5)
 	reset_delay()
+	punch_count = 0
 	await animation_player.animation_finished
 	phase = Phase.PUNCHING
 

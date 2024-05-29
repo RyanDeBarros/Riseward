@@ -17,7 +17,9 @@ height = 288.0
 
 [node name="Bat" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 9
+collision_mask = 25
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_06gq4")
 
 [node name="Area2D" type="Area2D" parent="."]
