@@ -8,7 +8,6 @@ enum Phase {
 	DROPPING
 }
 
-@export var enemy_detect: Area2D
 
 @export_group("Dropping & Shaking")
 @export var drop_countdown_time := 4.0
@@ -22,6 +21,7 @@ var phase := Phase.WAITING
 var shake_t := 0.0
 var initial_x := 0.0
 
+@onready var enemy_detect := $EnemyDetect as Area2D
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
 
 
@@ -33,7 +33,7 @@ func _ready() -> void:
 	drop_timer.wait_time = drop_countdown_time
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if phase == Phase.WAITING:
 		for body in enemy_detect.get_overlapping_bodies():
 			if body.is_in_group(&"enemy"):
@@ -65,6 +65,7 @@ func begin_shake() -> void:
 	drop_timer.timeout.connect(begin_drop)
 	drop_timer.start()
 	initial_x = position.x
+	AudioManager.play_sfx("rumble", -5.0)
 
 
 func begin_drop() -> void:

@@ -9,7 +9,7 @@ extends CharacterBody2D
 @export var swing_cooldown := 0.15
 
 @export_group("Parrying & Stunning")
-@export var parry_recovery_factor := 0.5
+@export var parry_recovery_factor := 0.15
 @export var parry_force_reduction := 0.3
 @export var parry_cooldown := 0.7
 @export var parry_reposte_factor := 0.5
@@ -37,11 +37,13 @@ extends CharacterBody2D
 @export var angular_max_velocity := 20.0
 @export var angular_inair_factor := 1.8
 
+var dead := false
+
 var angular_velocity := 0.0
 
 var overlapping_nodes := [] as Array[Node2D]
-var left_hand_node: RigidBody2D
-var right_hand_node: RigidBody2D
+var left_hand_node: Node2D
+var right_hand_node: Node2D
 
 var can_let_go_left := {true: true, false: true}
 
@@ -79,11 +81,19 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if position.y > body_radius:
+		die()
+
+
+func die() -> void:
+	if not dead:
+		dead = true
 		_reload_scene()
+		AudioManager.play_sfx("death")
 
 
 func _reload_scene() -> void:
 	set_process_input(false)
+	set_process(false)
 	await get_tree().create_timer(1.0).timeout
 	get_tree().reload_current_scene()
 
@@ -138,6 +148,7 @@ func _try_jump() -> void:
 		velocity.x = (1 - jump_consume_factor)\
 				* (1.0 if signf(velocity.x) == signf(angular_velocity) else 0.5) * velocity.x\
 				+ jump_consume_factor * angular_velocity * body_radius
+		AudioManager.play_sfx_random_pitch("jump", -2.0)
 
 
 func _apply_gravity(delta: float) -> void:
@@ -170,16 +181,20 @@ func _calculate_change_in_angular_velocity(move_axis: float, delta: float) -> fl
 func launch(impulse: Vector2) -> void:
 	velocity = impulse
 	move_and_slide()
+	AudioManager.play_sfx_random_pitch("jump", -2.0)
 
 
 func pickup(left_handed: bool) -> void:
 	if not can_let_go_left[left_handed] and (left_hand_node if left_handed else right_hand_node):
 		return
-	var to_pickup: RigidBody2D
+	var to_pickup: Node2D
 	if not overlapping_nodes.is_empty():
-		to_pickup = overlapping_nodes[0]
-		overlapping_nodes.remove_at(0)
-	let_go_hand(left_handed)
+		for i in range(len(overlapping_nodes)):
+			if overlapping_nodes[i].is_in_group(&"item"):
+				to_pickup = overlapping_nodes[i]
+				overlapping_nodes.remove_at(i)
+				break
+	var did_drop := let_go_hand(left_handed)
 	if left_handed:
 		left_hand_node = to_pickup
 	else:
@@ -203,9 +218,15 @@ func pickup(left_handed: bool) -> void:
 			right_hand_node.position = Vector2.ZERO
 	if to_pickup:
 		to_pickup.pickup()
+		if did_drop:
+			AudioManager.play_sfx_random_pitch("swap", 2.0)
+		else:
+			AudioManager.play_sfx_random_pitch("pickup")
+	elif did_drop:
+		AudioManager.play_sfx_random_pitch("drop", 6.5)
 
 
-func let_go_hand(left_handed: bool) -> void:
+func let_go_hand(left_handed: bool) -> bool:
 	if can_let_go_left[left_handed] and ((left_handed and left_hand_node)\
 			or (not left_handed and right_hand_node)):
 		if left_handed:
@@ -226,6 +247,9 @@ func let_go_hand(left_handed: bool) -> void:
 			left_hand_node = null
 		else:
 			right_hand_node = null
+		return true
+	else:
+		return false
 
 
 func action(left_handed: bool) -> void:
@@ -246,6 +270,7 @@ func launch_ball(left_handed: bool) -> void:
 	else:
 		right_hand_node.launch(strength * direction)
 	let_go_hand(left_handed)
+	AudioManager.play_sfx_random_pitch("throw")
 
 
 func swing_bat(left_handed: bool) -> void:
@@ -253,6 +278,10 @@ func swing_bat(left_handed: bool) -> void:
 		return
 	can_swing = false
 	can_let_go_left[left_handed] = false
+	if randi_range(0, 1) == 0:
+		AudioManager.play_sfx_random_pitch("swing1", 1.0, 0.3)
+	else:
+		AudioManager.play_sfx_random_pitch("swing2", 0.0, 0.0)
 	(left_hand_node if left_handed else right_hand_node).is_attacking(self)
 	if left_handed:
 		if angular_velocity >= 0:
@@ -289,6 +318,7 @@ func dash() -> void:
 		if not is_on_floor() or dash_velocity.y < 0:
 			dash_num_air_dashed += 1
 		velocity = dash_velocity
+		AudioManager.play_sfx_random_pitch("dash", 1.0)
 		move_and_slide()
 
 
@@ -312,6 +342,7 @@ func parry() -> void:
 	if not is_parrying and can_parry:
 		is_parrying = true
 		can_parry = false
+		AudioManager.play_sfx_random_pitch("parry", 3.0)
 		check_for_itembox()
 		animation_player.play(&"parry", -1, parry_window_scale_factor)
 		await animation_player.animation_finished
@@ -329,12 +360,12 @@ func check_for_itembox() -> void:
 func bounce_back(force: Vector2, stun_total_time := 0.8, parry_improvement := 1.0) -> Vector2:
 	var reply := Vector2.ZERO
 	if is_parrying:
-		print('parry success')
+		AudioManager.play_sfx_random_pitch("parry_success", 0.0, 0.0, 0.9, 1.1, 0.8)
 		reply = -parry_reposte_factor * force
 		force *= parry_force_reduction / parry_improvement
 		stun_time = parry_recovery_factor * stun_total_time / parry_improvement
 	else:
-		print('parry fail')
+		AudioManager.play_sfx_random_pitch("player_hit")
 		lose_random_item()
 		stun_time = stun_total_time
 	if is_on_floor():

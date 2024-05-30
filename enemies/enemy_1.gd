@@ -24,12 +24,12 @@ enum Phase {
 @export var attack_delay_max := 4.0
 
 @export_group("Spin")
-@export var spin_range_qdr := 1200.0 ** 2
+@export var spin_range_qdr := 1100.0 ** 2
 @export var angular_speed := 10.0
 @export var total_spin_radians := 5 * PI
 
 @export_group("Punch")
-@export var punch_range_qdr := 2000.0 ** 2
+@export var punch_range_qdr := 1800.0 ** 2
 @export var number_of_punches := 2
 @export var punch_time := 0.5
 @export var punch_return_time := 0.8
@@ -96,6 +96,8 @@ func _hit_area_entered(body: Node2D, hit_area: Area2D) -> void:
 		elif body is Ball:
 			var direction := (body.global_position - hit_area.global_position).normalized()
 			body.apply_central_force(direction * ball_hit_strength)
+	if body is Ball or body is Bat:
+		AudioManager.play_sfx_random_pitch("enemy_hit", -3.0)
 
 
 func _on_bounce_back_area_body_entered(body: Node2D) -> void:
@@ -103,6 +105,8 @@ func _on_bounce_back_area_body_entered(body: Node2D) -> void:
 		var direction := (body.global_position - global_position).normalized()
 		var reposte := player.bounce_back(direction * hit_strength, stun_time, parry_improvement)
 		reposte = Vector2(reposte.x, 0)
+		if reposte.x != 0.0:
+			AudioManager.play_sfx_random_pitch("enemy_hit")
 		apply_central_force(reposte * mass * reposte_susceptibility)
 
 
@@ -126,6 +130,7 @@ func init_spin_attack() -> void:
 		animation_player.play(&"telegraph_spin_CC")
 	reset_delay()
 	total_spin = 0
+	AudioManager.play_sfx_random_pitch("enemy_attack", 1.0)
 	await animation_player.animation_finished
 	hand_l.position.x = normal_hand_l_position.x - 40
 	hand_r.position.x = normal_hand_r_position.x + 40
@@ -139,6 +144,7 @@ func init_punch_attack() -> void:
 	animation_player.play(&"telegraph_punch", -1, 0.5)
 	reset_delay()
 	punch_count = 0
+	AudioManager.play_sfx_random_pitch("enemy_attack", 1.0)
 	await animation_player.animation_finished
 	phase = Phase.PUNCHING
 

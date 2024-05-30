@@ -31,6 +31,7 @@ func _on_body_exited(body: Node2D) -> void:
 
 func pop() -> void:
 	collision_shape_2d.disabled = true
+	AudioManager.play_sfx_random_pitch("pop")
 	animation_player.play(&"pop")
 	await animation_player.animation_finished
 	animation_player.play(&"cooldown", -1, cooldown_speed_mult)

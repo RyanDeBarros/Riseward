@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cc0ht0k6gds55"]
+[gd_scene load_steps=21 format=3 uid="uid://cc0ht0k6gds55"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_p2vdp"]
 [ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="2_5qcdi"]
@@ -12,7 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://bj06ubsgfqumv" path="res://assets/tiles/tile_half_center.png" id="10_bluwe"]
 [ext_resource type="Texture2D" uid="uid://cim7jtrs0dip1" path="res://assets/tiles/tile_half_right.png" id="11_ws1pv"]
 [ext_resource type="PackedScene" uid="uid://3tw5gw5ep7xr" path="res://gameobjects/item_box.tscn" id="13_axk0l"]
+[ext_resource type="PackedScene" uid="uid://cj0xqb18wmhil" path="res://gameobjects/ball.tscn" id="13_seh5u"]
 [ext_resource type="Texture2D" uid="uid://bdl280ivw50jo" path="res://assets/bkg/Fire_Pixel.png" id="13_xfdd5"]
+[ext_resource type="PackedScene" uid="uid://yjk5880rm47r" path="res://gameobjects/bat.tscn" id="14_n8o4p"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1pf6"]
 load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8df.ctex"
@@ -20,7 +22,7 @@ load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8d
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hh87e"]
 size = Vector2(2210, 360)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pr2sd"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dulai"]
 size = Vector2(1750, 360)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_584ba"]
@@ -108,14 +110,12 @@ scale = Vector2(3, 3)
 texture = ExtResource("2_p6ncn")
 
 [node name="Platforms" type="Node2D" parent="."]
-position = Vector2(0, -3400)
 
-[node name="Platform1" type="RigidBody2D" parent="Platforms" node_paths=PackedStringArray("enemy_detect")]
-position = Vector2(4120, 1440)
+[node name="Platform1" type="RigidBody2D" parent="Platforms"]
+position = Vector2(4120, -1960)
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("2_lsksp")
-enemy_detect = NodePath("EnemyDetect")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform1"]
 polygon = PackedVector2Array(20, 0, 2060, 0, 2080, 80, 0, 80)
@@ -193,12 +193,11 @@ collision_mask = 8
 position = Vector2(1035, -60)
 shape = SubResource("RectangleShape2D_hh87e")
 
-[node name="Platform2" type="RigidBody2D" parent="Platforms" node_paths=PackedStringArray("enemy_detect")]
-position = Vector2(-1820, 500)
+[node name="Platform2" type="RigidBody2D" parent="Platforms"]
+position = Vector2(-1820, -2900)
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("2_lsksp")
-enemy_detect = NodePath("../Platform1/EnemyDetect")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform2"]
 polygon = PackedVector2Array(20, 0, 1580, 0, 1600, 80, 0, 80)
@@ -262,10 +261,10 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2/EnemyDetect"]
 position = Vector2(805, -60)
-shape = SubResource("RectangleShape2D_pr2sd")
+shape = SubResource("RectangleShape2D_dulai")
 
 [node name="ItemBox" parent="." instance=ExtResource("13_axk0l")]
-position = Vector2(3240, -2280)
+position = Vector2(1766, -2394)
 
 [node name="LaunchRamp" parent="." instance=ExtResource("3_06y5f")]
 position = Vector2(2564, -1494)
@@ -299,6 +298,17 @@ border_width = 50.0
 
 [node name="Enemy1" parent="." instance=ExtResource("7_p5vba")]
 position = Vector2(5317, -2248)
+
+[node name="ItemsDirectory" type="Node2D" parent="." groups=["items_dir"]]
+
+[node name="Ball" parent="ItemsDirectory" instance=ExtResource("13_seh5u")]
+position = Vector2(888, -1632)
+
+[node name="Ball2" parent="ItemsDirectory" instance=ExtResource("13_seh5u")]
+position = Vector2(1736, -1632)
+
+[node name="Bat" parent="ItemsDirectory" instance=ExtResource("14_n8o4p")]
+position = Vector2(2099, -2157)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -335,7 +345,7 @@ offset = Vector2(16, -16)
 
 [node name="FirePixel3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
 texture_filter = 1
-position = Vector2(1240, 0)
+position = Vector2(1240, 10)
 scale = Vector2(20, 20)
 texture = ExtResource("13_xfdd5")
 offset = Vector2(16, -16)
@@ -349,14 +359,14 @@ offset = Vector2(16, -16)
 
 [node name="FirePixel5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
 texture_filter = 1
-position = Vector2(2480, 0)
+position = Vector2(2480, 20)
 scale = Vector2(20, 20)
 texture = ExtResource("13_xfdd5")
 offset = Vector2(16, -16)
 
 [node name="FirePixel6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
 texture_filter = 1
-position = Vector2(3110, 0)
+position = Vector2(3110, 10)
 scale = Vector2(20, 20)
 texture = ExtResource("13_xfdd5")
 offset = Vector2(16, -16)
@@ -370,21 +380,21 @@ offset = Vector2(16, -16)
 
 [node name="FirePixel8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
 texture_filter = 1
-position = Vector2(4330, 0)
+position = Vector2(4330, 30)
 scale = Vector2(20, 20)
 texture = ExtResource("13_xfdd5")
 offset = Vector2(16, -16)
 
 [node name="FirePixel9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
 texture_filter = 1
-position = Vector2(4960, 0)
+position = Vector2(4960, 20)
 scale = Vector2(20, 20)
 texture = ExtResource("13_xfdd5")
 offset = Vector2(16, -16)
 
 [node name="FirePixel10" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
 texture_filter = 1
-position = Vector2(5590, 0)
+position = Vector2(5590, 10)
 scale = Vector2(20, 20)
 texture = ExtResource("13_xfdd5")
 offset = Vector2(16, -16)

@@ -9,10 +9,10 @@ radius = 140.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_l5gr6"]
 radius = 45.0
 
-[node name="Ball" type="RigidBody2D"]
+[node name="Ball" type="RigidBody2D" groups=["item"]]
 collision_layer = 4
 collision_mask = 25
-mass = 1.5
+mass = 1.8
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_tmad0")
