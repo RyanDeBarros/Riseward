@@ -66,10 +66,19 @@ var can_swing := true
 @onready var grabber_l: Node2D = $BlueBodyCircle/HandL/GrabberL
 @onready var grabber_r: Node2D = $BlueBodyCircle/HandR/GrabberR
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var camera_2d: Camera2D = $Camera2D
+
+
+func _ready() -> void:
+	var bkg = get_tree().get_first_node_in_group(&"bkg") as Sprite2D
+	camera_2d.limit_bottom = 0
+	camera_2d.limit_top = -bkg.texture.get_height() * bkg.scale.y
+	camera_2d.limit_left = -bkg.texture.get_width() * bkg.scale.x * 0.5
+	camera_2d.limit_right = bkg.texture.get_width() * bkg.scale.x * 0.5
 
 
 func _process(_delta: float) -> void:
-	if position.y > level.deathzone_y:
+	if position.y > body_radius:
 		_reload_scene()
 
 
@@ -323,7 +332,7 @@ func bounce_back(force: Vector2, stun_total_time := 0.8, parry_improvement := 1.
 		print('parry success')
 		reply = -parry_reposte_factor * force
 		force *= parry_force_reduction / parry_improvement
-		stun_time = parry_recovery_factor * stun_total_time
+		stun_time = parry_recovery_factor * stun_total_time / parry_improvement
 	else:
 		print('parry fail')
 		lose_random_item()

@@ -3,16 +3,16 @@
 [ext_resource type="Script" path="res://level/level.gd" id="1_p2vdp"]
 [ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="2_5qcdi"]
 [ext_resource type="Script" path="res://level/platform.gd" id="2_lsksp"]
+[ext_resource type="Texture2D" uid="uid://d3ifdwoww8bu0" path="res://assets/bkg/workshop-cooler-tones-emphasizing-sleek-steel-machinery.jpg" id="2_p6ncn"]
 [ext_resource type="PackedScene" uid="uid://cv4s5ssa3ouue" path="res://gameobjects/launch_ramp.tscn" id="3_06y5f"]
 [ext_resource type="Texture2D" uid="uid://yw5br7h0mcai" path="res://assets/tilesets/main_tileset.png" id="4_gowhp"]
 [ext_resource type="PackedScene" uid="uid://cja61ltgmryov" path="res://player/player.tscn" id="5_nmk7c"]
-[ext_resource type="PackedScene" uid="uid://cj0xqb18wmhil" path="res://gameobjects/ball.tscn" id="6_yyir6"]
 [ext_resource type="PackedScene" uid="uid://bem4dv1hls5hn" path="res://enemies/enemy_1.tscn" id="7_p5vba"]
-[ext_resource type="PackedScene" uid="uid://yjk5880rm47r" path="res://gameobjects/bat.tscn" id="8_fusiw"]
 [ext_resource type="Texture2D" uid="uid://chmj55s7xy46r" path="res://assets/tiles/tile_half_left.png" id="9_fysam"]
 [ext_resource type="Texture2D" uid="uid://bj06ubsgfqumv" path="res://assets/tiles/tile_half_center.png" id="10_bluwe"]
 [ext_resource type="Texture2D" uid="uid://cim7jtrs0dip1" path="res://assets/tiles/tile_half_right.png" id="11_ws1pv"]
 [ext_resource type="PackedScene" uid="uid://3tw5gw5ep7xr" path="res://gameobjects/item_box.tscn" id="13_axk0l"]
+[ext_resource type="Texture2D" uid="uid://bdl280ivw50jo" path="res://assets/bkg/Fire_Pixel.png" id="13_xfdd5"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1pf6"]
 load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8df.ctex"
@@ -101,7 +101,14 @@ tile_proxies/coords_level = [[1, Vector2i(0, 0)], [5, Vector2i(0, 0)], [2, Vecto
 [node name="Sandbox" type="Node2D" groups=["level"]]
 script = ExtResource("1_p2vdp")
 
+[node name="Workshop-cooler-tones-emphasizing-sleek-steel-machinery" type="Sprite2D" parent="." groups=["bkg"]]
+modulate = Color(0.63, 0.63, 0.63, 0.647059)
+position = Vector2(0, -5319)
+scale = Vector2(3, 3)
+texture = ExtResource("2_p6ncn")
+
 [node name="Platforms" type="Node2D" parent="."]
+position = Vector2(0, -3400)
 
 [node name="Platform1" type="RigidBody2D" parent="Platforms" node_paths=PackedStringArray("enemy_detect")]
 position = Vector2(4120, 1440)
@@ -124,6 +131,7 @@ patch_margin_left = 60
 patch_margin_top = 60
 patch_margin_right = 100
 patch_margin_bottom = 100
+metadata/_edit_use_anchors_ = true
 
 [node name="TileHalfLeft" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
 position = Vector2(80, 40)
@@ -206,6 +214,7 @@ patch_margin_left = 60
 patch_margin_top = 60
 patch_margin_right = 100
 patch_margin_bottom = 100
+metadata/_edit_use_anchors_ = true
 
 [node name="TileHalfLeft" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
 position = Vector2(80, 40)
@@ -256,16 +265,16 @@ position = Vector2(805, -60)
 shape = SubResource("RectangleShape2D_pr2sd")
 
 [node name="ItemBox" parent="." instance=ExtResource("13_axk0l")]
-position = Vector2(3240, 1120)
+position = Vector2(3240, -2280)
 
 [node name="LaunchRamp" parent="." instance=ExtResource("3_06y5f")]
-position = Vector2(2564, 1906)
+position = Vector2(2564, -1494)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 offset_left = 1320.0
-offset_top = 1386.0
+offset_top = -2014.0
 offset_right = 2280.0
-offset_bottom = 1920.0
+offset_bottom = -1480.0
 texture = ExtResource("2_5qcdi")
 patch_margin_left = 60
 patch_margin_top = 60
@@ -273,30 +282,116 @@ patch_margin_right = 100
 patch_margin_bottom = 100
 
 [node name="TileMap" type="TileMap" parent="."]
+position = Vector2(0, -3400)
 tile_set = SubResource("TileSet_kaij5")
 format = 2
 layer_0/tile_data = PackedInt32Array(1572875, 458777, 0, 1572877, 458777, 0, 1572879, 458777, 0, 1572881, 458777, 0, 1572869, 65561, 2, 1572871, 458777, 0, 1572873, 458777, 0, 1572883, 458777, 0, 1572885, 458777, 0, 1572887, 458777, 0, 1572889, 458777, 0, 1245222, 327705, 11, 1245224, 65561, 11, 1245226, 589849, 11, 1572891, 458777, 0, 1572893, 458777, 0, 1572895, 458777, 0, 1572897, 458777, 0, 1572899, 458777, 0, 1572901, 458777, 0, 1572903, 458777, 0, 1572905, 458777, 0, 1114131, 458777, 0, 1114133, 458777, 0, 1114135, 458777, 0, 1114137, 458777, 0, 1572907, 327705, 2, 1114139, 327705, 2, 1114129, 65561, 2)
 
 [node name="Player" parent="." instance=ExtResource("5_nmk7c")]
-position = Vector2(924, 229)
+position = Vector2(924, -3171)
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 offset_left = -500000.0
-offset_top = 3425.0
+offset_top = 25.0
 offset_right = 500000.0
-offset_bottom = 3475.0
+offset_bottom = 75.0
 border_width = 50.0
 
 [node name="Enemy1" parent="." instance=ExtResource("7_p5vba")]
-position = Vector2(5317, 1152)
+position = Vector2(5317, -2248)
 
-[node name="ItemsDirectory" type="Node2D" parent="." groups=["items_dir"]]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Ball" parent="ItemsDirectory" instance=ExtResource("6_yyir6")]
-position = Vector2(1185, 1504)
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4416, 0.56994, 0.69, 0.305882)
 
-[node name="Ball2" parent="ItemsDirectory" instance=ExtResource("6_yyir6")]
-position = Vector2(1565, 1685)
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = 0
+scroll_limit_begin = Vector2(-1e+06, 0)
+scroll_limit_end = Vector2(1e+06, 0)
 
-[node name="Bat" parent="ItemsDirectory" instance=ExtResource("8_fusiw")]
-position = Vector2(2116, 1179)
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(6840, 0)
+
+[node name="FireGround" type="Node2D" parent="ParallaxBackground/ParallaxLayer"]
+
+[node name="FirePixel" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(630, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(1240, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(1850, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(2480, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(3110, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(3720, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(4330, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(4960, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel10" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(5590, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)
+
+[node name="FirePixel11" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(6200, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("13_xfdd5")
+offset = Vector2(16, -16)

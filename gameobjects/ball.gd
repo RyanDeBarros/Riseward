@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if global_position.y > level.deathzone_y:
+	if global_position.y > 100:
 		queue_free()
 
 

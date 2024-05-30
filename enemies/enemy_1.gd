@@ -34,7 +34,7 @@ enum Phase {
 @export var punch_time := 0.5
 @export var punch_return_time := 0.8
 @export var punch_scale_factor := 1.5
-@export var punch_chance_in_spin_range := 0.1
+@export var punch_chance_in_spin_range := 0.25
 
 var attack_delay := 0.0
 var phase := Phase.CHILLING
@@ -92,7 +92,7 @@ func _hit_area_entered(body: Node2D, hit_area: Area2D) -> void:
 	if phase == Phase.SPINNING_C or phase == Phase.SPINNING_CC or phase == Phase.PUNCHING:
 		if body is Player:
 			var direction := (body.global_position - hit_area.global_position).normalized()
-			player.bounce_back(direction * hit_strength, stun_time, 1)
+			player.bounce_back(direction * hit_strength, stun_time, parry_improvement)
 		elif body is Ball:
 			var direction := (body.global_position - hit_area.global_position).normalized()
 			body.apply_central_force(direction * ball_hit_strength)
@@ -127,6 +127,10 @@ func init_spin_attack() -> void:
 	reset_delay()
 	total_spin = 0
 	await animation_player.animation_finished
+	hand_l.position.x = normal_hand_l_position.x - 40
+	hand_r.position.x = normal_hand_r_position.x + 40
+	hand_l.scale = normal_hand_l_scale * punch_scale_factor
+	hand_r.scale = normal_hand_r_scale * punch_scale_factor
 	phase = Phase.SPINNING_C if clockwise else Phase.SPINNING_CC
 
 
@@ -141,6 +145,10 @@ func init_punch_attack() -> void:
 
 func spin_attack(delta: float, clockwise: bool) -> void:
 	if total_spin >= total_spin_radians:
+		hand_l.position = normal_hand_l_position
+		hand_r.position = normal_hand_r_position
+		hand_l.scale = normal_hand_l_scale
+		hand_r.scale = normal_hand_r_scale
 		animation_player.play(&"RESET")
 		phase = Phase.DELAYING
 	else:

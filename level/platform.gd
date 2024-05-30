@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	elif phase == Phase.DROPPING:
 		shake_x(delta)
 		position.y += drop_speed * delta
-		if position.y > level.deathzone_y:
+		if position.y > 100:
 			queue_free()
 
 
