@@ -9,11 +9,13 @@ var time := 0.0
 
 func _ready() -> void:
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+	AudioManager.play_music("level")
 
 
 func _process(delta: float) -> void:
 	time += delta * 3.0
 	fire_ground.position.x = 100.0 * sin(time)
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
