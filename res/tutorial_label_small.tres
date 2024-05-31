@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bnmiynv3e1c5x"]
+
+[ext_resource type="FontFile" uid="uid://q0d1bkci3w1h" path="res://assets/fonts/RubikScribble-Regular.ttf" id="1_bv8gg"]
+
+[resource]
+font = ExtResource("1_bv8gg")
+font_size = 80
+outline_size = 10
