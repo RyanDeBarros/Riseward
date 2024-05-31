@@ -12,6 +12,21 @@
 [ext_resource type="FontFile" uid="uid://dh1g6aafb8pg8" path="res://assets/fonts/VeniteAdoremus-rgRBA.ttf" id="9_pegdn"]
 [ext_resource type="FontFile" uid="uid://dslj85n4ks3ii" path="res://assets/fonts/VeniteAdoremusStraight-Yzo6v.ttf" id="10_af7xn"]
 
+[sub_resource type="Animation" id="Animation_n8u62"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameObjects/PlayerIcon/BlueBodyCircle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.80678]
+}
+
 [sub_resource type="Animation" id="Animation_q4a2x"]
 resource_name = "title"
 length = 4.0
@@ -39,21 +54,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(714, 149), Vector2(664, 149), Vector2(714, 149), Vector2(764, 149), Vector2(714, 149)]
-}
-
-[sub_resource type="Animation" id="Animation_n8u62"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameObjects/PlayerIcon/BlueBodyCircle:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [6.80678]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fia7t"]
@@ -182,6 +182,7 @@ rotation = 0.296981
 
 [node name="Whoosh" type="TextureRect" parent="GameObjects/Enemy"]
 material = SubResource("ShaderMaterial_1r3rt")
+layout_mode = 0
 offset_left = 540.122
 offset_top = -70.1284
 offset_right = 1529.12
@@ -225,6 +226,7 @@ rotation = -0.42089
 
 [node name="Whoosh" type="TextureRect" parent="GameObjects/Enemy2"]
 material = SubResource("ShaderMaterial_1r3rt")
+layout_mode = 0
 offset_left = -75.7226
 offset_top = 29.6495
 offset_right = 913.277
@@ -259,13 +261,15 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -1446.0
+offset_left = -1791.0
 offset_top = 149.0
-offset_right = 1446.0
+offset_right = 1791.0
 offset_bottom = 478.0
 grow_horizontal = 2
-text = "The Last Stand"
+text = "RISEWARD"
 label_settings = SubResource("LabelSettings_n0bv8")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayBTN" type="Button" parent="."]
 layout_mode = 1

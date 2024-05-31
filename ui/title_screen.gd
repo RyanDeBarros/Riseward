@@ -8,6 +8,7 @@ func _ready() -> void:
 
 
 func _on_play_btn_pressed() -> void:
+	#AudioManager.play_music("level")
 	get_tree().change_scene_to_packed(Scenes.SANDBOX)
 
 
