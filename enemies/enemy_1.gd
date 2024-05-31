@@ -22,6 +22,7 @@ enum Phase {
 @export_group("Attack")
 @export var attack_delay_min := 1.0
 @export var attack_delay_max := 4.0
+@export var attack_window := 0.1
 
 @export_group("Spin")
 @export var spin_range_qdr := 1100.0 ** 2
@@ -92,7 +93,7 @@ func _hit_area_entered(body: Node2D, hit_area: Area2D) -> void:
 	if phase == Phase.SPINNING_C or phase == Phase.SPINNING_CC or phase == Phase.PUNCHING:
 		if body is Player:
 			var direction := (body.global_position - hit_area.global_position).normalized()
-			player.bounce_back(direction * hit_strength, stun_time, parry_improvement)
+			player.bounce_back(direction * hit_strength, attack_window, stun_time, parry_improvement)
 		elif body is Ball:
 			var direction := (body.global_position - hit_area.global_position).normalized()
 			body.apply_central_force(direction * ball_hit_strength)
@@ -103,7 +104,8 @@ func _hit_area_entered(body: Node2D, hit_area: Area2D) -> void:
 func _on_bounce_back_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		var direction := (body.global_position - global_position).normalized()
-		var reposte := player.bounce_back(direction * hit_strength, stun_time, parry_improvement)
+		var reposte := await player.bounce_back(direction * hit_strength, attack_window,\
+				stun_time, parry_improvement)
 		reposte = Vector2(reposte.x, 0)
 		if reposte.x != 0.0:
 			AudioManager.play_sfx_random_pitch("enemy_hit")

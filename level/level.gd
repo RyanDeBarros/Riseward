@@ -9,7 +9,7 @@ var time := 0.0
 
 func _ready() -> void:
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
-	AudioManager.play_music("level")
+	#AudioManager.play_music("level")
 
 
 func _process(delta: float) -> void:

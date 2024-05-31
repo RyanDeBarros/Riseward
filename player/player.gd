@@ -9,7 +9,7 @@ extends CharacterBody2D
 @export var swing_cooldown := 0.15
 
 @export_group("Parrying & Stunning")
-@export var parry_recovery_factor := 0.15
+@export var parry_recovery_factor := 0.3
 @export var parry_force_reduction := 0.3
 @export var parry_cooldown := 0.7
 @export var parry_reposte_factor := 0.5
@@ -61,6 +61,9 @@ var stun_time := 0.0
 var is_parrying := false
 var can_parry := true
 
+var pending_parries := {}
+var pending_index := 0
+
 var can_swing := true
 
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
@@ -79,16 +82,12 @@ func _ready() -> void:
 	camera_2d.limit_right = bkg.texture.get_width() * bkg.scale.x * 0.5
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if position.y > body_radius:
 		die()
-
-
-func die() -> void:
-	if not dead:
-		dead = true
-		_reload_scene()
-		AudioManager.play_sfx("death")
+	if is_parrying:
+		for i in pending_parries.keys():
+			pending_parries[i] = true
 
 
 func _reload_scene() -> void:
@@ -357,12 +356,19 @@ func check_for_itembox() -> void:
 			node.pop()
 
 
-func bounce_back(force: Vector2, stun_total_time := 0.8, parry_improvement := 1.0) -> Vector2:
+func bounce_back(force: Vector2, attack_window := 0.0, stun_total_time := 0.8,\
+		parry_improvement := 1.0) -> Vector2:
+	var i := pending_index
+	pending_index += 1
+	pending_parries[i] = false
+	await get_tree().create_timer(attack_window).timeout
 	var reply := Vector2.ZERO
-	if is_parrying:
+	var parried := pending_parries[i] as bool
+	pending_parries.erase(i)
+	if parried:
 		AudioManager.play_sfx_random_pitch("parry_success", 0.0, 0.0, 0.9, 1.1, 0.8)
 		reply = -parry_reposte_factor * force
-		force *= parry_force_reduction / parry_improvement
+		force = force * parry_force_reduction / parry_improvement
 		stun_time = parry_recovery_factor * stun_total_time / parry_improvement
 	else:
 		AudioManager.play_sfx_random_pitch("player_hit")
@@ -396,3 +402,10 @@ func lose_random_item() -> void:
 			call_deferred("let_go_hand", true)
 		else:
 			call_deferred("let_go_hand", true if randi_range(0, 1) == 0 else false)
+
+
+func die() -> void:
+	if not dead:
+		dead = true
+		_reload_scene()
+		AudioManager.play_sfx("death")
