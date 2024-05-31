@@ -1,0 +1,360 @@
+[gd_scene load_steps=20 format=3 uid="uid://cc0ht0k6gds55"]
+
+[ext_resource type="Script" path="res://level/level.gd" id="1_td7r1"]
+[ext_resource type="Texture2D" uid="uid://bdl280ivw50jo" path="res://assets/bkg/Fire_Pixel.png" id="2_vaqbq"]
+[ext_resource type="PackedScene" uid="uid://b5n6qk0fwn0q0" path="res://ui/pause_screen.tscn" id="3_uwo0i"]
+[ext_resource type="Texture2D" uid="uid://d3ifdwoww8bu0" path="res://assets/bkg/workshop-cooler-tones-emphasizing-sleek-steel-machinery.jpg" id="4_le6uq"]
+[ext_resource type="PackedScene" uid="uid://cj0xqb18wmhil" path="res://gameobjects/ball.tscn" id="5_m1qak"]
+[ext_resource type="PackedScene" uid="uid://yjk5880rm47r" path="res://gameobjects/bat.tscn" id="6_u0cvu"]
+[ext_resource type="Script" path="res://level/platform.gd" id="7_0t1je"]
+[ext_resource type="Texture2D" uid="uid://chmj55s7xy46r" path="res://assets/tiles/tile_half_left.png" id="8_q21ih"]
+[ext_resource type="Texture2D" uid="uid://bj06ubsgfqumv" path="res://assets/tiles/tile_half_center.png" id="9_j7jag"]
+[ext_resource type="Texture2D" uid="uid://cim7jtrs0dip1" path="res://assets/tiles/tile_half_right.png" id="10_e187y"]
+[ext_resource type="PackedScene" uid="uid://3tw5gw5ep7xr" path="res://gameobjects/item_box.tscn" id="11_ue18m"]
+[ext_resource type="PackedScene" uid="uid://cv4s5ssa3ouue" path="res://gameobjects/launch_ramp.tscn" id="12_1o31c"]
+[ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="13_spnev"]
+[ext_resource type="TileSet" uid="uid://4h0lpaf7huma" path="res://res/level_tileset.tres" id="14_bkyhk"]
+[ext_resource type="PackedScene" uid="uid://cja61ltgmryov" path="res://player/player.tscn" id="14_vyqma"]
+[ext_resource type="PackedScene" uid="uid://bem4dv1hls5hn" path="res://enemies/enemy_1.tscn" id="15_3gfyj"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1pf6"]
+load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8df.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hh87e"]
+size = Vector2(2210, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dulai"]
+size = Vector2(1750, 360)
+
+[node name="Sandbox" type="Node2D" groups=["level"]]
+script = ExtResource("1_td7r1")
+
+[node name="Layers" type="Node" parent="."]
+
+[node name="DeathStrip" type="ReferenceRect" parent="Layers"]
+z_index = 1000
+offset_left = -500000.0
+offset_top = 25.0
+offset_right = 500000.0
+offset_bottom = 75.0
+border_width = 50.0
+
+[node name="DesaturationLayer" type="CanvasLayer" parent="Layers"]
+
+[node name="ColorRect" type="ColorRect" parent="Layers/DesaturationLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.443137, 0.568627, 0.690196, 0.235294)
+
+[node name="FireLayer" type="ParallaxBackground" parent="Layers"]
+layer = 0
+scroll_limit_begin = Vector2(-1e+06, 0)
+scroll_limit_end = Vector2(1e+06, 0)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Layers/FireLayer"]
+motion_mirroring = Vector2(6840, 0)
+
+[node name="FireGround" type="Node2D" parent="Layers/FireLayer/ParallaxLayer"]
+unique_name_in_owner = true
+
+[node name="FirePixel" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel2" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(630, 0)
+rotation = 0.0174533
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel3" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(1240, 10)
+rotation = -0.0174533
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel4" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(1850, 0)
+rotation = 0.0174533
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel5" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(2480, 20)
+rotation = -0.00872665
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel6" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(3110, 10)
+rotation = -0.00872665
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel7" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(3720, 0)
+rotation = 0.0174533
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel8" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(4330, 15)
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel9" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(4960, 20)
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel10" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(5590, 10)
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="FirePixel11" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(6200, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("2_vaqbq")
+offset = Vector2(16, -16)
+
+[node name="UILayer" type="CanvasLayer" parent="Layers"]
+
+[node name="PauseScreen" parent="Layers/UILayer" instance=ExtResource("3_uwo0i")]
+unique_name_in_owner = true
+visible = false
+
+[node name="BackgroundImg" type="Sprite2D" parent="Layers" groups=["bkg"]]
+modulate = Color(0.63, 0.63, 0.63, 0.647059)
+z_index = -1000
+position = Vector2(0, -5319)
+scale = Vector2(3, 3)
+texture = ExtResource("4_le6uq")
+
+[node name="ItemsDirectory" type="Node2D" parent="." groups=["items_dir"]]
+z_index = 100
+
+[node name="Ball" parent="ItemsDirectory" instance=ExtResource("5_m1qak")]
+position = Vector2(888, -1632)
+
+[node name="Ball2" parent="ItemsDirectory" instance=ExtResource("5_m1qak")]
+position = Vector2(1736, -1632)
+
+[node name="Bat" parent="ItemsDirectory" instance=ExtResource("6_u0cvu")]
+position = Vector2(2099, -2157)
+
+[node name="Platforms" type="Node2D" parent="."]
+z_index = -100
+
+[node name="Platform1" type="RigidBody2D" parent="Platforms"]
+position = Vector2(4120, -1960)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("7_0t1je")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform1"]
+polygon = PackedVector2Array(20, 0, 2060, 0, 2080, 80, 0, 80)
+one_way_collision = true
+
+[node name="Tiles" type="Node2D" parent="Platforms/Platform1"]
+
+[node name="Support" type="NinePatchRect" parent="Platforms/Platform1/Tiles"]
+offset_right = 2080.0
+offset_bottom = 2060.0
+texture = SubResource("CompressedTexture2D_t1pf6")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+metadata/_edit_use_anchors_ = true
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(80, 40)
+texture = ExtResource("8_q21ih")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(240, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(400, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(560, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(720, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(880, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(1040, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(1200, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter8" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(1360, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter9" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(1520, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter10" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(1680, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter11" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(1840, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+position = Vector2(2000, 40)
+texture = ExtResource("10_e187y")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/Platform1"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform1/EnemyDetect"]
+position = Vector2(1035, -60)
+shape = SubResource("RectangleShape2D_hh87e")
+
+[node name="Platform2" type="RigidBody2D" parent="Platforms"]
+position = Vector2(-1820, -2900)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("7_0t1je")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform2"]
+polygon = PackedVector2Array(20, 0, 1580, 0, 1600, 80, 0, 80)
+one_way_collision = true
+
+[node name="Tiles" type="Node2D" parent="Platforms/Platform2"]
+
+[node name="Support" type="NinePatchRect" parent="Platforms/Platform2/Tiles"]
+offset_right = 1600.0
+offset_bottom = 3020.0
+texture = SubResource("CompressedTexture2D_t1pf6")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+metadata/_edit_use_anchors_ = true
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(80, 40)
+texture = ExtResource("8_q21ih")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(240, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(400, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(560, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(720, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(880, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(1040, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(1200, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfCenter8" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(1360, 40)
+texture = ExtResource("9_j7jag")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
+position = Vector2(1520, 40)
+texture = ExtResource("10_e187y")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/Platform2"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2/EnemyDetect"]
+position = Vector2(805, -60)
+shape = SubResource("RectangleShape2D_dulai")
+
+[node name="ItemBox2" parent="Platforms/Platform2" instance=ExtResource("11_ue18m")]
+z_index = -50
+position = Vector2(813, -295)
+
+[node name="GameObjects" type="Node2D" parent="."]
+
+[node name="ItemBox" parent="GameObjects" instance=ExtResource("11_ue18m")]
+z_index = -50
+position = Vector2(1766, -2394)
+
+[node name="LaunchRamp" parent="GameObjects" instance=ExtResource("12_1o31c")]
+position = Vector2(2564, -1494)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GameObjects"]
+offset_left = 1320.0
+offset_top = -2014.0
+offset_right = 2280.0
+offset_bottom = -1480.0
+texture = ExtResource("13_spnev")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="TileMap" type="TileMap" parent="GameObjects"]
+position = Vector2(0, -3400)
+tile_set = ExtResource("14_bkyhk")
+format = 2
+layer_0/tile_data = PackedInt32Array(1572875, 458777, 0, 1572877, 458777, 0, 1572879, 458777, 0, 1572881, 458777, 0, 1572869, 65561, 2, 1572871, 458777, 0, 1572873, 458777, 0, 1572883, 458777, 0, 1572885, 458777, 0, 1572887, 458777, 0, 1572889, 458777, 0, 1245222, 327705, 11, 1245224, 65561, 11, 1245226, 589849, 11, 1572891, 458777, 0, 1572893, 458777, 0, 1572895, 458777, 0, 1572897, 458777, 0, 1572899, 458777, 0, 1572901, 458777, 0, 1572903, 458777, 0, 1572905, 458777, 0, 1114131, 458777, 0, 1114133, 458777, 0, 1114135, 458777, 0, 1114137, 458777, 0, 1572907, 327705, 2, 1114139, 327705, 2, 1114129, 65561, 2)
+
+[node name="Player" parent="GameObjects" instance=ExtResource("14_vyqma")]
+position = Vector2(924, -3171)
+
+[node name="Enemy1" parent="GameObjects" instance=ExtResource("15_3gfyj")]
+z_index = 20
+position = Vector2(5317, -2248)

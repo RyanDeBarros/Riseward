@@ -4,8 +4,8 @@ extends Node2D
 
 var time := 0.0
 
-@onready var fire_ground: Node2D = $ParallaxBackground/ParallaxLayer/FireGround
-@onready var pause_screen: PauseScreen = $UILayer/PauseScreen
+@onready var fire_ground: Node2D = %FireGround
+@onready var pause_screen: PauseScreen = %PauseScreen
 
 
 func _ready() -> void:

@@ -1,0 +1,148 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0khb830julid"]
+
+[ext_resource type="Script" path="res://level/level.gd" id="1_iaes2"]
+[ext_resource type="Texture2D" uid="uid://bdl280ivw50jo" path="res://assets/bkg/Fire_Pixel.png" id="2_tllqo"]
+[ext_resource type="PackedScene" uid="uid://b5n6qk0fwn0q0" path="res://ui/pause_screen.tscn" id="3_ss3qc"]
+[ext_resource type="Texture2D" uid="uid://d3ifdwoww8bu0" path="res://assets/bkg/workshop-cooler-tones-emphasizing-sleek-steel-machinery.jpg" id="4_4rp07"]
+[ext_resource type="PackedScene" uid="uid://cja61ltgmryov" path="res://player/player.tscn" id="13_5qxhh"]
+
+[node name="LevelBase" type="Node2D"]
+script = ExtResource("1_iaes2")
+
+[node name="Layers" type="Node" parent="."]
+
+[node name="DeathStrip" type="ReferenceRect" parent="Layers"]
+z_index = 1000
+offset_left = -500000.0
+offset_top = 25.0
+offset_right = 500000.0
+offset_bottom = 75.0
+border_width = 50.0
+
+[node name="DesaturationLayer" type="CanvasLayer" parent="Layers"]
+
+[node name="ColorRect" type="ColorRect" parent="Layers/DesaturationLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.443137, 0.568627, 0.690196, 0.235294)
+
+[node name="FireLayer" type="ParallaxBackground" parent="Layers"]
+layer = 0
+scroll_limit_begin = Vector2(-1e+06, 0)
+scroll_limit_end = Vector2(1e+06, 0)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Layers/FireLayer"]
+motion_mirroring = Vector2(6840, 0)
+
+[node name="FireGround" type="Node2D" parent="Layers/FireLayer/ParallaxLayer"]
+unique_name_in_owner = true
+
+[node name="FirePixel" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel2" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(630, 0)
+rotation = 0.0174533
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel3" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(1240, 10)
+rotation = -0.0174533
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel4" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(1850, 0)
+rotation = 0.0174533
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel5" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(2480, 20)
+rotation = -0.00872665
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel6" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(3110, 10)
+rotation = -0.00872665
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel7" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(3720, 0)
+rotation = 0.0174533
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel8" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(4330, 15)
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel9" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(4960, 20)
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel10" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(5590, 10)
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="FirePixel11" type="Sprite2D" parent="Layers/FireLayer/ParallaxLayer/FireGround"]
+texture_filter = 1
+position = Vector2(6200, 0)
+scale = Vector2(20, 20)
+texture = ExtResource("2_tllqo")
+offset = Vector2(16, -16)
+
+[node name="UILayer" type="CanvasLayer" parent="Layers"]
+
+[node name="PauseScreen" parent="Layers/UILayer" instance=ExtResource("3_ss3qc")]
+unique_name_in_owner = true
+visible = false
+
+[node name="BackgroundImg" type="Sprite2D" parent="Layers" groups=["bkg"]]
+modulate = Color(0.63, 0.63, 0.63, 0.647059)
+z_index = -1000
+position = Vector2(0, -5319)
+scale = Vector2(3, 3)
+texture = ExtResource("4_4rp07")
+metadata/_edit_lock_ = true
+
+[node name="ItemsDirectory" type="Node2D" parent="." groups=["items_dir"]]
+z_index = 100
+
+[node name="Platforms" type="Node2D" parent="."]
+z_index = -100
+
+[node name="GameObjects" type="Node2D" parent="."]
+
+[node name="Player" parent="GameObjects" instance=ExtResource("13_5qxhh")]
+position = Vector2(924, -3171)

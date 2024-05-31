@@ -22,7 +22,7 @@ enum Phase {
 @export_group("Attack")
 @export var attack_delay_min := 1.0
 @export var attack_delay_max := 4.0
-@export var attack_window := 0.1
+@export var attack_window := 0.15
 
 @export_group("Spin")
 @export var spin_range_qdr := 1100.0 ** 2

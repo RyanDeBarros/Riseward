@@ -1,413 +1,361 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc0ht0k6gds55"]
+[gd_scene load_steps=18 format=3 uid="uid://cptkvg2hufmav"]
 
-[ext_resource type="Script" path="res://level/level.gd" id="1_p2vdp"]
+[ext_resource type="PackedScene" uid="uid://d0khb830julid" path="res://level/level_base.tscn" id="1_yq382"]
 [ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="2_5qcdi"]
 [ext_resource type="Script" path="res://level/platform.gd" id="2_lsksp"]
-[ext_resource type="Texture2D" uid="uid://d3ifdwoww8bu0" path="res://assets/bkg/workshop-cooler-tones-emphasizing-sleek-steel-machinery.jpg" id="2_p6ncn"]
 [ext_resource type="PackedScene" uid="uid://cv4s5ssa3ouue" path="res://gameobjects/launch_ramp.tscn" id="3_06y5f"]
-[ext_resource type="Texture2D" uid="uid://yw5br7h0mcai" path="res://assets/tilesets/main_tileset.png" id="4_gowhp"]
-[ext_resource type="PackedScene" uid="uid://cja61ltgmryov" path="res://player/player.tscn" id="5_nmk7c"]
 [ext_resource type="PackedScene" uid="uid://bem4dv1hls5hn" path="res://enemies/enemy_1.tscn" id="7_p5vba"]
+[ext_resource type="Texture2D" uid="uid://b0umah0mdl428" path="res://assets/tiles/tile_left.png" id="8_3g2te"]
+[ext_resource type="Texture2D" uid="uid://do4fr1nmarvvp" path="res://assets/tiles/tile_center.png" id="9_ex6hr"]
 [ext_resource type="Texture2D" uid="uid://chmj55s7xy46r" path="res://assets/tiles/tile_half_left.png" id="9_fysam"]
 [ext_resource type="Texture2D" uid="uid://bj06ubsgfqumv" path="res://assets/tiles/tile_half_center.png" id="10_bluwe"]
+[ext_resource type="Texture2D" uid="uid://ctnnxmsk4puap" path="res://assets/tiles/tile_right.png" id="10_wwqrm"]
 [ext_resource type="Texture2D" uid="uid://cim7jtrs0dip1" path="res://assets/tiles/tile_half_right.png" id="11_ws1pv"]
 [ext_resource type="PackedScene" uid="uid://3tw5gw5ep7xr" path="res://gameobjects/item_box.tscn" id="13_axk0l"]
 [ext_resource type="PackedScene" uid="uid://cj0xqb18wmhil" path="res://gameobjects/ball.tscn" id="13_seh5u"]
-[ext_resource type="Texture2D" uid="uid://bdl280ivw50jo" path="res://assets/bkg/Fire_Pixel.png" id="13_xfdd5"]
 [ext_resource type="PackedScene" uid="uid://yjk5880rm47r" path="res://gameobjects/bat.tscn" id="14_n8o4p"]
-[ext_resource type="PackedScene" uid="uid://b5n6qk0fwn0q0" path="res://ui/pause_screen.tscn" id="16_k13ax"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1pf6"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x58c0"]
 load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8df.ctex"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hh87e"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rwq7f"]
 size = Vector2(2210, 360)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dulai"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3w20"]
 size = Vector2(1750, 360)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_584ba"]
-texture = ExtResource("4_gowhp")
-texture_region_size = Vector2i(80, 80)
-0:0/size_in_atlas = Vector2i(2, 2)
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-9:3/size_in_atlas = Vector2i(2, 2)
-9:3/0 = 0
-9:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-9:3/0/physics_layer_0/angular_velocity = 0.0
-9:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-9:11/size_in_atlas = Vector2i(2, 2)
-9:11/0 = 0
-9:11/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-9:11/0/physics_layer_0/angular_velocity = 0.0
-9:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-5:11/size_in_atlas = Vector2i(2, 2)
-5:11/0 = 0
-5:11/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-5:11/0/physics_layer_0/angular_velocity = 0.0
-5:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-1:11/size_in_atlas = Vector2i(2, 2)
-1:11/0 = 0
-1:11/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:11/0/physics_layer_0/angular_velocity = 0.0
-1:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-9:7/size_in_atlas = Vector2i(2, 2)
-9:7/0 = 0
-9:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-9:7/0/physics_layer_0/angular_velocity = 0.0
-9:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-1:7/size_in_atlas = Vector2i(2, 2)
-1:7/0 = 0
-1:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:7/0/physics_layer_0/angular_velocity = 0.0
-1:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, 60, 60, -80, 80, -80, 80, 80, -80, 80)
-5:7/size_in_atlas = Vector2i(2, 2)
-5:7/0 = 0
-5:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-5:7/0/physics_layer_0/angular_velocity = 0.0
-5:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, -60, -80, 80, 60, 80, 80, -80, 80)
-5:2/size_in_atlas = Vector2i(2, 2)
-5:2/0 = 0
-5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-5:2/0/physics_layer_0/angular_velocity = 0.0
-5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -40, 60, -40, 80, 0, -80, 0)
-5:2/0/physics_layer_0/polygon_0/one_way = true
-7:0/size_in_atlas = Vector2i(2, 2)
-7:0/0 = 0
-7:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-7:0/0/physics_layer_0/angular_velocity = 0.0
-7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -40, 80, -40, 80, 0, -80, 0)
-7:0/0/physics_layer_0/polygon_0/one_way = true
-3:0/size_in_atlas = Vector2i(2, 2)
-3:0/0 = 0
-3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-3:0/0/physics_layer_0/angular_velocity = 0.0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -40, 80, -40, 80, 0, -80, 0)
-3:0/0/physics_layer_0/polygon_0/one_way = true
-1:2/size_in_atlas = Vector2i(2, 2)
-1:2/0 = 0
-1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:2/0/physics_layer_0/angular_velocity = 0.0
-1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-60, -40, 80, -40, 80, 0, -80, 0)
-1:2/0/physics_layer_0/polygon_0/one_way = true
+[node name="Sandbox" instance=ExtResource("1_yq382")]
 
-[sub_resource type="TileSet" id="TileSet_kaij5"]
-tile_size = Vector2i(80, 80)
-physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 15
-sources/25 = SubResource("TileSetAtlasSource_584ba")
-tile_proxies/coords_level = [[1, Vector2i(0, 0)], [5, Vector2i(0, 0)], [2, Vector2i(0, 0)], [5, Vector2i(10, 0)], [3, Vector2i(0, 0)], [5, Vector2i(20, 0)], [4, Vector2i(0, 0)], [5, Vector2i(30, 0)], [6, Vector2i(0, 0)], [25, Vector2i(0, 0)], [11, Vector2i(0, 0)], [25, Vector2i(1, 0)], [12, Vector2i(0, 0)], [25, Vector2i(3, 0)], [13, Vector2i(0, 0)], [25, Vector2i(0, 1)], [14, Vector2i(0, 0)], [25, Vector2i(2, 1)], [15, Vector2i(0, 0)], [25, Vector2i(4, 1)], [16, Vector2i(0, 0)], [25, Vector2i(0, 3)], [17, Vector2i(0, 0)], [25, Vector2i(2, 3)], [18, Vector2i(0, 0)], [25, Vector2i(4, 3)], [22, Vector2i(0, 0)], [25, Vector2i(0, 5)], [23, Vector2i(0, 0)], [25, Vector2i(2, 5)], [24, Vector2i(0, 0)], [25, Vector2i(4, 5)]]
+[node name="Ball" parent="ItemsDirectory" index="0" instance=ExtResource("13_seh5u")]
+position = Vector2(888, -1632)
 
-[node name="Sandbox" type="Node2D" groups=["level"]]
-script = ExtResource("1_p2vdp")
+[node name="Ball2" parent="ItemsDirectory" index="1" instance=ExtResource("13_seh5u")]
+position = Vector2(1736, -1632)
 
-[node name="Workshop-cooler-tones-emphasizing-sleek-steel-machinery" type="Sprite2D" parent="." groups=["bkg"]]
-modulate = Color(0.63, 0.63, 0.63, 0.647059)
-position = Vector2(0, -5319)
-scale = Vector2(3, 3)
-texture = ExtResource("2_p6ncn")
+[node name="Bat" parent="ItemsDirectory" index="2" instance=ExtResource("14_n8o4p")]
+position = Vector2(2099, -2157)
 
-[node name="Platforms" type="Node2D" parent="."]
+[node name="Blockout" type="Node2D" parent="." index="2"]
 
-[node name="Platform1" type="RigidBody2D" parent="Platforms"]
-position = Vector2(4120, -1960)
-collision_mask = 0
-gravity_scale = 0.0
-script = ExtResource("2_lsksp")
+[node name="P1" type="StaticBody2D" parent="Blockout" index="0"]
+position = Vector2(360, -1480)
+collision_mask = 15
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform1"]
-polygon = PackedVector2Array(20, 0, 2060, 0, 2080, 80, 0, 80)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P1" index="0"]
+polygon = PackedVector2Array(20, 0, 3180, 0, 3200, 80, 0, 80)
 one_way_collision = true
 
-[node name="Tiles" type="Node2D" parent="Platforms/Platform1"]
+[node name="Tiles" type="Node2D" parent="Blockout/P1" index="1"]
 
-[node name="Support" type="NinePatchRect" parent="Platforms/Platform1/Tiles"]
-offset_right = 2080.0
-offset_bottom = 2060.0
-texture = SubResource("CompressedTexture2D_t1pf6")
-patch_margin_left = 60
-patch_margin_top = 60
-patch_margin_right = 100
-patch_margin_bottom = 100
-metadata/_edit_use_anchors_ = true
-
-[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfLeft" type="Sprite2D" parent="Blockout/P1/Tiles" index="0"]
 position = Vector2(80, 40)
 texture = ExtResource("9_fysam")
 
-[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter" type="Sprite2D" parent="Blockout/P1/Tiles" index="1"]
 position = Vector2(240, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter2" type="Sprite2D" parent="Blockout/P1/Tiles" index="2"]
 position = Vector2(400, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter3" type="Sprite2D" parent="Blockout/P1/Tiles" index="3"]
 position = Vector2(560, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter4" type="Sprite2D" parent="Blockout/P1/Tiles" index="4"]
 position = Vector2(720, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter5" type="Sprite2D" parent="Blockout/P1/Tiles" index="5"]
 position = Vector2(880, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter6" type="Sprite2D" parent="Blockout/P1/Tiles" index="6"]
 position = Vector2(1040, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter7" type="Sprite2D" parent="Blockout/P1/Tiles" index="7"]
 position = Vector2(1200, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter8" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter8" type="Sprite2D" parent="Blockout/P1/Tiles" index="8"]
 position = Vector2(1360, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter9" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter9" type="Sprite2D" parent="Blockout/P1/Tiles" index="9"]
 position = Vector2(1520, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter10" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter10" type="Sprite2D" parent="Blockout/P1/Tiles" index="10"]
 position = Vector2(1680, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfCenter11" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter11" type="Sprite2D" parent="Blockout/P1/Tiles" index="11"]
 position = Vector2(1840, 40)
 texture = ExtResource("10_bluwe")
 
-[node name="TileHalfRight" type="Sprite2D" parent="Platforms/Platform1/Tiles"]
+[node name="TileHalfCenter12" type="Sprite2D" parent="Blockout/P1/Tiles" index="12"]
 position = Vector2(2000, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter13" type="Sprite2D" parent="Blockout/P1/Tiles" index="13"]
+position = Vector2(2160, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter14" type="Sprite2D" parent="Blockout/P1/Tiles" index="14"]
+position = Vector2(2320, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter15" type="Sprite2D" parent="Blockout/P1/Tiles" index="15"]
+position = Vector2(2480, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter16" type="Sprite2D" parent="Blockout/P1/Tiles" index="16"]
+position = Vector2(2640, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter17" type="Sprite2D" parent="Blockout/P1/Tiles" index="17"]
+position = Vector2(2800, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter18" type="Sprite2D" parent="Blockout/P1/Tiles" index="18"]
+position = Vector2(2960, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Blockout/P1/Tiles" index="19"]
+position = Vector2(3120, 40)
 texture = ExtResource("11_ws1pv")
 
-[node name="EnemyDetect" type="Area2D" parent="Platforms/Platform1"]
-collision_layer = 0
-collision_mask = 8
+[node name="P2" type="StaticBody2D" parent="Blockout" index="1"]
+position = Vector2(1320, -2040)
+collision_mask = 15
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform1/EnemyDetect"]
-position = Vector2(1035, -60)
-shape = SubResource("RectangleShape2D_hh87e")
-
-[node name="Platform2" type="RigidBody2D" parent="Platforms"]
-position = Vector2(-1820, -2900)
-collision_mask = 0
-gravity_scale = 0.0
-script = ExtResource("2_lsksp")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform2"]
-polygon = PackedVector2Array(20, 0, 1580, 0, 1600, 80, 0, 80)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P2" index="0"]
+polygon = PackedVector2Array(20, 0, 940, 0, 960, 80, 0, 80)
 one_way_collision = true
 
-[node name="Tiles" type="Node2D" parent="Platforms/Platform2"]
-
-[node name="Support" type="NinePatchRect" parent="Platforms/Platform2/Tiles"]
-offset_right = 1600.0
-offset_bottom = 3020.0
-texture = SubResource("CompressedTexture2D_t1pf6")
-patch_margin_left = 60
-patch_margin_top = 60
-patch_margin_right = 100
-patch_margin_bottom = 100
-metadata/_edit_use_anchors_ = true
-
-[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(80, 40)
-texture = ExtResource("9_fysam")
-
-[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(240, 40)
-texture = ExtResource("10_bluwe")
-
-[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(400, 40)
-texture = ExtResource("10_bluwe")
-
-[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(560, 40)
-texture = ExtResource("10_bluwe")
-
-[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(720, 40)
-texture = ExtResource("10_bluwe")
-
-[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(880, 40)
-texture = ExtResource("10_bluwe")
-
-[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(1040, 40)
-texture = ExtResource("10_bluwe")
-
-[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(1200, 40)
-texture = ExtResource("10_bluwe")
-
-[node name="TileHalfCenter8" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(1360, 40)
-texture = ExtResource("10_bluwe")
-
-[node name="TileHalfRight" type="Sprite2D" parent="Platforms/Platform2/Tiles"]
-position = Vector2(1520, 40)
-texture = ExtResource("11_ws1pv")
-
-[node name="EnemyDetect" type="Area2D" parent="Platforms/Platform2"]
-collision_layer = 0
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2/EnemyDetect"]
-position = Vector2(805, -60)
-shape = SubResource("RectangleShape2D_dulai")
-
-[node name="ItemBox" parent="." instance=ExtResource("13_axk0l")]
-position = Vector2(1766, -2394)
-
-[node name="LaunchRamp" parent="." instance=ExtResource("3_06y5f")]
-position = Vector2(2564, -1494)
-
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-offset_left = 1320.0
-offset_top = -2014.0
-offset_right = 2280.0
-offset_bottom = -1480.0
+[node name="Support" type="NinePatchRect" parent="Blockout/P2" index="1"]
+offset_top = 26.0
+offset_right = 960.0
+offset_bottom = 560.0
 texture = ExtResource("2_5qcdi")
 patch_margin_left = 60
 patch_margin_top = 60
 patch_margin_right = 100
 patch_margin_bottom = 100
 
-[node name="TileMap" type="TileMap" parent="."]
-position = Vector2(0, -3400)
-tile_set = SubResource("TileSet_kaij5")
-format = 2
-layer_0/tile_data = PackedInt32Array(1572875, 458777, 0, 1572877, 458777, 0, 1572879, 458777, 0, 1572881, 458777, 0, 1572869, 65561, 2, 1572871, 458777, 0, 1572873, 458777, 0, 1572883, 458777, 0, 1572885, 458777, 0, 1572887, 458777, 0, 1572889, 458777, 0, 1245222, 327705, 11, 1245224, 65561, 11, 1245226, 589849, 11, 1572891, 458777, 0, 1572893, 458777, 0, 1572895, 458777, 0, 1572897, 458777, 0, 1572899, 458777, 0, 1572901, 458777, 0, 1572903, 458777, 0, 1572905, 458777, 0, 1114131, 458777, 0, 1114133, 458777, 0, 1114135, 458777, 0, 1114137, 458777, 0, 1572907, 327705, 2, 1114139, 327705, 2, 1114129, 65561, 2)
+[node name="Tiles" type="Node2D" parent="Blockout/P2" index="2"]
 
-[node name="Player" parent="." instance=ExtResource("5_nmk7c")]
-position = Vector2(924, -3171)
+[node name="TileHalfLeft" type="Sprite2D" parent="Blockout/P2/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("9_fysam")
 
-[node name="ReferenceRect" type="ReferenceRect" parent="."]
-offset_left = -500000.0
-offset_top = 25.0
-offset_right = 500000.0
-offset_bottom = 75.0
-border_width = 50.0
+[node name="TileHalfCenter" type="Sprite2D" parent="Blockout/P2/Tiles" index="1"]
+position = Vector2(240, 40)
+texture = ExtResource("10_bluwe")
 
-[node name="Enemy1" parent="." instance=ExtResource("7_p5vba")]
+[node name="TileHalfCenter2" type="Sprite2D" parent="Blockout/P2/Tiles" index="2"]
+position = Vector2(400, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Blockout/P2/Tiles" index="3"]
+position = Vector2(560, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Blockout/P2/Tiles" index="4"]
+position = Vector2(720, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Blockout/P2/Tiles" index="5"]
+position = Vector2(880, 40)
+texture = ExtResource("11_ws1pv")
+
+[node name="P3" type="StaticBody2D" parent="Blockout" index="2"]
+position = Vector2(3000, -1880)
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P3" index="0"]
+polygon = PackedVector2Array(20, -40, 460, -40, 480, 20, 480, 120, 0, 120, 0, 20)
+
+[node name="Tiles" type="Node2D" parent="Blockout/P3" index="1"]
+
+[node name="TileLeft" type="Sprite2D" parent="Blockout/P3/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("8_3g2te")
+
+[node name="TileCenter" type="Sprite2D" parent="Blockout/P3/Tiles" index="1"]
+position = Vector2(240, 40)
+texture = ExtResource("9_ex6hr")
+
+[node name="TileRight" type="Sprite2D" parent="Blockout/P3/Tiles" index="2"]
+position = Vector2(400, 40)
+texture = ExtResource("10_wwqrm")
+
+[node name="Platform1" type="RigidBody2D" parent="Platforms" index="0"]
+position = Vector2(4120, -1960)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("2_lsksp")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform1" index="0"]
+polygon = PackedVector2Array(20, 0, 2060, 0, 2080, 80, 0, 80)
+one_way_collision = true
+
+[node name="Tiles" type="Node2D" parent="Platforms/Platform1" index="1"]
+
+[node name="Support" type="NinePatchRect" parent="Platforms/Platform1/Tiles" index="0"]
+offset_right = 2080.0
+offset_bottom = 2060.0
+texture = SubResource("CompressedTexture2D_x58c0")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+metadata/_edit_use_anchors_ = true
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="1"]
+position = Vector2(80, 40)
+texture = ExtResource("9_fysam")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="2"]
+position = Vector2(240, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="3"]
+position = Vector2(400, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="4"]
+position = Vector2(560, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="5"]
+position = Vector2(720, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="6"]
+position = Vector2(880, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="7"]
+position = Vector2(1040, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="8"]
+position = Vector2(1200, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter8" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="9"]
+position = Vector2(1360, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter9" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="10"]
+position = Vector2(1520, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter10" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="11"]
+position = Vector2(1680, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter11" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="12"]
+position = Vector2(1840, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/Platform1/Tiles" index="13"]
+position = Vector2(2000, 40)
+texture = ExtResource("11_ws1pv")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/Platform1" index="2"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform1/EnemyDetect" index="0"]
+position = Vector2(1035, -60)
+shape = SubResource("RectangleShape2D_rwq7f")
+
+[node name="Platform2" type="RigidBody2D" parent="Platforms" index="1"]
+position = Vector2(-1820, -2900)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("2_lsksp")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/Platform2" index="0"]
+polygon = PackedVector2Array(20, 0, 1580, 0, 1600, 80, 0, 80)
+one_way_collision = true
+
+[node name="Tiles" type="Node2D" parent="Platforms/Platform2" index="1"]
+
+[node name="Support" type="NinePatchRect" parent="Platforms/Platform2/Tiles" index="0"]
+offset_right = 1600.0
+offset_bottom = 3020.0
+texture = SubResource("CompressedTexture2D_x58c0")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+metadata/_edit_use_anchors_ = true
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="1"]
+position = Vector2(80, 40)
+texture = ExtResource("9_fysam")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="2"]
+position = Vector2(240, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="3"]
+position = Vector2(400, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="4"]
+position = Vector2(560, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="5"]
+position = Vector2(720, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="6"]
+position = Vector2(880, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="7"]
+position = Vector2(1040, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="8"]
+position = Vector2(1200, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfCenter8" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="9"]
+position = Vector2(1360, 40)
+texture = ExtResource("10_bluwe")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/Platform2/Tiles" index="10"]
+position = Vector2(1520, 40)
+texture = ExtResource("11_ws1pv")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/Platform2" index="2"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2/EnemyDetect" index="0"]
+position = Vector2(805, -60)
+shape = SubResource("RectangleShape2D_h3w20")
+
+[node name="ItemBox2" parent="Platforms/Platform2" index="3" instance=ExtResource("13_axk0l")]
+z_index = -50
+position = Vector2(813, -295)
+
+[node name="ItemBox" parent="GameObjects" index="1" instance=ExtResource("13_axk0l")]
+z_index = -50
+position = Vector2(1766, -2394)
+
+[node name="LaunchRamp" parent="GameObjects" index="2" instance=ExtResource("3_06y5f")]
+z_index = -10
+position = Vector2(2564, -1494)
+
+[node name="Enemy1" parent="GameObjects" index="3" instance=ExtResource("7_p5vba")]
+z_index = 20
 position = Vector2(5317, -2248)
-
-[node name="ItemsDirectory" type="Node2D" parent="." groups=["items_dir"]]
-
-[node name="Ball" parent="ItemsDirectory" instance=ExtResource("13_seh5u")]
-position = Vector2(888, -1632)
-
-[node name="Ball2" parent="ItemsDirectory" instance=ExtResource("13_seh5u")]
-position = Vector2(1736, -1632)
-
-[node name="Bat" parent="ItemsDirectory" instance=ExtResource("14_n8o4p")]
-position = Vector2(2099, -2157)
-
-[node name="DesaturationLayer" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="DesaturationLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4416, 0.56994, 0.69, 0.305882)
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-layer = 0
-scroll_limit_begin = Vector2(-1e+06, 0)
-scroll_limit_end = Vector2(1e+06, 0)
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(6840, 0)
-
-[node name="FireGround" type="Node2D" parent="ParallaxBackground/ParallaxLayer"]
-
-[node name="FirePixel" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(630, 0)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(1240, 10)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(1850, 0)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(2480, 20)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(3110, 10)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(3720, 0)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(4330, 30)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(4960, 20)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel10" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(5590, 10)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="FirePixel11" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/FireGround"]
-texture_filter = 1
-position = Vector2(6200, 0)
-scale = Vector2(20, 20)
-texture = ExtResource("13_xfdd5")
-offset = Vector2(16, -16)
-
-[node name="UILayer" type="CanvasLayer" parent="."]
-
-[node name="PauseScreen" parent="UILayer" instance=ExtResource("16_k13ax")]
-visible = false

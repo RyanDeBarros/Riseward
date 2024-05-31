@@ -257,13 +257,10 @@ scale = Vector2(0.666667, 0.666667)
 texture = ExtResource("8_nv7oh")
 
 [node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 149.0
+layout_mode = 0
+offset_top = 124.0
 offset_right = 4320.0
-offset_bottom = 478.0
-grow_horizontal = 2
+offset_bottom = 453.0
 text = "RISEWARD"
 label_settings = SubResource("LabelSettings_n0bv8")
 horizontal_alignment = 1
