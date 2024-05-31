@@ -56,7 +56,7 @@ func play_sfx_random_pitch(track: String, volume_offset_db := 0.0, start_at := 0
 	play_sfx(track, volume_offset_db, start_at, randf_range(pitch_min_scale, pitch_max_scale), time_limit)
 
 
-func play_music(track: String, loop := true) -> void:
+func play_music(track: String) -> void:
 	soundtrack_player.stream = music_dict[track]
 	if not soundtrack_player.playing:
 		soundtrack_player.play()

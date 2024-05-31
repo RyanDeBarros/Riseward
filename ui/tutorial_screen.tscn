@@ -1,0 +1,476 @@
+[gd_scene load_steps=62 format=3 uid="uid://ctdjsic3ejiwu"]
+
+[ext_resource type="Texture2D" uid="uid://br2fayytdnysj" path="res://assets/bkg/factory-7541157_1280.jpg" id="1_8klde"]
+[ext_resource type="Script" path="res://ui/tutorial_screen.gd" id="1_xihd4"]
+[ext_resource type="Theme" uid="uid://dva58disc3gfg" path="res://res/basic_button.tres" id="2_3m4en"]
+[ext_resource type="Texture2D" uid="uid://qqaldacnsua5" path="res://assets/shapes/blue_body_circle.png" id="2_sruku"]
+[ext_resource type="Texture2D" uid="uid://kkx0l0x5ct2x" path="res://assets/faces/face_c.png" id="3_fifm1"]
+[ext_resource type="Texture2D" uid="uid://ccl2p0kk6ff8e" path="res://assets/hands/blue_hand_thumb.png" id="4_2p7vj"]
+[ext_resource type="Texture2D" uid="uid://dfu250wab8urt" path="res://assets/hands/blue_hand_rock.png" id="5_ef673"]
+[ext_resource type="Texture2D" uid="uid://cj6oqv3d30yj2" path="res://assets/inputicons/keyboard_a.png" id="5_vnw3s"]
+[ext_resource type="Texture2D" uid="uid://chsrkybi6axts" path="res://assets/inputicons/keyboard_d.png" id="6_hw2g7"]
+[ext_resource type="Texture2D" uid="uid://b0227ymxf2xmx" path="res://assets/inputicons/keyboard_s_outline.png" id="7_nmar6"]
+[ext_resource type="Texture2D" uid="uid://csc5trgxjctql" path="res://assets/inputicons/keyboard_w_outline.png" id="8_ncgdp"]
+[ext_resource type="FontFile" uid="uid://q0d1bkci3w1h" path="res://assets/fonts/RubikScribble-Regular.ttf" id="9_yfl4l"]
+[ext_resource type="Texture2D" uid="uid://blvkm68plwxvm" path="res://assets/inputicons/keyboard_arrow_down_outline.png" id="10_55eq6"]
+[ext_resource type="Texture2D" uid="uid://bmoa3n5t0unfn" path="res://assets/inputicons/keyboard_space.png" id="11_7yl41"]
+[ext_resource type="Texture2D" uid="uid://civdxs1k7nhks" path="res://assets/inputicons/keyboard_arrow_left.png" id="11_pqcbd"]
+[ext_resource type="Texture2D" uid="uid://8xb2064trmna" path="res://assets/inputicons/keyboard_arrow_right.png" id="12_potvy"]
+[ext_resource type="Texture2D" uid="uid://bqeua85x8ajq1" path="res://assets/inputicons/keyboard_arrow_up_outline.png" id="13_hhujp"]
+[ext_resource type="Texture2D" uid="uid://cslsitom38m03" path="res://assets/inputicons/keyboard_a_outline.png" id="16_dk58e"]
+[ext_resource type="Texture2D" uid="uid://4g8p6p5j3u8q" path="res://assets/inputicons/keyboard_d_outline.png" id="17_ymvet"]
+[ext_resource type="Texture2D" uid="uid://dvo406fdbuiaf" path="res://assets/inputicons/keyboard_s.png" id="18_k7u4k"]
+[ext_resource type="Texture2D" uid="uid://cekbj0675sg6x" path="res://assets/inputicons/keyboard_arrow_down.png" id="19_3h781"]
+[ext_resource type="Texture2D" uid="uid://wlhkmtjnegpb" path="res://assets/inputicons/keyboard_arrow_left_outline.png" id="20_i3otv"]
+[ext_resource type="Texture2D" uid="uid://cvdqqy0aaogmt" path="res://assets/inputicons/keyboard_arrow_right_outline.png" id="21_om0er"]
+[ext_resource type="Texture2D" uid="uid://0vd5mloomfx" path="res://assets/hands/red_hand_closed.png" id="22_xc63n"]
+[ext_resource type="Shader" path="res://res/whoosh.gdshader" id="23_in5w5"]
+[ext_resource type="Texture2D" uid="uid://7n08idgqg15n" path="res://assets/tiles/tile_exclamation.png" id="24_86py3"]
+[ext_resource type="Texture2D" uid="uid://1j3ps7enlf8g" path="res://assets/particles/puff/whitePuff00.png" id="25_yjl7m"]
+[ext_resource type="Texture2D" uid="uid://bx7xypseiy5h" path="res://assets/particles/puff/whitePuff01.png" id="26_i5k6s"]
+[ext_resource type="Texture2D" uid="uid://b51ku8gucj1id" path="res://assets/particles/puff/whitePuff02.png" id="27_crtgq"]
+[ext_resource type="Texture2D" uid="uid://cwqynn2p3t22s" path="res://assets/particles/puff/whitePuff03.png" id="28_3pfab"]
+[ext_resource type="Texture2D" uid="uid://ceio43uuug83h" path="res://assets/particles/puff/whitePuff04.png" id="29_rgcdi"]
+[ext_resource type="Texture2D" uid="uid://c1jhxncxu0mvm" path="res://assets/particles/puff/whitePuff05.png" id="30_7tgj8"]
+[ext_resource type="Texture2D" uid="uid://j3aiqbl7fjut" path="res://assets/particles/puff/whitePuff06.png" id="31_novl6"]
+[ext_resource type="Texture2D" uid="uid://b8p1g3gvqpklu" path="res://assets/particles/puff/whitePuff07.png" id="32_jxide"]
+[ext_resource type="Texture2D" uid="uid://ijl3hjph4xta" path="res://assets/particles/puff/whitePuff08.png" id="33_o0sfa"]
+[ext_resource type="Texture2D" uid="uid://cqfx68l7snnsk" path="res://assets/particles/puff/whitePuff09.png" id="34_eifg8"]
+[ext_resource type="Texture2D" uid="uid://byscthv1n3knc" path="res://assets/particles/puff/whitePuff10.png" id="35_8af3a"]
+[ext_resource type="Texture2D" uid="uid://w1d6pbd1soif" path="res://assets/particles/puff/whitePuff11.png" id="36_isf7s"]
+[ext_resource type="Texture2D" uid="uid://dqls0nry0w0sa" path="res://assets/particles/puff/whitePuff12.png" id="37_nedmi"]
+[ext_resource type="Texture2D" uid="uid://bug6tive8vmy5" path="res://assets/particles/puff/whitePuff13.png" id="38_h2gb5"]
+[ext_resource type="Texture2D" uid="uid://bn6kt3w30evs0" path="res://assets/particles/puff/whitePuff14.png" id="39_err2c"]
+[ext_resource type="Texture2D" uid="uid://b084uwpn0764h" path="res://assets/particles/puff/whitePuff15.png" id="40_uht0g"]
+[ext_resource type="Texture2D" uid="uid://d4gsmt7orox8q" path="res://assets/particles/puff/whitePuff16.png" id="41_t023d"]
+[ext_resource type="Texture2D" uid="uid://bpbku37m1fhvg" path="res://assets/particles/puff/whitePuff17.png" id="42_jmf0b"]
+[ext_resource type="Texture2D" uid="uid://dp0ylhgl01nkf" path="res://assets/particles/puff/whitePuff18.png" id="43_3fhbm"]
+[ext_resource type="Texture2D" uid="uid://dn1wx60f4w4c6" path="res://assets/particles/puff/whitePuff19.png" id="44_4tswn"]
+[ext_resource type="Texture2D" uid="uid://bi6mv4m1x2q36" path="res://assets/particles/puff/whitePuff20.png" id="45_lkbem"]
+[ext_resource type="Texture2D" uid="uid://bnvjl83hfrb2d" path="res://assets/particles/puff/whitePuff21.png" id="46_xt6rd"]
+[ext_resource type="Texture2D" uid="uid://nuv5ums5r0do" path="res://assets/particles/puff/whitePuff22.png" id="47_v5rhy"]
+[ext_resource type="Texture2D" uid="uid://c8ivsn8bcaujj" path="res://assets/particles/puff/whitePuff23.png" id="48_ebooc"]
+[ext_resource type="Texture2D" uid="uid://bkg6msdx4uqa2" path="res://assets/particles/puff/whitePuff24.png" id="49_fjncg"]
+[ext_resource type="Texture2D" uid="uid://dco2ikflv3h7j" path="res://assets/inputicons/keyboard_w.png" id="50_4qk78"]
+[ext_resource type="Texture2D" uid="uid://c5bfnvlgc4s8n" path="res://assets/inputicons/keyboard_arrow_up.png" id="51_2ndoa"]
+[ext_resource type="Texture2D" uid="uid://bue0dtie8q7gh" path="res://assets/inputicons/mouse_move.png" id="52_ktvg1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7lv85"]
+font = ExtResource("9_yfl4l")
+font_size = 100
+outline_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_n4lam"]
+font = ExtResource("9_yfl4l")
+font_size = 80
+outline_size = 14
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qd5gy"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_75kwx"]
+noise = SubResource("FastNoiseLite_qd5gy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4elqp"]
+shader = ExtResource("23_in5w5")
+shader_parameter/line_color_a = Vector4(1, 1, 1, 1)
+shader_parameter/line_color_b = Vector4(0, 1, 1, 1)
+shader_parameter/line_threshold = 0.6
+shader_parameter/inverse_speed = 5.0
+shader_parameter/line_length = 1000.0
+shader_parameter/angle = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_75kwx")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jnvl6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_26c0g"]
+animations = [{
+"frames": [{
+"duration": 72.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_yjl7m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_i5k6s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_crtgq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_3pfab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_rgcdi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_7tgj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_novl6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_jxide")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_o0sfa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_eifg8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_8af3a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_isf7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_nedmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_h2gb5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_err2c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_uht0g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_t023d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_jmf0b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_3fhbm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_4tswn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_lkbem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_xt6rd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_v5rhy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_ebooc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_fjncg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="TutorialScreen" type="Control" node_paths=PackedStringArray("pages")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xihd4")
+pages = [NodePath("Page1 - Basic controls")]
+metadata/_edit_lock_ = true
+
+[node name="BKG" type="TextureRect" parent="."]
+modulate = Color(0.4779, 0.55539, 0.81, 0.756863)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_8klde")
+metadata/_edit_lock_ = true
+
+[node name="MenuBTN" type="Button" parent="."]
+layout_mode = 0
+offset_right = 851.0
+offset_bottom = 118.0
+theme = ExtResource("2_3m4en")
+theme_override_font_sizes/font_size = 100
+text = "Back to Menu"
+
+[node name="NextBTN" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -679.0
+offset_bottom = 118.0
+grow_horizontal = 0
+theme = ExtResource("2_3m4en")
+theme_override_font_sizes/font_size = 100
+text = "Next Page"
+
+[node name="Page1 - Basic controls" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Player" type="Node2D" parent="Page1 - Basic controls"]
+position = Vector2(2160, 1297)
+scale = Vector2(3, 3)
+
+[node name="BlueBodyCircle" type="Sprite2D" parent="Page1 - Basic controls/Player"]
+texture = ExtResource("2_sruku")
+
+[node name="FaceA" type="Sprite2D" parent="Page1 - Basic controls/Player/BlueBodyCircle"]
+texture = ExtResource("3_fifm1")
+
+[node name="Thumb" type="Sprite2D" parent="Page1 - Basic controls/Player/BlueBodyCircle"]
+position = Vector2(-105, 55)
+texture = ExtResource("4_2p7vj")
+
+[node name="BlueHandRock" type="Sprite2D" parent="Page1 - Basic controls/Player/BlueBodyCircle"]
+position = Vector2(109.333, 57.6667)
+rotation = 0.215467
+scale = Vector2(-1, 1)
+texture = ExtResource("5_ef673")
+
+[node name="Roll" type="Node2D" parent="Page1 - Basic controls"]
+position = Vector2(2160, 679)
+scale = Vector2(1.5, 1.5)
+
+[node name="KeyboardA" type="Sprite2D" parent="Page1 - Basic controls/Roll"]
+position = Vector2(-100, 100)
+texture = ExtResource("5_vnw3s")
+
+[node name="KeyboardD" type="Sprite2D" parent="Page1 - Basic controls/Roll"]
+position = Vector2(100, 100)
+texture = ExtResource("6_hw2g7")
+
+[node name="KeyboardSOutline" type="Sprite2D" parent="Page1 - Basic controls/Roll"]
+position = Vector2(0, 100)
+texture = ExtResource("7_nmar6")
+
+[node name="KeyboardWOutline" type="Sprite2D" parent="Page1 - Basic controls/Roll"]
+texture = ExtResource("8_ncgdp")
+
+[node name="KeyboardArrowDownOutline" type="Sprite2D" parent="Page1 - Basic controls/Roll"]
+position = Vector2(0, -200)
+texture = ExtResource("10_55eq6")
+
+[node name="KeyboardArrowLeft" type="Sprite2D" parent="Page1 - Basic controls/Roll"]
+position = Vector2(-100, -200)
+texture = ExtResource("11_pqcbd")
+
+[node name="KeyboardArrowRight" type="Sprite2D" parent="Page1 - Basic controls/Roll"]
+position = Vector2(100, -200)
+texture = ExtResource("12_potvy")
+
+[node name="KeyboardArrowUpOutline" type="Sprite2D" parent="Page1 - Basic controls/Roll"]
+position = Vector2(0, -300)
+texture = ExtResource("13_hhujp")
+
+[node name="Label" type="Label" parent="Page1 - Basic controls"]
+offset_left = 1458.0
+offset_top = 623.912
+offset_right = 1904.0
+offset_bottom = 742.912
+rotation = -0.223636
+text = "Roll Left"
+label_settings = SubResource("LabelSettings_7lv85")
+
+[node name="Label2" type="Label" parent="Page1 - Basic controls"]
+offset_left = 2421.0
+offset_top = 526.912
+offset_right = 2932.0
+offset_bottom = 645.912
+rotation = 0.223402
+text = "Roll Right"
+label_settings = SubResource("LabelSettings_7lv85")
+
+[node name="Jump" type="Node2D" parent="Page1 - Basic controls"]
+position = Vector2(2160, 1838)
+scale = Vector2(3, 3)
+
+[node name="KeyboardSpace" type="Sprite2D" parent="Page1 - Basic controls/Jump"]
+texture = ExtResource("11_7yl41")
+
+[node name="Label3" type="Label" parent="Page1 - Basic controls"]
+layout_mode = 0
+offset_left = 2010.0
+offset_top = 1958.0
+offset_right = 2310.0
+offset_bottom = 2078.0
+pivot_offset = Vector2(150, 60)
+text = "Jump"
+label_settings = SubResource("LabelSettings_7lv85")
+
+[node name="Label6" type="Label" parent="Page1 - Basic controls"]
+offset_left = 1695.0
+offset_top = 2101.0
+offset_right = 2644.0
+offset_bottom = 2294.0
+text = "Up to 3 times
+in the air!"
+label_settings = SubResource("LabelSettings_n4lam")
+horizontal_alignment = 1
+
+[node name="Parry" type="Node2D" parent="Page1 - Basic controls"]
+position = Vector2(599, 1039)
+scale = Vector2(1.5, 1.5)
+
+[node name="KeyboardA" type="Sprite2D" parent="Page1 - Basic controls/Parry"]
+position = Vector2(-100, 100)
+texture = ExtResource("16_dk58e")
+
+[node name="KeyboardD" type="Sprite2D" parent="Page1 - Basic controls/Parry"]
+position = Vector2(100, 100)
+texture = ExtResource("17_ymvet")
+
+[node name="KeyboardSOutline" type="Sprite2D" parent="Page1 - Basic controls/Parry"]
+position = Vector2(0, 100)
+texture = ExtResource("18_k7u4k")
+
+[node name="KeyboardWOutline" type="Sprite2D" parent="Page1 - Basic controls/Parry"]
+texture = ExtResource("8_ncgdp")
+
+[node name="KeyboardArrowDownOutline" type="Sprite2D" parent="Page1 - Basic controls/Parry"]
+position = Vector2(0, -200)
+texture = ExtResource("19_3h781")
+
+[node name="KeyboardArrowLeft" type="Sprite2D" parent="Page1 - Basic controls/Parry"]
+position = Vector2(-100, -200)
+texture = ExtResource("20_i3otv")
+
+[node name="KeyboardArrowRight" type="Sprite2D" parent="Page1 - Basic controls/Parry"]
+position = Vector2(100, -200)
+texture = ExtResource("21_om0er")
+
+[node name="KeyboardArrowUpOutline" type="Sprite2D" parent="Page1 - Basic controls/Parry"]
+position = Vector2(0, -300)
+texture = ExtResource("13_hhujp")
+
+[node name="Label4" type="Label" parent="Page1 - Basic controls"]
+layout_mode = 0
+offset_left = 447.0
+offset_top = 1346.0
+offset_right = 747.0
+offset_bottom = 1466.0
+pivot_offset = Vector2(150, 60)
+text = "Parry"
+label_settings = SubResource("LabelSettings_7lv85")
+
+[node name="Label5" type="Label" parent="Page1 - Basic controls"]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 1527.0
+offset_right = 1081.0
+offset_bottom = 1720.0
+text = "Incoming attacks
+or itemboxes!"
+label_settings = SubResource("LabelSettings_n4lam")
+horizontal_alignment = 1
+
+[node name="Fist" type="Sprite2D" parent="Page1 - Basic controls"]
+position = Vector2(443, 1902)
+rotation = 0.371222
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("22_xc63n")
+
+[node name="Whoosh" type="TextureRect" parent="Page1 - Basic controls/Fist"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_4elqp")
+offset_left = -25.0
+offset_top = 113.0
+offset_right = 83.0
+offset_bottom = 162.0
+rotation = -1.5708
+scale = Vector2(1, 1.04)
+texture = SubResource("CanvasTexture_jnvl6")
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite" type="Sprite2D" parent="Page1 - Basic controls"]
+position = Vector2(751, 2013)
+texture = ExtResource("24_86py3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Page1 - Basic controls/Sprite"]
+sprite_frames = SubResource("SpriteFrames_26c0g")
+autoplay = "default"
+
+[node name="Dash" type="Node2D" parent="Page1 - Basic controls"]
+position = Vector2(3664, 1039)
+scale = Vector2(1.5, 1.5)
+
+[node name="KeyboardA" type="Sprite2D" parent="Page1 - Basic controls/Dash"]
+position = Vector2(-100, 100)
+texture = ExtResource("16_dk58e")
+
+[node name="KeyboardD" type="Sprite2D" parent="Page1 - Basic controls/Dash"]
+position = Vector2(100, 100)
+texture = ExtResource("17_ymvet")
+
+[node name="KeyboardSOutline" type="Sprite2D" parent="Page1 - Basic controls/Dash"]
+position = Vector2(0, 100)
+texture = ExtResource("7_nmar6")
+
+[node name="KeyboardWOutline" type="Sprite2D" parent="Page1 - Basic controls/Dash"]
+texture = ExtResource("50_4qk78")
+
+[node name="KeyboardArrowDownOutline" type="Sprite2D" parent="Page1 - Basic controls/Dash"]
+position = Vector2(0, -200)
+texture = ExtResource("10_55eq6")
+
+[node name="KeyboardArrowLeft" type="Sprite2D" parent="Page1 - Basic controls/Dash"]
+position = Vector2(-100, -200)
+texture = ExtResource("20_i3otv")
+
+[node name="KeyboardArrowRight" type="Sprite2D" parent="Page1 - Basic controls/Dash"]
+position = Vector2(100, -200)
+texture = ExtResource("21_om0er")
+
+[node name="KeyboardArrowUpOutline" type="Sprite2D" parent="Page1 - Basic controls/Dash"]
+position = Vector2(0, -300)
+texture = ExtResource("51_2ndoa")
+
+[node name="Label7" type="Label" parent="Page1 - Basic controls"]
+layout_mode = 0
+offset_left = 3515.0
+offset_top = 1346.0
+offset_right = 3815.0
+offset_bottom = 1466.0
+pivot_offset = Vector2(150, 60)
+text = "Dash"
+label_settings = SubResource("LabelSettings_7lv85")
+
+[node name="Label8" type="Label" parent="Page1 - Basic controls"]
+layout_mode = 0
+offset_left = 3200.0
+offset_top = 1527.0
+offset_right = 4149.0
+offset_bottom = 1720.0
+text = "In the direction
+of your mouse!"
+label_settings = SubResource("LabelSettings_n4lam")
+horizontal_alignment = 1
+
+[node name="MouseMove" type="Sprite2D" parent="Page1 - Basic controls"]
+position = Vector2(3659, 1956)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("52_ktvg1")
+
+[node name="Page2 - Item controls" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="MenuBTN" to="." method="_on_menu_btn_pressed"]
+[connection signal="pressed" from="NextBTN" to="." method="_on_next_btn_pressed"]

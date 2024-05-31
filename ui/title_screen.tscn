@@ -64,7 +64,7 @@ _data = {
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ivila"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_75kwx"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ts6ic"]
 noise = SubResource("FastNoiseLite_ivila")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1r3rt"]
@@ -75,7 +75,7 @@ shader_parameter/line_threshold = 0.6
 shader_parameter/inverse_speed = 5.0
 shader_parameter/line_length = 1000.0
 shader_parameter/angle = 0.0
-shader_parameter/noise = SubResource("NoiseTexture2D_75kwx")
+shader_parameter/noise = SubResource("NoiseTexture2D_ts6ic")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_jjoax"]
 
