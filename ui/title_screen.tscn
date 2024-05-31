@@ -283,7 +283,7 @@ mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("10_af7xn")
 theme_override_font_sizes/font_size = 200
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ros8e")
-text = "PLAY"
+text = "Begin Rise"
 
 [node name="IntroBTN" type="Button" parent="."]
 layout_mode = 1

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0khb830julid"]
+[gd_scene load_steps=7 format=3 uid="uid://d0khb830julid"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_iaes2"]
 [ext_resource type="Texture2D" uid="uid://bdl280ivw50jo" path="res://assets/bkg/Fire_Pixel.png" id="2_tllqo"]
 [ext_resource type="PackedScene" uid="uid://b5n6qk0fwn0q0" path="res://ui/pause_screen.tscn" id="3_ss3qc"]
 [ext_resource type="Texture2D" uid="uid://d3ifdwoww8bu0" path="res://assets/bkg/workshop-cooler-tones-emphasizing-sleek-steel-machinery.jpg" id="4_4rp07"]
+[ext_resource type="PackedScene" uid="uid://bw3gu0ww2isw4" path="res://ui/game_over_screen.tscn" id="4_08myv"]
 [ext_resource type="PackedScene" uid="uid://cja61ltgmryov" path="res://player/player.tscn" id="13_5qxhh"]
 
 [node name="LevelBase" type="Node2D"]
@@ -128,6 +129,10 @@ offset = Vector2(16, -16)
 unique_name_in_owner = true
 visible = false
 
+[node name="GameOverScreen" parent="Layers/UILayer" instance=ExtResource("4_08myv")]
+unique_name_in_owner = true
+visible = false
+
 [node name="BackgroundImg" type="Sprite2D" parent="Layers" groups=["bkg"]]
 modulate = Color(0.63, 0.63, 0.63, 0.647059)
 z_index = -1000
@@ -146,3 +151,5 @@ z_index = -100
 
 [node name="Player" parent="GameObjects" instance=ExtResource("13_5qxhh")]
 position = Vector2(924, -3171)
+
+[connection signal="player_died" from="GameObjects/Player" to="." method="_on_player_died"]

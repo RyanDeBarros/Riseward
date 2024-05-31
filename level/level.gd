@@ -6,6 +6,7 @@ var time := 0.0
 
 @onready var fire_ground: Node2D = %FireGround
 @onready var pause_screen: PauseScreen = %PauseScreen
+@onready var game_over_screen: GameOverScreen = %GameOverScreen
 
 
 func _ready() -> void:
@@ -26,3 +27,8 @@ func _input(event: InputEvent) -> void:
 func unpause() -> void:
 	pause_screen.visible = false
 	get_tree().paused = false
+
+
+func _on_player_died() -> void:
+	get_tree().paused = true
+	game_over_screen.visible = true

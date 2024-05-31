@@ -30,6 +30,7 @@ var soundtrack_player: AudioStreamPlayer
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	soundtrack_player = AudioStreamPlayer.new()
 	add_child(soundtrack_player)
 	soundtrack_player.finished.connect(soundtrack_player.play)

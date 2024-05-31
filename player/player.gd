@@ -2,6 +2,9 @@ class_name Player
 extends CharacterBody2D
 
 
+signal player_died()
+
+
 @export var body_radius := 80.0
 
 @export_group("Combat")
@@ -109,6 +112,7 @@ func _reload_scene() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	# TODO remove input to reload scene
 	if event.is_action_pressed("ui_text_backspace"):
 		_reload_scene()
 	if event.is_action_pressed("pickup_left"):
@@ -419,5 +423,5 @@ func lose_random_item() -> void:
 func die() -> void:
 	if not dead:
 		dead = true
-		_reload_scene()
 		AudioManager.play_sfx("death")
+		player_died.emit()
