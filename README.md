@@ -7,6 +7,7 @@ Other sources:
 	* Clker-Free-Vector-Images (pixabay.com) - baseball bat image
 	* rorozoa (freepik.com) - background image
 	* kungfu4000 (opengameart.org) - fire image
+	* Peter H (pixabay.com - https://unsplash.com/@tama66) -- Pixabay Content License - factory image
 	* Brandon Morris (opengameart.org) - music: TremLoadingLoop
 	* cynicmusic (opengameart.org - GPL 3.0 license) - music: Mysterious Ambience
 	* Hansjorg Malthaner (http://opengameart.org/users/varkalandar) - sfx: big low frequency explosion boom
@@ -28,3 +29,4 @@ Other sources:
 	* Heavy Woosh - RicRob - NM 22.wav by RuidosoSoundFX -- https://freesound.org/s/507162/ -- License: Creative Commons 0
 	* 41.wav by CosmicD -- https://freesound.org/s/93012/ -- License: Attribution 4.0
 	* Jingle_Win_00.wav by LittleRobotSoundFactory -- https://freesound.org/s/270466/ -- License: Attribution 4.0
+	* Chequered Ink -- freeware, non-commercial -- link: https://www.fontspace.com/venite-adoremus-font-f108412 - title font

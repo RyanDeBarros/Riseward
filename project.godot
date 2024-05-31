@@ -11,14 +11,16 @@ config_version=5
 [application]
 
 config/name="The-Last-Stand"
-run/main_scene="res://level/sandbox.tscn"
+run/main_scene="res://ui/title_screen.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/image="res://screenshots/player_icon.png"
+config/icon="res://screenshots/player_icon.png"
 
 [autoload]
 
 Scenes="*res://autoloads/scenes.gd"
 AudioManager="*res://autoloads/audio_manager.gd"
+Meta="*res://autoloads/meta.gd"
 
 [display]
 

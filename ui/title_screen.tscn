@@ -1,0 +1,329 @@
+[gd_scene load_steps=21 format=3 uid="uid://bfpfg56trvkvi"]
+
+[ext_resource type="Script" path="res://ui/title_screen.gd" id="1_anxk8"]
+[ext_resource type="Texture2D" uid="uid://br2fayytdnysj" path="res://assets/bkg/factory-7541157_1280.jpg" id="2_8ib2a"]
+[ext_resource type="Shader" path="res://res/whoosh.gdshader" id="3_ed1fa"]
+[ext_resource type="Texture2D" uid="uid://qqaldacnsua5" path="res://assets/shapes/blue_body_circle.png" id="3_u3d7g"]
+[ext_resource type="Texture2D" uid="uid://kkx0l0x5ct2x" path="res://assets/faces/face_c.png" id="4_8j5qs"]
+[ext_resource type="Texture2D" uid="uid://ceeonv17ieamm" path="res://assets/hands/blue_hand_closed.png" id="5_djx02"]
+[ext_resource type="Texture2D" uid="uid://c3mh1jftkpebp" path="res://assets/shapes/red_body_square.png" id="6_ccn77"]
+[ext_resource type="Texture2D" uid="uid://mvcpnqkkbadv" path="res://assets/faces/face_f.png" id="7_2gqph"]
+[ext_resource type="Texture2D" uid="uid://0vd5mloomfx" path="res://assets/hands/red_hand_closed.png" id="8_nv7oh"]
+[ext_resource type="FontFile" uid="uid://dh1g6aafb8pg8" path="res://assets/fonts/VeniteAdoremus-rgRBA.ttf" id="9_pegdn"]
+[ext_resource type="FontFile" uid="uid://dslj85n4ks3ii" path="res://assets/fonts/VeniteAdoremusStraight-Yzo6v.ttf" id="10_af7xn"]
+
+[sub_resource type="Animation" id="Animation_q4a2x"]
+resource_name = "title"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameObjects/PlayerIcon/BlueBodyCircle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.523599, 6.80678, 13.09, 19.3732, 25.6563]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(714, 149), Vector2(664, 149), Vector2(714, 149), Vector2(764, 149), Vector2(714, 149)]
+}
+
+[sub_resource type="Animation" id="Animation_n8u62"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameObjects/PlayerIcon/BlueBodyCircle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.80678]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fia7t"]
+_data = {
+"RESET": SubResource("Animation_n8u62"),
+"title": SubResource("Animation_q4a2x")
+}
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ivila"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_75kwx"]
+noise = SubResource("FastNoiseLite_ivila")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1r3rt"]
+shader = ExtResource("3_ed1fa")
+shader_parameter/line_color_a = Vector4(1, 1, 1, 1)
+shader_parameter/line_color_b = Vector4(0, 1, 1, 1)
+shader_parameter/line_threshold = 0.6
+shader_parameter/inverse_speed = 5.0
+shader_parameter/line_length = 1000.0
+shader_parameter/angle = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_75kwx")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jjoax"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n0bv8"]
+font = ExtResource("9_pegdn")
+font_size = 300
+font_color = Color(0.971833, 0.87, 1, 1)
+outline_size = 50
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ros8e"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_anxk8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fia7t")
+}
+autoplay = "title"
+
+[node name="BKG" type="TextureRect" parent="."]
+modulate = Color(0.4779, 0.55539, 0.81, 0.756863)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8ib2a")
+
+[node name="GameObjects" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerIcon" type="Control" parent="GameObjects"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Whoosh" type="TextureRect" parent="GameObjects/PlayerIcon"]
+material = SubResource("ShaderMaterial_1r3rt")
+layout_mode = 0
+offset_left = -1016.0
+offset_top = -302.085
+offset_right = -27.0
+offset_bottom = 39.9148
+scale = Vector2(1, 1.04)
+texture = SubResource("CanvasTexture_jjoax")
+
+[node name="BlueBodyCircle" type="Sprite2D" parent="GameObjects/PlayerIcon"]
+position = Vector2(7.80996e-07, -127.085)
+rotation = 6.80678
+scale = Vector2(3, 3)
+texture = ExtResource("3_u3d7g")
+
+[node name="FaceA" type="Sprite2D" parent="GameObjects/PlayerIcon/BlueBodyCircle"]
+texture = ExtResource("4_8j5qs")
+
+[node name="Closed" type="Sprite2D" parent="GameObjects/PlayerIcon/BlueBodyCircle"]
+position = Vector2(-105, 55)
+rotation = 1.8326
+texture = ExtResource("5_djx02")
+
+[node name="Closed2" type="Sprite2D" parent="GameObjects/PlayerIcon/BlueBodyCircle"]
+position = Vector2(105, 55)
+rotation = 1.309
+scale = Vector2(1, -1)
+texture = ExtResource("5_djx02")
+
+[node name="Enemy" type="Control" parent="GameObjects"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -513.0
+offset_top = -20.0
+offset_right = -473.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 0.296981
+
+[node name="Whoosh" type="TextureRect" parent="GameObjects/Enemy"]
+material = SubResource("ShaderMaterial_1r3rt")
+offset_left = 540.122
+offset_top = -70.1284
+offset_right = 1529.12
+offset_bottom = 271.872
+rotation = -3.14159
+scale = Vector2(0.583031, 1.18494)
+texture = SubResource("CanvasTexture_jjoax")
+
+[node name="RedBodySquare" type="Sprite2D" parent="GameObjects/Enemy"]
+position = Vector2(-118.917, -268.975)
+scale = Vector2(3.29944, 3.29944)
+texture = ExtResource("6_ccn77")
+
+[node name="Neutral" type="Sprite2D" parent="GameObjects/Enemy/RedBodySquare"]
+position = Vector2(-12.5, -7.91667)
+rotation = 3.14159
+scale = Vector2(0.416667, -0.416667)
+texture = ExtResource("7_2gqph")
+
+[node name="Fist" type="Sprite2D" parent="GameObjects/Enemy/RedBodySquare"]
+position = Vector2(-112.5, 0)
+rotation = 3.14159
+scale = Vector2(0.666667, -0.666667)
+texture = ExtResource("8_nv7oh")
+
+[node name="Fist2" type="Sprite2D" parent="GameObjects/Enemy/RedBodySquare"]
+position = Vector2(112.5, 0)
+scale = Vector2(0.666667, 0.666667)
+texture = ExtResource("8_nv7oh")
+
+[node name="Enemy2" type="Control" parent="GameObjects"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+rotation = -0.42089
+
+[node name="Whoosh" type="TextureRect" parent="GameObjects/Enemy2"]
+material = SubResource("ShaderMaterial_1r3rt")
+offset_left = -75.7226
+offset_top = 29.6495
+offset_right = 913.277
+offset_bottom = 371.65
+scale = Vector2(0.400444, 0.725762)
+texture = SubResource("CanvasTexture_jjoax")
+
+[node name="RedBodySquare" type="Sprite2D" parent="GameObjects/Enemy2"]
+position = Vector2(379.051, 144.479)
+scale = Vector2(1.81505, 1.81505)
+texture = ExtResource("6_ccn77")
+
+[node name="Neutral" type="Sprite2D" parent="GameObjects/Enemy2/RedBodySquare"]
+position = Vector2(12.5, -7.917)
+rotation = 3.14159
+scale = Vector2(0.416667, -0.416667)
+texture = ExtResource("7_2gqph")
+
+[node name="Fist" type="Sprite2D" parent="GameObjects/Enemy2/RedBodySquare"]
+position = Vector2(-112.5, 0)
+rotation = 3.14159
+scale = Vector2(0.666667, -0.666667)
+texture = ExtResource("8_nv7oh")
+
+[node name="Fist2" type="Sprite2D" parent="GameObjects/Enemy2/RedBodySquare"]
+position = Vector2(112.5, 0)
+scale = Vector2(0.666667, 0.666667)
+texture = ExtResource("8_nv7oh")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1446.0
+offset_top = 149.0
+offset_right = 1446.0
+offset_bottom = 478.0
+grow_horizontal = 2
+text = "The Last Stand"
+label_settings = SubResource("LabelSettings_n0bv8")
+
+[node name="PlayBTN" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -327.0
+offset_top = -769.0
+offset_right = 327.0
+offset_bottom = -542.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("10_af7xn")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ros8e")
+text = "PLAY"
+
+[node name="IntroBTN" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -440.0
+offset_right = 190.0
+offset_bottom = -322.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("10_af7xn")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ros8e")
+text = "INTRO"
+
+[node name="TutorialBTN" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -313.0
+offset_top = -287.0
+offset_right = 313.0
+offset_bottom = -169.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("10_af7xn")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ros8e")
+text = "TUTORIAL"
+
+[connection signal="pressed" from="PlayBTN" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="IntroBTN" to="." method="_on_intro_btn_pressed"]
+[connection signal="pressed" from="TutorialBTN" to="." method="_on_tutorial_btn_pressed"]
