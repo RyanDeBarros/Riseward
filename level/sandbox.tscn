@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cc0ht0k6gds55"]
+[gd_scene load_steps=22 format=3 uid="uid://cc0ht0k6gds55"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_p2vdp"]
 [ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="2_5qcdi"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cj0xqb18wmhil" path="res://gameobjects/ball.tscn" id="13_seh5u"]
 [ext_resource type="Texture2D" uid="uid://bdl280ivw50jo" path="res://assets/bkg/Fire_Pixel.png" id="13_xfdd5"]
 [ext_resource type="PackedScene" uid="uid://yjk5880rm47r" path="res://gameobjects/bat.tscn" id="14_n8o4p"]
+[ext_resource type="PackedScene" uid="uid://b5n6qk0fwn0q0" path="res://ui/pause_screen.tscn" id="16_k13ax"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1pf6"]
 load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8df.ctex"
@@ -310,9 +311,9 @@ position = Vector2(1736, -1632)
 [node name="Bat" parent="ItemsDirectory" instance=ExtResource("14_n8o4p")]
 position = Vector2(2099, -2157)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="DesaturationLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="DesaturationLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -405,3 +406,8 @@ position = Vector2(6200, 0)
 scale = Vector2(20, 20)
 texture = ExtResource("13_xfdd5")
 offset = Vector2(16, -16)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="PauseScreen" parent="UILayer" instance=ExtResource("16_k13ax")]
+visible = false

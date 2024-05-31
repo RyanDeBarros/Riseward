@@ -50,6 +50,8 @@ var punch_with_l := true
 @onready var hand_r: Node2D = $HandR
 @onready var hit_area_l: Area2D = $HandL/HitAreaL
 @onready var hit_area_r: Area2D = $HandR/HitAreaR
+@onready var hit_collision_l: CollisionShape2D = $HandL/HitAreaL/HitCollisionL
+@onready var hit_collision_r: CollisionShape2D = $HandR/HitAreaR/HitCollisionR
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var player := get_tree().get_first_node_in_group(&"player") as Player
 @onready var normal_hand_l_scale := hand_l.scale
@@ -200,16 +202,22 @@ func punch_return() -> void:
 		punch_tween.tween_property(hand_l, "position", normal_hand_l_position, punch_return_time)
 		punch_tween.parallel().tween_property(hand_l, "scale",\
 				normal_hand_l_scale, punch_return_time)
-		punch_tween.finished.connect(end_punch)
+		punch_tween.finished.connect(end_punch.bind(true))
+		hit_collision_l.disabled = true
 	else:
 		punch_tween.tween_property(hand_r, "position", normal_hand_r_position, punch_return_time)
 		punch_tween.parallel().tween_property(hand_r, "scale",\
 				normal_hand_r_scale, punch_return_time)
-		punch_tween.finished.connect(end_punch)
+		punch_tween.finished.connect(end_punch.bind(false))
+		hit_collision_r.disabled = true
 	punch_with_l = not punch_with_l
 
 
-func end_punch() -> void:
+func end_punch(from_l: bool) -> void:
+	if from_l:
+		hit_collision_l.disabled = false
+	else:
+		hit_collision_r.disabled = false
 	if punch_count >= number_of_punches:
 		animation_player.play(&"RESET")
 		phase = Phase.DELAYING

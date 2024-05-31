@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dva58disc3gfg"]
+
+[ext_resource type="FontFile" uid="uid://dslj85n4ks3ii" path="res://assets/fonts/VeniteAdoremusStraight-Yzo6v.ttf" id="1_32i40"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5w03j"]
+
+[resource]
+Button/fonts/font = ExtResource("1_32i40")
+Button/styles/focus = SubResource("StyleBoxEmpty_5w03j")

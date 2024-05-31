@@ -572,7 +572,7 @@ scale = Vector2(-1.6, 1.6)
 collision_layer = 16
 collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HandL/HitAreaL"]
+[node name="HitCollisionL" type="CollisionShape2D" parent="HandL/HitAreaL"]
 shape = SubResource("CircleShape2D_30mm4")
 
 [node name="Fist" type="Sprite2D" parent="HandL"]
@@ -595,7 +595,7 @@ scale = Vector2(1.6, 1.6)
 collision_layer = 16
 collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HandR/HitAreaR"]
+[node name="HitCollisionR" type="CollisionShape2D" parent="HandR/HitAreaR"]
 shape = SubResource("CircleShape2D_nmlbh")
 
 [node name="Fist" type="Sprite2D" parent="HandR"]

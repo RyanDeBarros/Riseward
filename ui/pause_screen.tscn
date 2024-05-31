@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5n6qk0fwn0q0"]
+
+[ext_resource type="Script" path="res://ui/pause_screen.gd" id="1_45udj"]
+[ext_resource type="FontFile" uid="uid://dh1g6aafb8pg8" path="res://assets/fonts/VeniteAdoremus-rgRBA.ttf" id="2_faedt"]
+[ext_resource type="Theme" uid="uid://dva58disc3gfg" path="res://res/basic_button.tres" id="3_ec2ig"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h6q7o"]
+font = ExtResource("2_faedt")
+font_size = 200
+
+[node name="PauseScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_45udj")
+
+[node name="TextureRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.235294)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 663.0
+offset_top = 373.0
+offset_right = -663.0
+offset_bottom = -373.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 824.0
+grow_horizontal = 2
+size_flags_vertical = 0
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_h6q7o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeBTN" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = 271.0
+offset_right = 238.0
+offset_bottom = 389.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3_ec2ig")
+theme_override_font_sizes/font_size = 100
+text = "Resume"
+
+[node name="MenuBTN" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -461.0
+offset_top = 510.0
+offset_right = 461.0
+offset_bottom = 606.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3_ec2ig")
+theme_override_font_sizes/font_size = 80
+text = "Back to main menu"
+
+[connection signal="pressed" from="Panel/ResumeBTN" to="." method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="Panel/MenuBTN" to="." method="_on_menu_btn_pressed"]

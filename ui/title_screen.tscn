@@ -53,7 +53,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1, 2, 3, 4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(714, 149), Vector2(664, 149), Vector2(714, 149), Vector2(764, 149), Vector2(714, 149)]
+"values": [Vector2(0, 149), Vector2(-100, 149), Vector2(0, 149), Vector2(100, 149), Vector2(0, 149)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fia7t"]
@@ -258,12 +258,10 @@ texture = ExtResource("8_nv7oh")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -1791.0
+anchors_preset = 10
+anchor_right = 1.0
 offset_top = 149.0
-offset_right = 1791.0
+offset_right = 4320.0
 offset_bottom = 478.0
 grow_horizontal = 2
 text = "RISEWARD"
