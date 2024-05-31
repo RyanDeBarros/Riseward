@@ -13,27 +13,29 @@ const sfx_dict = {
 	"swing2": preload("res://assets/audio/sfx/422513__nightflame__swinging-staff-whoosh-strong-04.mp3"),
 	"parry_success": preload("res://assets/audio/sfx/churchbell.mp3"),
 	"player_hit": preload("res://assets/audio/sfx/632281__robinhood76__11004-broken-string-bounce.mp3"),
-	"enemy_attack": preload("res://assets/audio/sfx/507162__ruidososoundfx__heavy-woosh-ricrob-nm-22.mp3"), # enemy attack
+	"enemy_attack": preload("res://assets/audio/sfx/507162__ruidososoundfx__heavy-woosh-ricrob-nm-22.mp3"),
 	"enemy_hit": preload("res://assets/audio/sfx/676465__stevenmaertens__hit-5.mp3"),
 	"pop": preload("res://assets/audio/sfx/cork.mp3"),
 	"rumble": preload("res://assets/audio/sfx/hjm-big_explosion_3.mp3"),
 	"death": preload("res://assets/audio/sfx/93012__cosmicd__41.mp3"),
-	"win": preload("res://assets/audio/sfx/270466__littlerobotsoundfactory__jingle_win_00.mp3"), # TODO win
 }
 
 const music_dict = {
 	"menu": preload("res://assets/audio/music/TremLoadingloopl.mp3"),
 	"level": preload("res://assets/audio/music/song21.mp3"),
+	"win": preload("res://assets/audio/sfx/270466__littlerobotsoundfactory__jingle_win_00.mp3"),
+	"final_win": preload("res://assets/audio/sfx/481061__rivermagic321__bagpipe-victory.mp3"),
 }
 
 var soundtrack_player: AudioStreamPlayer
+
+var song_end_callback: Callable
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	soundtrack_player = AudioStreamPlayer.new()
 	add_child(soundtrack_player)
-	soundtrack_player.finished.connect(soundtrack_player.play)
 
 
 func play_sfx(track: String, volume_offset_db := 0.0, start_at := 0.0, pitch_scale := 1.0,\
@@ -57,7 +59,14 @@ func play_sfx_random_pitch(track: String, volume_offset_db := 0.0, start_at := 0
 	play_sfx(track, volume_offset_db, start_at, randf_range(pitch_min_scale, pitch_max_scale), time_limit)
 
 
-func play_music(track: String) -> void:
+func play_music(track: String, loop := true) -> void:
+	if song_end_callback:
+		soundtrack_player.finished.disconnect(song_end_callback)
+	if loop:
+		song_end_callback = soundtrack_player.play
+	else:
+		song_end_callback = func(): return
+	soundtrack_player.finished.connect(song_end_callback)
 	soundtrack_player.stream = music_dict[track]
 	if not soundtrack_player.playing:
 		soundtrack_player.play()

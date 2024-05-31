@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://hyg6fdkdx7u"]
+
+[ext_resource type="Script" path="res://ui/final_win_screen.gd" id="1_plkp5"]
+[ext_resource type="FontFile" uid="uid://dh1g6aafb8pg8" path="res://assets/fonts/VeniteAdoremus-rgRBA.ttf" id="1_rgtuo"]
+[ext_resource type="Theme" uid="uid://dva58disc3gfg" path="res://res/basic_button.tres" id="2_cuucf"]
+[ext_resource type="FontFile" uid="uid://q0d1bkci3w1h" path="res://assets/fonts/RubikScribble-Regular.ttf" id="2_rd4qm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c2xrs"]
+font = ExtResource("1_rgtuo")
+font_size = 200
+
+[sub_resource type="LabelSettings" id="LabelSettings_1sfam"]
+font = ExtResource("2_rd4qm")
+font_size = 150
+outline_size = 16
+
+[node name="FinalWinScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_plkp5")
+
+[node name="TextureRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.235294)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 663.0
+offset_top = 373.0
+offset_right = -663.0
+offset_bottom = -373.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 824.0
+grow_horizontal = 2
+size_flags_vertical = 0
+text = "You made it to
+the final stand!"
+label_settings = SubResource("LabelSettings_c2xrs")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 483.0
+offset_bottom = 1307.0
+grow_horizontal = 2
+size_flags_vertical = 0
+text = "Congratulations!"
+label_settings = SubResource("LabelSettings_1sfam")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuBTN" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -651.5
+offset_top = 410.0
+offset_right = 651.5
+offset_bottom = 528.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_cuucf")
+theme_override_font_sizes/font_size = 100
+text = "Return to Main Menu"
+
+[connection signal="pressed" from="Panel/MenuBTN" to="." method="_on_menu_btn_pressed"]

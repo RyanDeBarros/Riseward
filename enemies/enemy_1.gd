@@ -2,6 +2,9 @@ class_name Enemy1
 extends RigidBody2D
 
 
+signal died()
+
+
 enum Phase {
 	CHILLING,
 	SPINNING_C,
@@ -60,7 +63,14 @@ var punch_with_l := true
 @onready var normal_hand_r_position := hand_r.position
 
 
+func _ready() -> void:
+	level.enemy_list.push_back(self)
+
+
 func _process(delta: float) -> void:
+	if global_position.y > 100:
+		level.enemy_list.erase(self)
+		queue_free()
 	look_at_player()
 	if phase == Phase.CHILLING:
 		var quadrance := (player.global_position - global_position).length_squared()

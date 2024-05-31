@@ -1,13 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0khb830julid"]
+[gd_scene load_steps=10 format=3 uid="uid://d0khb830julid"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_iaes2"]
 [ext_resource type="Texture2D" uid="uid://bdl280ivw50jo" path="res://assets/bkg/Fire_Pixel.png" id="2_tllqo"]
 [ext_resource type="PackedScene" uid="uid://b5n6qk0fwn0q0" path="res://ui/pause_screen.tscn" id="3_ss3qc"]
 [ext_resource type="Texture2D" uid="uid://d3ifdwoww8bu0" path="res://assets/bkg/workshop-cooler-tones-emphasizing-sleek-steel-machinery.jpg" id="4_4rp07"]
 [ext_resource type="PackedScene" uid="uid://bw3gu0ww2isw4" path="res://ui/game_over_screen.tscn" id="4_08myv"]
+[ext_resource type="Script" path="res://level/win_area.gd" id="7_02ff0"]
+[ext_resource type="SpriteFrames" uid="uid://bfm1nrbrlvrqp" path="res://res/flag_spriteframes.tres" id="7_43vyc"]
 [ext_resource type="PackedScene" uid="uid://cja61ltgmryov" path="res://player/player.tscn" id="13_5qxhh"]
 
-[node name="LevelBase" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5r01"]
+size = Vector2(640, 500)
+
+[node name="LevelBase" type="Node2D" groups=["level"]]
 script = ExtResource("1_iaes2")
 
 [node name="Layers" type="Node" parent="."]
@@ -124,6 +129,7 @@ texture = ExtResource("2_tllqo")
 offset = Vector2(16, -16)
 
 [node name="UILayer" type="CanvasLayer" parent="Layers"]
+unique_name_in_owner = true
 
 [node name="PauseScreen" parent="Layers/UILayer" instance=ExtResource("3_ss3qc")]
 unique_name_in_owner = true
@@ -152,4 +158,22 @@ z_index = -100
 [node name="Player" parent="GameObjects" instance=ExtResource("13_5qxhh")]
 position = Vector2(924, -3171)
 
+[node name="WinArea" type="Area2D" parent="GameObjects" node_paths=PackedStringArray("level")]
+unique_name_in_owner = true
+collision_mask = 2
+script = ExtResource("7_02ff0")
+level = NodePath("../..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameObjects/WinArea"]
+texture_filter = 1
+scale = Vector2(20, 20)
+sprite_frames = ExtResource("7_43vyc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameObjects/WinArea"]
+position = Vector2(-30, -10)
+shape = SubResource("RectangleShape2D_m5r01")
+
+[connection signal="unpause" from="Layers/UILayer/PauseScreen" to="." method="unpause"]
 [connection signal="player_died" from="GameObjects/Player" to="." method="_on_player_died"]
+[connection signal="body_entered" from="GameObjects/WinArea" to="GameObjects/WinArea" method="_on_body_entered"]
+[connection signal="win" from="GameObjects/WinArea" to="." method="_on_win"]

@@ -29,4 +29,5 @@ Other sources:
 * Heavy Woosh - RicRob - NM 22.wav by RuidosoSoundFX -- https://freesound.org/s/507162/ -- License: Creative Commons 0
 * 41.wav by CosmicD -- https://freesound.org/s/93012/ -- License: Attribution 4.0
 * Jingle_Win_00.wav by LittleRobotSoundFactory -- https://freesound.org/s/270466/ -- License: Attribution 4.0
+* bagpipe-victory.mp3 by rivermagic321 -- https://freesound.org/s/481061/ -- License: Creative Commons 0
 * Chequered Ink -- freeware, non-commercial -- link: https://www.fontspace.com/venite-adoremus-font-f108412 - title font

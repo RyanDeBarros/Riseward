@@ -21,6 +21,7 @@ config/icon="res://screenshots/player_icon.png"
 Scenes="*res://autoloads/scenes.gd"
 AudioManager="*res://autoloads/audio_manager.gd"
 Meta="*res://autoloads/meta.gd"
+LevelManager="*res://autoloads/level_manager.gd"
 
 [display]
 

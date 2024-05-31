@@ -359,3 +359,6 @@ position = Vector2(2564, -1494)
 [node name="Enemy1" parent="GameObjects" index="3" instance=ExtResource("7_p5vba")]
 z_index = 20
 position = Vector2(5317, -2248)
+
+[node name="WinArea" parent="GameObjects" index="4"]
+position = Vector2(1807, -4485)

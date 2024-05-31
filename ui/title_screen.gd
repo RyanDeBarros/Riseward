@@ -3,12 +3,12 @@ extends Control
 
 
 func _ready() -> void:
-	#AudioManager.play_music("menu")
+	AudioManager.play_music("menu")
 	pass
 
 
 func _on_play_btn_pressed() -> void:
-	#AudioManager.play_music("level")
+	AudioManager.play_music("level")
 	get_tree().change_scene_to_packed(Scenes.SANDBOX)
 
 

@@ -5,6 +5,8 @@ const TUTORIAL := preload("res://ui/tutorial_screen.tscn")
 const SANDBOX := preload("res://level/sandbox.tscn")
 const SANDBOX_path := "res://level/sandbox.tscn"
 const INTRO := preload("res://ui/intro_screen.tscn")
+const WIN_SCREEN := preload("res://ui/win_screen.tscn")
+const FINAL_WIN_SCREEN := preload("res://ui/final_win_screen.tscn")
 
 const BALL := preload("res://gameobjects/ball.tscn")
 const BAT := preload("res://gameobjects/bat.tscn")

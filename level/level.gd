@@ -3,14 +3,24 @@ extends Node2D
 
 
 var time := 0.0
+var enemy_list: Array[Node2D]
 
 @onready var fire_ground: Node2D = %FireGround
 @onready var pause_screen: PauseScreen = %PauseScreen
 @onready var game_over_screen: GameOverScreen = %GameOverScreen
+@onready var win_area: WinArea = %WinArea
+@onready var ui_layer: CanvasLayer = %UILayer
 
 
 func _ready() -> void:
-	pause_screen.unpause.connect(unpause)
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 
 
 func _process(delta: float) -> void:
@@ -32,3 +42,10 @@ func unpause() -> void:
 func _on_player_died() -> void:
 	get_tree().paused = true
 	game_over_screen.visible = true
+
+
+func _on_win() -> void:
+	get_tree().paused = true
+	var win_scene := LevelManager.get_win_screen() as PackedScene
+	var win_screen := win_scene.instantiate()
+	ui_layer.add_child(win_screen)

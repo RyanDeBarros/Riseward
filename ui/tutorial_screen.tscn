@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://ctdjsic3ejiwu"]
+[gd_scene load_steps=72 format=3 uid="uid://ctdjsic3ejiwu"]
 
 [ext_resource type="Texture2D" uid="uid://br2fayytdnysj" path="res://assets/bkg/factory-7541157_1280.jpg" id="1_8klde"]
 [ext_resource type="Script" path="res://ui/tutorial_screen.gd" id="1_xihd4"]
@@ -62,7 +62,9 @@
 [ext_resource type="Texture2D" uid="uid://cfufs6troxwwh" path="res://assets/tiles/tile_coin.png" id="60_co3uq"]
 [ext_resource type="Texture2D" uid="uid://bgs8cjtk70jsi" path="res://assets/inputicons/keyboard_escape.png" id="61_pawdy"]
 [ext_resource type="Texture2D" uid="uid://b5khlhaa2fnfn" path="res://assets/otherimgs/baseball bat.png" id="61_pvaar"]
+[ext_resource type="Texture2D" uid="uid://ddmrht0y7621g" path="res://assets/inputicons/keyboard_ctrl.png" id="62_buii7"]
 [ext_resource type="Texture2D" uid="uid://bdl280ivw50jo" path="res://assets/bkg/Fire_Pixel.png" id="62_k7p0f"]
+[ext_resource type="Texture2D" uid="uid://dkmdh02tso2a3" path="res://assets/inputicons/keyboard_q.png" id="63_47f2t"]
 [ext_resource type="SpriteFrames" uid="uid://bfm1nrbrlvrqp" path="res://res/flag_spriteframes.tres" id="63_geyh6"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qd5gy"]
@@ -191,6 +193,7 @@ texture = ExtResource("1_8klde")
 metadata/_edit_lock_ = true
 
 [node name="Page1 - Basic controls" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -255,6 +258,7 @@ position = Vector2(0, -300)
 texture = ExtResource("13_hhujp")
 
 [node name="Label" type="Label" parent="Page1 - Basic controls"]
+layout_mode = 0
 offset_left = 1458.0
 offset_top = 623.912
 offset_right = 1904.0
@@ -264,6 +268,7 @@ text = "Roll Left"
 label_settings = ExtResource("16_s3wd3")
 
 [node name="Label2" type="Label" parent="Page1 - Basic controls"]
+layout_mode = 0
 offset_left = 2421.0
 offset_top = 526.912
 offset_right = 2932.0
@@ -290,6 +295,7 @@ text = "Jump"
 label_settings = ExtResource("16_s3wd3")
 
 [node name="Label6" type="Label" parent="Page1 - Basic controls"]
+layout_mode = 0
 offset_left = 1695.0
 offset_top = 2101.0
 offset_right = 2644.0
@@ -597,38 +603,57 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Page3 - Mechanics" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 metadata/_edit_lock_ = true
 
 [node name="KeyboardEscape" type="Sprite2D" parent="Page3 - Mechanics"]
-position = Vector2(1313, 774)
-scale = Vector2(2.5, 2.5)
+position = Vector2(2032, 774)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("61_pawdy")
 
 [node name="Label" type="Label" parent="Page3 - Mechanics"]
 layout_mode = 0
-offset_left = 909.0
+offset_left = 1628.0
 offset_top = 483.0
-offset_right = 1733.0
+offset_right = 2452.0
 offset_bottom = 602.0
 text = "Pause the game"
 label_settings = ExtResource("16_s3wd3")
 
+[node name="KeyboardCtrl" type="Sprite2D" parent="Page3 - Mechanics"]
+position = Vector2(747, 776)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("62_buii7")
+
+[node name="KeyboardQ" type="Sprite2D" parent="Page3 - Mechanics"]
+position = Vector2(972, 779)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("63_47f2t")
+
+[node name="Label4" type="Label" parent="Page3 - Mechanics"]
+layout_mode = 0
+offset_left = 424.0
+offset_top = 483.0
+offset_right = 1248.0
+offset_bottom = 602.0
+text = "Quit the game"
+label_settings = ExtResource("16_s3wd3")
+horizontal_alignment = 1
+
 [node name="FirePixel" type="Sprite2D" parent="Page3 - Mechanics"]
 texture_filter = 1
-position = Vector2(2696, 881)
+position = Vector2(3050, 881)
 scale = Vector2(20, 20)
 texture = ExtResource("62_k7p0f")
 offset = Vector2(16, -16)
 
 [node name="Label2" type="Label" parent="Page3 - Mechanics"]
 layout_mode = 0
-offset_left = 2440.0
+offset_left = 2794.0
 offset_top = 483.0
-offset_right = 3622.0
+offset_right = 3976.0
 offset_bottom = 602.0
 text = "Don't fall into the lava!"
 label_settings = ExtResource("16_s3wd3")
