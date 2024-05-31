@@ -11,9 +11,11 @@ extends CharacterBody2D
 @export_group("Parrying & Stunning")
 @export var parry_recovery_factor := 0.3
 @export var parry_force_reduction := 0.3
+@export var parry_success_cooldown_decrease := 0.4
 @export var parry_cooldown := 0.7
 @export var parry_reposte_factor := 0.5
 @export var parry_window_scale_factor := 0.85
+@export var parry_animation_duration := 0.2
 
 @export_group("Dashing", "dash_")
 @export var dash_speed := 5000.0
@@ -60,6 +62,7 @@ var dash_velocity: Vector2
 var stun_time := 0.0
 var is_parrying := false
 var can_parry := true
+var parry_cooldown_remaining := 0.0
 
 var pending_parries := {}
 var pending_index := 0
@@ -85,6 +88,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if position.y > body_radius:
 		die()
+	_process_parrying(delta)
+
+
+func _process_parrying(delta: float) -> void:
+	if parry_cooldown_remaining > 0.0:
+		parry_cooldown_remaining -= delta
+	else:
+		can_parry = true
 	if is_parrying:
 		for i in pending_parries.keys():
 			pending_parries[i] = true
@@ -340,14 +351,14 @@ func update_dashing(delta: float) -> void:
 func parry() -> void:
 	if not is_parrying and can_parry:
 		is_parrying = true
+		parry_cooldown_remaining = parry_cooldown\
+				+ parry_window_scale_factor * parry_animation_duration
 		can_parry = false
 		AudioManager.play_sfx_random_pitch("parry", 3.0)
 		check_for_itembox()
 		animation_player.play(&"parry", -1, parry_window_scale_factor)
 		await animation_player.animation_finished
 		is_parrying = false
-		await get_tree().create_timer(parry_cooldown).timeout
-		can_parry = true
 
 
 func check_for_itembox() -> void:
@@ -370,6 +381,7 @@ func bounce_back(force: Vector2, attack_window := 0.0, stun_total_time := 0.8,\
 		reply = -parry_reposte_factor * force
 		force = force * parry_force_reduction / parry_improvement
 		stun_time = parry_recovery_factor * stun_total_time / parry_improvement
+		parry_cooldown_remaining -= parry_success_cooldown_decrease * parry_improvement
 	else:
 		AudioManager.play_sfx_random_pitch("player_hit")
 		lose_random_item()
