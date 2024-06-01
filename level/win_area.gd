@@ -8,6 +8,5 @@ signal win()
 
 
 func _on_body_entered(body: Node2D) -> void:
-	#if body is Player and len(level.enemy_list) == 0:
-	if body is Player:
+	if body is Player and len(level.enemy_list) == 0:
 		win.emit()

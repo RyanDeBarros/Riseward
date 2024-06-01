@@ -10,6 +10,7 @@ signal player_died()
 @export_group("Combat")
 @export var throw_angular_factor := 1.5
 @export var swing_cooldown := 0.15
+@export var item_drop_susceptibility := 0.9
 
 @export_group("Parrying & Stunning")
 @export var parry_recovery_factor := 0.3
@@ -78,6 +79,8 @@ var can_swing := true
 @onready var grabber_r: Node2D = $BlueBodyCircle/HandR/GrabberR
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera_2d: Camera2D = $Camera2D
+@onready var neutral_face: Sprite2D = $BlueBodyCircle/Face/Neutral
+@onready var stunned_face: Sprite2D = $BlueBodyCircle/Face/Stunned
 
 
 func _ready() -> void:
@@ -92,6 +95,8 @@ func _process(delta: float) -> void:
 	if position.y > body_radius:
 		die()
 	_process_parrying(delta)
+	if stun_time <= 0.0:
+		show_stun_face(false)
 
 
 func _process_parrying(delta: float) -> void:
@@ -299,12 +304,12 @@ func swing_bat(left_handed: bool) -> void:
 	(left_hand_node if left_handed else right_hand_node).is_attacking(self)
 	if left_handed:
 		if angular_velocity >= 0:
-			animation_player.play_backwards(&"swing_l")
+			animation_player.play(&"swing_l_r")
 		else:
 			animation_player.play(&"swing_l")
 	else:
 		if angular_velocity <= 0:
-			animation_player.play_backwards(&"swing_r")
+			animation_player.play(&"swing_r_r")
 		else:
 			animation_player.play(&"swing_r")
 	await animation_player.animation_finished
@@ -390,6 +395,7 @@ func bounce_back(force: Vector2, attack_window := 0.0, stun_total_time := 0.8,\
 		AudioManager.play_sfx_random_pitch("player_hit")
 		lose_random_item()
 		stun_time = stun_total_time
+	show_stun_face(true)
 	if is_on_floor():
 		global_position.y -= 1
 		velocity = Vector2(force.length() * signf(force.x), -1000)
@@ -411,13 +417,15 @@ func update_stun(delta: float) -> void:
 
 func lose_random_item() -> void:
 	if not left_hand_node:
-		if right_hand_node:
+		if right_hand_node and randf() < item_drop_susceptibility:
 			call_deferred("let_go_hand", false)
 	else:
 		if not right_hand_node:
-			call_deferred("let_go_hand", true)
+			if randf() < item_drop_susceptibility:
+				call_deferred("let_go_hand", true)
 		else:
-			call_deferred("let_go_hand", true if randi_range(0, 1) == 0 else false)
+			if randf() < item_drop_susceptibility:
+				call_deferred("let_go_hand", true if randi_range(0, 1) == 0 else false)
 
 
 func die() -> void:
@@ -425,3 +433,8 @@ func die() -> void:
 		dead = true
 		AudioManager.play_sfx("death")
 		player_died.emit()
+
+
+func show_stun_face(yes: bool) -> void:
+	neutral_face.visible = not yes
+	stunned_face.visible = yes
