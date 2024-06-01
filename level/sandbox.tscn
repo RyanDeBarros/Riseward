@@ -365,13 +365,13 @@ position = Vector2(1807, -4485)
 [node name="Enemies" type="Node2D" parent="." index="5"]
 
 [node name="Boxer" parent="Enemies" index="0" instance=ExtResource("14_vhgbh")]
-position = Vector2(5216, -2312)
+position = Vector2(7747, -2556)
 
 [node name="Rhombully" parent="Enemies" index="1" instance=ExtResource("15_32d8w")]
-position = Vector2(6863, -2325)
+position = Vector2(5181, -2367)
 
 [node name="Trapezoink" parent="Enemies" index="2" instance=ExtResource("16_yt5sd")]
-position = Vector2(7776, -2296)
+position = Vector2(8413, -1937)
 
 [node name="Blobomb" parent="Enemies" index="3" instance=ExtResource("17_t0e3l")]
-position = Vector2(8800, -2299)
+position = Vector2(7786, -1553)
