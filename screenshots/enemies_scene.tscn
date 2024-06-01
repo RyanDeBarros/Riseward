@@ -29,7 +29,7 @@ texture = ExtResource("1_c8q6o")
 [node name="Rhombully" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_1p1qs")
 position = Vector2(1058, -307)
-scale = Vector2(2.4, 2.4)
+scale = Vector2(2, 2)
 texture = ExtResource("2_l8b2b")
 
 [node name="FaceH" type="Sprite2D" parent="."]
@@ -47,8 +47,8 @@ scale = Vector2(3.2125, 2.175)
 texture = ExtResource("7_8ctvd")
 
 [node name="Blobomb" type="Sprite2D" parent="."]
-position = Vector2(2352, -309)
-scale = Vector2(3.25, 2.4)
+position = Vector2(2394, -309)
+scale = Vector2(4.3, 2.6625)
 texture = ExtResource("8_vjip3")
 
 [node name="FaceD" type="Sprite2D" parent="."]

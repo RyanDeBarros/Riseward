@@ -1,0 +1,2 @@
+class_name Blobomb
+extends RigidBody2D

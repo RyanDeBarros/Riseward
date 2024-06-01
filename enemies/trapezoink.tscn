@@ -1,0 +1,104 @@
+[gd_scene load_steps=12 format=3 uid="uid://bdw3ydxrx1456"]
+
+[ext_resource type="Shader" path="res://res/trapezoink.gdshader" id="1_44b61"]
+[ext_resource type="Script" path="res://enemies/trapezoink.gd" id="1_qsdsh"]
+[ext_resource type="Texture2D" uid="uid://bnen80kq0rpo3" path="res://assets/shapes/yellow_body_square.png" id="2_j25sm"]
+[ext_resource type="Texture2D" uid="uid://mvcpnqkkbadv" path="res://assets/faces/face_f.png" id="3_k0vrf"]
+[ext_resource type="Texture2D" uid="uid://bemr7armx2tmw" path="res://assets/faces/face_e.png" id="4_nmkux"]
+[ext_resource type="Texture2D" uid="uid://chc5jflu6rumi" path="res://assets/faces/face_g.png" id="5_so8eb"]
+[ext_resource type="Texture2D" uid="uid://dj7dnkyi3cgn7" path="res://assets/hands/hand_yellow_closed.png" id="6_4adtx"]
+[ext_resource type="Texture2D" uid="uid://bj8ui300h38tg" path="res://assets/hands/hand_yellow_point.png" id="7_3kecu"]
+[ext_resource type="Texture2D" uid="uid://b5r1hsa1ce7jf" path="res://assets/hands/hand_yellow_rock.png" id="8_mrxu5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k5u0s"]
+shader = ExtResource("1_44b61")
+shader_parameter/topshrink = 0.2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7unfn"]
+radius = 40.0
+
+[node name="Trapezoink" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 13
+mass = 3.5
+gravity_scale = 2.0
+script = ExtResource("1_qsdsh")
+
+[node name="RBCollision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-258, 173, -153, -173, 153, -173, 256, 173)
+
+[node name="BounceBackArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BounceBackArea"]
+polygon = PackedVector2Array(-180, -200, -300, 200, 300, 200, 180, -200)
+
+[node name="Body" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_k5u0s")
+scale = Vector2(3.2125, 2.175)
+texture = ExtResource("2_j25sm")
+
+[node name="Face" type="Node2D" parent="."]
+position = Vector2(-28, -13)
+scale = Vector2(-1, 1)
+
+[node name="Neutral" type="Sprite2D" parent="Face"]
+texture = ExtResource("3_k0vrf")
+
+[node name="Spin" type="Sprite2D" parent="Face"]
+visible = false
+scale = Vector2(-1, 1)
+texture = ExtResource("4_nmkux")
+
+[node name="Punch" type="Sprite2D" parent="Face"]
+visible = false
+texture = ExtResource("5_so8eb")
+
+[node name="HandL" type="Node2D" parent="."]
+position = Vector2(-298, -3)
+scale = Vector2(-1.5, 1.5)
+
+[node name="HitAreaL" type="Area2D" parent="HandL"]
+collision_layer = 16
+collision_mask = 6
+
+[node name="HitCollisionL" type="CollisionShape2D" parent="HandL/HitAreaL"]
+shape = SubResource("CircleShape2D_7unfn")
+
+[node name="Fist" type="Sprite2D" parent="HandL"]
+texture = ExtResource("6_4adtx")
+
+[node name="Point" type="Sprite2D" parent="HandL"]
+visible = false
+rotation = -0.959931
+texture = ExtResource("7_3kecu")
+
+[node name="Rock" type="Sprite2D" parent="HandL"]
+visible = false
+texture = ExtResource("8_mrxu5")
+
+[node name="HandR" type="Node2D" parent="."]
+position = Vector2(298, -3)
+scale = Vector2(1.5, 1.5)
+
+[node name="HitAreaR" type="Area2D" parent="HandR"]
+collision_layer = 16
+collision_mask = 6
+
+[node name="HitCollisionR" type="CollisionShape2D" parent="HandR/HitAreaR"]
+shape = SubResource("CircleShape2D_7unfn")
+
+[node name="Fist" type="Sprite2D" parent="HandR"]
+texture = ExtResource("6_4adtx")
+
+[node name="Point" type="Sprite2D" parent="HandR"]
+visible = false
+rotation = -0.959931
+texture = ExtResource("7_3kecu")
+
+[node name="Rock" type="Sprite2D" parent="HandR"]
+visible = false
+texture = ExtResource("8_mrxu5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

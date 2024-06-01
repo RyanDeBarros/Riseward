@@ -1,0 +1,2 @@
+class_name Trapezoink
+extends RigidBody2D

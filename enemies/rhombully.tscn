@@ -1,0 +1,107 @@
+[gd_scene load_steps=13 format=3 uid="uid://cgsfxbc0vrcri"]
+
+[ext_resource type="Shader" path="res://res/rhombully.gdshader" id="1_5xjyy"]
+[ext_resource type="Script" path="res://enemies/rhombully.gd" id="1_c6xb2"]
+[ext_resource type="Texture2D" uid="uid://bm6ed5o4ej53h" path="res://assets/shapes/green_body_rhombus.png" id="2_qcwn2"]
+[ext_resource type="Texture2D" uid="uid://mvcpnqkkbadv" path="res://assets/faces/face_f.png" id="3_u8648"]
+[ext_resource type="Texture2D" uid="uid://bemr7armx2tmw" path="res://assets/faces/face_e.png" id="4_fpksv"]
+[ext_resource type="Texture2D" uid="uid://chc5jflu6rumi" path="res://assets/faces/face_g.png" id="5_ur2un"]
+[ext_resource type="Texture2D" uid="uid://dhap8vrapgh8u" path="res://assets/hands/green_hand_closed.png" id="6_pc603"]
+[ext_resource type="Texture2D" uid="uid://cm6wkfkuneqgq" path="res://assets/hands/green_hand_point.png" id="7_376qm"]
+[ext_resource type="Texture2D" uid="uid://dkeu7ml4ddqc0" path="res://assets/hands/green_hand_rock.png" id="8_timob"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rc27w"]
+shader = ExtResource("1_5xjyy")
+shader_parameter/warp = 2.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_erdwc"]
+radius = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ejgkl"]
+radius = 40.0
+
+[node name="Rhombully" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 13
+mass = 3.2
+gravity_scale = 2.0
+script = ExtResource("1_c6xb2")
+
+[node name="RBCollision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-20, -160, -160, 140, 160, 140, 20, -160)
+
+[node name="BounceBackArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BounceBackArea"]
+polygon = PackedVector2Array(-40, -180, -200, 140, 0, 180, 200, 140, 40, -180)
+
+[node name="Body" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rc27w")
+scale = Vector2(2, 2)
+texture = ExtResource("2_qcwn2")
+
+[node name="Face" type="Node2D" parent="."]
+position = Vector2(-11, 0)
+scale = Vector2(-1, 1)
+
+[node name="Neutral" type="Sprite2D" parent="Face"]
+texture = ExtResource("3_u8648")
+
+[node name="Spin" type="Sprite2D" parent="Face"]
+visible = false
+scale = Vector2(-1, 1)
+texture = ExtResource("4_fpksv")
+
+[node name="Punch" type="Sprite2D" parent="Face"]
+visible = false
+texture = ExtResource("5_ur2un")
+
+[node name="HandL" type="Node2D" parent="."]
+position = Vector2(-198, 7)
+scale = Vector2(-1.3, 1.3)
+
+[node name="HitAreaL" type="Area2D" parent="HandL"]
+collision_layer = 16
+collision_mask = 6
+
+[node name="HitCollisionL" type="CollisionShape2D" parent="HandL/HitAreaL"]
+shape = SubResource("CircleShape2D_erdwc")
+
+[node name="Fist" type="Sprite2D" parent="HandL"]
+texture = ExtResource("6_pc603")
+
+[node name="Point" type="Sprite2D" parent="HandL"]
+visible = false
+rotation = -0.959931
+texture = ExtResource("7_376qm")
+
+[node name="Rock" type="Sprite2D" parent="HandL"]
+visible = false
+texture = ExtResource("8_timob")
+
+[node name="HandR" type="Node2D" parent="."]
+position = Vector2(198, 7)
+scale = Vector2(1.3, 1.3)
+
+[node name="HitAreaR" type="Area2D" parent="HandR"]
+collision_layer = 16
+collision_mask = 6
+
+[node name="HitCollisionR" type="CollisionShape2D" parent="HandR/HitAreaR"]
+shape = SubResource("CircleShape2D_ejgkl")
+
+[node name="Fist" type="Sprite2D" parent="HandR"]
+texture = ExtResource("6_pc603")
+
+[node name="Point" type="Sprite2D" parent="HandR"]
+visible = false
+rotation = -0.959931
+texture = ExtResource("7_376qm")
+
+[node name="Rock" type="Sprite2D" parent="HandR"]
+visible = false
+texture = ExtResource("8_timob")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

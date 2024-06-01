@@ -1,10 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://cptkvg2hufmav"]
+[gd_scene load_steps=21 format=3 uid="uid://cptkvg2hufmav"]
 
 [ext_resource type="PackedScene" uid="uid://d0khb830julid" path="res://level/level_base.tscn" id="1_yq382"]
 [ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="2_5qcdi"]
 [ext_resource type="Script" path="res://level/platform.gd" id="2_lsksp"]
 [ext_resource type="PackedScene" uid="uid://cv4s5ssa3ouue" path="res://gameobjects/launch_ramp.tscn" id="3_06y5f"]
-[ext_resource type="PackedScene" uid="uid://bem4dv1hls5hn" path="res://enemies/enemy_1.tscn" id="7_p5vba"]
 [ext_resource type="Texture2D" uid="uid://b0umah0mdl428" path="res://assets/tiles/tile_left.png" id="8_3g2te"]
 [ext_resource type="Texture2D" uid="uid://do4fr1nmarvvp" path="res://assets/tiles/tile_center.png" id="9_ex6hr"]
 [ext_resource type="Texture2D" uid="uid://chmj55s7xy46r" path="res://assets/tiles/tile_half_left.png" id="9_fysam"]
@@ -14,6 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://3tw5gw5ep7xr" path="res://gameobjects/item_box.tscn" id="13_axk0l"]
 [ext_resource type="PackedScene" uid="uid://cj0xqb18wmhil" path="res://gameobjects/ball.tscn" id="13_seh5u"]
 [ext_resource type="PackedScene" uid="uid://yjk5880rm47r" path="res://gameobjects/bat.tscn" id="14_n8o4p"]
+[ext_resource type="PackedScene" uid="uid://bem4dv1hls5hn" path="res://enemies/boxer.tscn" id="14_vhgbh"]
+[ext_resource type="PackedScene" uid="uid://cgsfxbc0vrcri" path="res://enemies/rhombully.tscn" id="15_32d8w"]
+[ext_resource type="PackedScene" uid="uid://bdw3ydxrx1456" path="res://enemies/trapezoink.tscn" id="16_yt5sd"]
+[ext_resource type="PackedScene" uid="uid://bm8fvuhjy14a2" path="res://enemies/blobomb.tscn" id="17_t0e3l"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x58c0"]
 load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8df.ctex"
@@ -356,9 +359,19 @@ position = Vector2(1766, -2394)
 z_index = -10
 position = Vector2(2564, -1494)
 
-[node name="Enemy1" parent="GameObjects" index="3" instance=ExtResource("7_p5vba")]
-z_index = 20
-position = Vector2(5317, -2248)
-
-[node name="WinArea" parent="GameObjects" index="4"]
+[node name="WinArea" parent="GameObjects" index="3"]
 position = Vector2(1807, -4485)
+
+[node name="Enemies" type="Node2D" parent="." index="5"]
+
+[node name="Boxer" parent="Enemies" index="0" instance=ExtResource("14_vhgbh")]
+position = Vector2(5216, -2312)
+
+[node name="Rhombully" parent="Enemies" index="1" instance=ExtResource("15_32d8w")]
+position = Vector2(6863, -2325)
+
+[node name="Trapezoink" parent="Enemies" index="2" instance=ExtResource("16_yt5sd")]
+position = Vector2(7776, -2296)
+
+[node name="Blobomb" parent="Enemies" index="3" instance=ExtResource("17_t0e3l")]
+position = Vector2(8800, -2299)

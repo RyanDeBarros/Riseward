@@ -1,13 +1,13 @@
 [gd_scene load_steps=18 format=3 uid="uid://bem4dv1hls5hn"]
 
-[ext_resource type="Texture2D" uid="uid://c3mh1jftkpebp" path="res://assets/shapes/red_body_square.png" id="1_1p0uw"]
-[ext_resource type="Script" path="res://enemies/enemy_1.gd" id="1_giv7u"]
-[ext_resource type="Texture2D" uid="uid://mvcpnqkkbadv" path="res://assets/faces/face_f.png" id="2_1wnvu"]
-[ext_resource type="Texture2D" uid="uid://0vd5mloomfx" path="res://assets/hands/red_hand_closed.png" id="3_13dr0"]
-[ext_resource type="Texture2D" uid="uid://bemr7armx2tmw" path="res://assets/faces/face_e.png" id="4_5syge"]
-[ext_resource type="Texture2D" uid="uid://chc5jflu6rumi" path="res://assets/faces/face_g.png" id="5_evg6d"]
-[ext_resource type="Texture2D" uid="uid://oqfpl8vuq6le" path="res://assets/hands/red_hand_point.png" id="6_2m858"]
-[ext_resource type="Texture2D" uid="uid://biyug2xb370jw" path="res://assets/hands/red_hand_rock.png" id="8_t0vo4"]
+[ext_resource type="Script" path="res://enemies/boxer.gd" id="1_lglni"]
+[ext_resource type="Texture2D" uid="uid://c3mh1jftkpebp" path="res://assets/shapes/red_body_square.png" id="2_nc00g"]
+[ext_resource type="Texture2D" uid="uid://mvcpnqkkbadv" path="res://assets/faces/face_f.png" id="3_h2nxx"]
+[ext_resource type="Texture2D" uid="uid://bemr7armx2tmw" path="res://assets/faces/face_e.png" id="4_aqno1"]
+[ext_resource type="Texture2D" uid="uid://chc5jflu6rumi" path="res://assets/faces/face_g.png" id="5_h2eck"]
+[ext_resource type="Texture2D" uid="uid://0vd5mloomfx" path="res://assets/hands/red_hand_closed.png" id="6_w6nw2"]
+[ext_resource type="Texture2D" uid="uid://oqfpl8vuq6le" path="res://assets/hands/red_hand_point.png" id="7_e4mu4"]
+[ext_resource type="Texture2D" uid="uid://biyug2xb370jw" path="res://assets/hands/red_hand_rock.png" id="8_6ago6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2omh"]
 size = Vector2(384, 384)
@@ -524,16 +524,16 @@ _data = {
 "telegraph_spin_CC": SubResource("Animation_3lm0i")
 }
 
-[node name="Enemy1" type="RigidBody2D" groups=["enemy"]]
+[node name="Boxer" type="RigidBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 13
 mass = 3.5
 gravity_scale = 2.0
 linear_damp = 1.0
 angular_damp = 1.0
-script = ExtResource("1_giv7u")
+script = ExtResource("1_lglni")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="RBCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p2omh")
 
 [node name="BounceBackArea" type="Area2D" parent="."]
@@ -543,9 +543,9 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBackArea"]
 shape = SubResource("RectangleShape2D_00t5i")
 
-[node name="RedBodySquare" type="Sprite2D" parent="."]
+[node name="Body" type="Sprite2D" parent="."]
 scale = Vector2(2.4, 2.4)
-texture = ExtResource("1_1p0uw")
+texture = ExtResource("2_nc00g")
 
 [node name="Face" type="Node2D" parent="."]
 position = Vector2(-30, -20)
@@ -553,16 +553,16 @@ scale = Vector2(-1, 1)
 
 [node name="Neutral" type="Sprite2D" parent="Face"]
 position = Vector2(0, 1)
-texture = ExtResource("2_1wnvu")
+texture = ExtResource("3_h2nxx")
 
 [node name="Spin" type="Sprite2D" parent="Face"]
 visible = false
 scale = Vector2(-1, 1)
-texture = ExtResource("4_5syge")
+texture = ExtResource("4_aqno1")
 
 [node name="Punch" type="Sprite2D" parent="Face"]
 visible = false
-texture = ExtResource("5_evg6d")
+texture = ExtResource("5_h2eck")
 
 [node name="HandL" type="Node2D" parent="."]
 position = Vector2(-270, 0)
@@ -576,16 +576,16 @@ collision_mask = 6
 shape = SubResource("CircleShape2D_30mm4")
 
 [node name="Fist" type="Sprite2D" parent="HandL"]
-texture = ExtResource("3_13dr0")
+texture = ExtResource("6_w6nw2")
 
 [node name="Point" type="Sprite2D" parent="HandL"]
 visible = false
 rotation = -0.959931
-texture = ExtResource("6_2m858")
+texture = ExtResource("7_e4mu4")
 
 [node name="Rock" type="Sprite2D" parent="HandL"]
 visible = false
-texture = ExtResource("8_t0vo4")
+texture = ExtResource("8_6ago6")
 
 [node name="HandR" type="Node2D" parent="."]
 position = Vector2(270, 0)
@@ -599,16 +599,16 @@ collision_mask = 6
 shape = SubResource("CircleShape2D_nmlbh")
 
 [node name="Fist" type="Sprite2D" parent="HandR"]
-texture = ExtResource("3_13dr0")
+texture = ExtResource("6_w6nw2")
 
 [node name="Point" type="Sprite2D" parent="HandR"]
 visible = false
 rotation = -0.959931
-texture = ExtResource("6_2m858")
+texture = ExtResource("7_e4mu4")
 
 [node name="Rock" type="Sprite2D" parent="HandR"]
 visible = false
-texture = ExtResource("8_t0vo4")
+texture = ExtResource("8_6ago6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -13,9 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://3tw5gw5ep7xr" path="res://gameobjects/item_box.tscn" id="11_ue18m"]
 [ext_resource type="PackedScene" uid="uid://cv4s5ssa3ouue" path="res://gameobjects/launch_ramp.tscn" id="12_1o31c"]
 [ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="13_spnev"]
-[ext_resource type="TileSet" uid="uid://4h0lpaf7huma" path="res://res/level_tileset.tres" id="14_bkyhk"]
+[ext_resource type="TileSet" path="res://res/level_tileset.tres" id="14_bkyhk"]
 [ext_resource type="PackedScene" uid="uid://cja61ltgmryov" path="res://player/player.tscn" id="14_vyqma"]
-[ext_resource type="PackedScene" uid="uid://bem4dv1hls5hn" path="res://enemies/enemy_1.tscn" id="15_3gfyj"]
+[ext_resource type="PackedScene" uid="uid://bem4dv1hls5hn" path="res://enemies/boxer.tscn" id="15_3gfyj"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1pf6"]
 load_path = "res://.godot/imported/tile_grey.png-65c6074a785313c88d70313d4cd9f8df.ctex"

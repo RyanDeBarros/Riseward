@@ -1,0 +1,2 @@
+class_name Rhombully
+extends RigidBody2D

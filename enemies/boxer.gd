@@ -1,4 +1,4 @@
-class_name Enemy1
+class_name Boxer
 extends RigidBody2D
 
 
