@@ -1,0 +1,60 @@
+[gd_scene load_steps=13 format=3 uid="uid://urbek750mgia"]
+
+[ext_resource type="Texture2D" uid="uid://c3mh1jftkpebp" path="res://assets/shapes/red_body_square.png" id="1_c8q6o"]
+[ext_resource type="Shader" path="res://res/rhombully.gdshader" id="2_k1841"]
+[ext_resource type="Texture2D" uid="uid://bm6ed5o4ej53h" path="res://assets/shapes/green_body_rhombus.png" id="2_l8b2b"]
+[ext_resource type="Texture2D" uid="uid://dbjpcg1qdcmix" path="res://assets/faces/face_h.png" id="4_offkb"]
+[ext_resource type="Texture2D" uid="uid://chc5jflu6rumi" path="res://assets/faces/face_g.png" id="5_j06c4"]
+[ext_resource type="Shader" path="res://res/trapezoink.gdshader" id="6_140d7"]
+[ext_resource type="Texture2D" uid="uid://bnen80kq0rpo3" path="res://assets/shapes/yellow_body_square.png" id="7_8ctvd"]
+[ext_resource type="Texture2D" uid="uid://c261fvclf8egl" path="res://assets/shapes/purple_body_squircle.png" id="8_vjip3"]
+[ext_resource type="Texture2D" uid="uid://bedn1j6vg0fim" path="res://assets/faces/face_d.png" id="9_m37oi"]
+[ext_resource type="Texture2D" uid="uid://mvcpnqkkbadv" path="res://assets/faces/face_f.png" id="10_giamy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1p1qs"]
+shader = ExtResource("2_k1841")
+shader_parameter/warp = 2.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dk756"]
+shader = ExtResource("6_140d7")
+shader_parameter/topshrink = 0.2
+
+[node name="EnemiesScene" type="Node2D"]
+
+[node name="Boxer" type="Sprite2D" parent="."]
+position = Vector2(397, -323)
+scale = Vector2(2.4, 2.4)
+texture = ExtResource("1_c8q6o")
+
+[node name="Rhombully" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_1p1qs")
+position = Vector2(1058, -307)
+scale = Vector2(2.4, 2.4)
+texture = ExtResource("2_l8b2b")
+
+[node name="FaceH" type="Sprite2D" parent="."]
+position = Vector2(354, -323)
+texture = ExtResource("4_offkb")
+
+[node name="FaceG" type="Sprite2D" parent="."]
+position = Vector2(1034, -300)
+texture = ExtResource("5_j06c4")
+
+[node name="Trapezoink" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_dk756")
+position = Vector2(1683, -327)
+scale = Vector2(3.2125, 2.175)
+texture = ExtResource("7_8ctvd")
+
+[node name="Blobomb" type="Sprite2D" parent="."]
+position = Vector2(2352, -309)
+scale = Vector2(3.25, 2.4)
+texture = ExtResource("8_vjip3")
+
+[node name="FaceD" type="Sprite2D" parent="."]
+position = Vector2(1641, -344)
+texture = ExtResource("9_m37oi")
+
+[node name="FaceF" type="Sprite2D" parent="."]
+position = Vector2(2313, -338)
+texture = ExtResource("10_giamy")
