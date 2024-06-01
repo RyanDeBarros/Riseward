@@ -23,3 +23,7 @@ func load_next_level() -> void:
 func load_current_level() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file(LEVEL_paths[current_level])
+
+
+func reset() -> void:
+	current_level = 0

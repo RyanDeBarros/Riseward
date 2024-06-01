@@ -129,19 +129,20 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -20.0
+offset_top = -141.0
 offset_right = -20.0
-offset_bottom = -20.0
+offset_bottom = -141.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Whoosh" type="TextureRect" parent="GameObjects/PlayerIcon"]
 material = SubResource("ShaderMaterial_1r3rt")
 layout_mode = 0
-offset_left = -1016.0
-offset_top = -302.085
-offset_right = -27.0
-offset_bottom = 39.9148
+offset_left = -976.0
+offset_top = 1.00003
+offset_right = 13.0
+offset_bottom = 343.0
+rotation = -0.276034
 scale = Vector2(1, 1.04)
 texture = SubResource("CanvasTexture_jjoax")
 
@@ -266,24 +267,43 @@ label_settings = SubResource("LabelSettings_n0bv8")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayBTN" type="Button" parent="."]
+[node name="ContinueBTN" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -327.0
-offset_top = -769.0
-offset_right = 327.0
-offset_bottom = -542.0
+offset_left = -663.0
+offset_top = -980.0
+offset_right = 663.0
+offset_bottom = -753.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("10_af7xn")
 theme_override_font_sizes/font_size = 200
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ros8e")
-text = "Begin Rise"
+text = "Continue Rise"
+
+[node name="BeginNewBTN" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -502.0
+offset_top = -608.0
+offset_right = 502.0
+offset_bottom = -479.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("10_af7xn")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ros8e")
+text = "Begin New Rise"
 
 [node name="IntroBTN" type="Button" parent="."]
 layout_mode = 1
@@ -323,6 +343,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ros8e")
 text = "TUTORIAL"
 
-[connection signal="pressed" from="PlayBTN" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="ContinueBTN" to="." method="_on_continue_btn_pressed"]
+[connection signal="pressed" from="BeginNewBTN" to="." method="_on_begin_new_btn_pressed"]
 [connection signal="pressed" from="IntroBTN" to="." method="_on_intro_btn_pressed"]
 [connection signal="pressed" from="TutorialBTN" to="." method="_on_tutorial_btn_pressed"]
