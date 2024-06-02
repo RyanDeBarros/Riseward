@@ -532,6 +532,10 @@ gravity_scale = 2.0
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_lglni")
+hit_strength = 3600.0
+attack_delay_min = 2.0
+attack_delay_max = 4.5
+attack_window = 0.1
 
 [node name="RBCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p2omh")

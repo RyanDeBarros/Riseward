@@ -38,8 +38,6 @@ position = Vector2(1736, -1632)
 [node name="Bat" parent="ItemsDirectory" index="2" instance=ExtResource("14_n8o4p")]
 position = Vector2(2099, -2157)
 
-[node name="Blockout" type="Node2D" parent="." index="2"]
-
 [node name="P1" type="StaticBody2D" parent="Blockout" index="0"]
 position = Vector2(360, -1480)
 collision_mask = 15
@@ -351,19 +349,6 @@ shape = SubResource("RectangleShape2D_h3w20")
 z_index = -50
 position = Vector2(813, -295)
 
-[node name="ItemBox" parent="GameObjects" index="1" instance=ExtResource("13_axk0l")]
-z_index = -50
-position = Vector2(1766, -2394)
-
-[node name="LaunchRamp" parent="GameObjects" index="2" instance=ExtResource("3_06y5f")]
-z_index = -10
-position = Vector2(2564, -1494)
-
-[node name="WinArea" parent="GameObjects" index="3"]
-position = Vector2(1807, -4485)
-
-[node name="Enemies" type="Node2D" parent="." index="5"]
-
 [node name="Boxer" parent="Enemies" index="0" instance=ExtResource("14_vhgbh")]
 position = Vector2(7747, -2556)
 
@@ -375,3 +360,16 @@ position = Vector2(8641, -2111)
 
 [node name="Blobomb" parent="Enemies" index="3" instance=ExtResource("17_t0e3l")]
 position = Vector2(5002, -2368)
+
+[node name="ItemBox" parent="GameObjects" index="1" instance=ExtResource("13_axk0l")]
+z_index = -50
+position = Vector2(1766, -2394)
+
+[node name="LaunchRamp" parent="GameObjects" index="2" instance=ExtResource("3_06y5f")]
+z_index = -10
+position = Vector2(2564, -1494)
+
+[node name="WinArea" parent="GameObjects" index="3"]
+position = Vector2(1807, -4485)
+
+[connection signal="unpause" from="Layers/UILayer/PauseScreen" to="." method="unpause"]

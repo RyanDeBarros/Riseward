@@ -5,6 +5,7 @@ My submission for GameDevTV's 2024 10-day game jam! This is my first game jam ev
 Massive thanks to Kenney.nl for providing a free source of great assets.
 Other sources:
 * Clker-Free-Vector-Images (pixabay.com) - baseball bat image
+* "Name By Another Rose" (opengameart.org) - arrow image
 * rorozoa (freepik.com) - background image
 * kungfu4000 (opengameart.org) - fire image
 * Peter H (pixabay.com - https://unsplash.com/@tama66) -- Pixabay Content License - factory image

@@ -26,4 +26,4 @@ func _on_begin_new_btn_pressed() -> void:
 
 func play() -> void:
 	AudioManager.play_music("level")
-	get_tree().change_scene_to_packed(Scenes.SANDBOX)
+	LevelManager.load_current_level()

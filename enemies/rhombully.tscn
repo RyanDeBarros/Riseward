@@ -531,6 +531,7 @@ gravity_scale = 2.0
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_c6xb2")
+spin_range_qdr = 202500.0
 
 [node name="RBCollision" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-20, -160, -160, 140, 160, 140, 20, -160)

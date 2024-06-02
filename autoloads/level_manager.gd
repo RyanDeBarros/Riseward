@@ -1,7 +1,7 @@
 extends Node
 
 
-const LEVEL_paths := [Scenes.SANDBOX_path]
+const LEVEL_paths := [Scenes.LEVEL_1_path, Scenes.LEVEL_2_path, Scenes.LEVEL_3_path]
 
 
 var current_level := 0
