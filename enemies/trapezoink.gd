@@ -12,8 +12,8 @@ enum Phase {
 }
 
 @export_group("Player Collision")
-@export var hit_strength := 3800.0
-@export var ball_hit_strength := 230000.0
+@export var hit_strength := 4000.0
+@export var ball_hit_strength := 240000.0
 @export var reposte_susceptibility := 20.0
 @export var face_max_x := 30.0
 @export var stun_time := 1.2
@@ -21,7 +21,7 @@ enum Phase {
 
 @export_group("Attack")
 @export var attack_delay_min := 1.0
-@export var attack_delay_max := 4.0
+@export var attack_delay_max := 3.3
 @export var attack_window := 0.08
 
 @export_group("Spin")

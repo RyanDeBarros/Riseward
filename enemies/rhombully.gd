@@ -6,14 +6,14 @@ enum Phase {
 	CHILLING,
 	SPINNING_C,
 	SPINNING_CC,
-	PUNCHING,
+	LAUNCHING,
 	DELAYING,
 	ASYNCING
 }
 
 @export_group("Player Collision")
-@export var hit_strength := 3800.0
-@export var ball_hit_strength := 230000.0
+@export var hit_strength := 4000.0
+@export var ball_hit_strength := 240000.0
 @export var reposte_susceptibility := 20.0
 @export var face_max_x := 30.0
 @export var stun_time := 1.2
@@ -29,20 +29,22 @@ enum Phase {
 @export var angular_speed := 10.0
 @export var total_spin_radians := 5 * PI
 
-@export_group("Punch")
-@export var punch_range_qdr := 1800.0 ** 2
-@export var number_of_punches := 2
-@export var punch_time := 0.5
+@export_group("Launch")
+@export var launch_range_qdr := 1800.0 ** 2
+@export var launch_end_dist := 4000.0
+@export var second_launch_wait := 1.0
+@export var grow_time := 0.5
+@export var launch_time := 1.5
 @export var punch_return_time := 0.8
-@export var punch_scale_factor := 1.5
-@export var punch_chance_in_spin_range := 0.25
+@export var launch_scale_factor := 1.5
+@export var launch_chance_in_spin_range := 0.25
 
 var attack_delay := 0.0
 var phase := Phase.CHILLING
 var total_spin := 0.0
 var punch_count := 0
-var is_punching := false
-var punch_with_l := true
+var is_launching := false
+var launch_with_l := true
 
 @onready var level := get_tree().get_first_node_in_group(&"level") as Level
 @onready var face: Node2D = $Face
@@ -72,18 +74,18 @@ func _process(delta: float) -> void:
 	if phase == Phase.CHILLING:
 		var quadrance := (player.global_position - global_position).length_squared()
 		if quadrance <= spin_range_qdr:
-			if randf() < punch_chance_in_spin_range:
-				init_punch_attack()
+			if randf() < launch_chance_in_spin_range:
+				init_launch_attack()
 			else:
 				init_spin_attack()
-		elif quadrance <= punch_range_qdr:
-			init_punch_attack()
+		elif quadrance <= launch_range_qdr:
+			init_launch_attack()
 	elif phase == Phase.SPINNING_C:
 		spin_attack(delta, true)
 	elif phase == Phase.SPINNING_CC:
 		spin_attack(delta, false)
-	elif phase == Phase.PUNCHING:
-		punch_attack()
+	elif phase == Phase.LAUNCHING:
+		launch_attack()
 	elif phase == Phase.DELAYING:
 		attack_delay -= delta
 		if attack_delay <= 0.0:
@@ -99,7 +101,7 @@ func _on_hit_area_r_body_entered(body: Node2D) -> void:
 
 
 func _hit_area_entered(body: Node2D, hit_area: Area2D) -> void:
-	if phase == Phase.SPINNING_C or phase == Phase.SPINNING_CC or phase == Phase.PUNCHING:
+	if phase == Phase.SPINNING_C or phase == Phase.SPINNING_CC or phase == Phase.LAUNCHING:
 		if body is Player:
 			var direction := (body.global_position - hit_area.global_position).normalized()
 			player.bounce_back(direction * hit_strength, attack_window, stun_time, parry_improvement)
@@ -145,19 +147,19 @@ func init_spin_attack() -> void:
 	await animation_player.animation_finished
 	hand_l.position.x = normal_hand_l_position.x - 40
 	hand_r.position.x = normal_hand_r_position.x + 40
-	hand_l.scale = normal_hand_l_scale * punch_scale_factor
-	hand_r.scale = normal_hand_r_scale * punch_scale_factor
+	hand_l.scale = normal_hand_l_scale * launch_scale_factor
+	hand_r.scale = normal_hand_r_scale * launch_scale_factor
 	phase = Phase.SPINNING_C if clockwise else Phase.SPINNING_CC
 
 
-func init_punch_attack() -> void:
+func init_launch_attack() -> void:
 	phase = Phase.ASYNCING
 	animation_player.play(&"telegraph_launch", -1, 0.5)
 	reset_delay()
 	punch_count = 0
 	AudioManager.play_sfx_random_pitch("enemy_attack", 1.0)
 	await animation_player.animation_finished
-	phase = Phase.PUNCHING
+	phase = Phase.LAUNCHING
 
 
 func spin_attack(delta: float, clockwise: bool) -> void:
@@ -175,56 +177,50 @@ func spin_attack(delta: float, clockwise: bool) -> void:
 		hand_r.position = hand_r.position.rotated(dtheta)
 
 
-func punch_attack() -> void:
-	if not is_punching and punch_count < number_of_punches:
-		is_punching = true
-		# punch again
-		if punch_with_l:
+func launch_attack() -> void:
+	if not is_launching:
+		is_launching = true
+		if launch_with_l:
 			var trajectory := player.global_position - hand_l.global_position
-			trajectory = trajectory.normalized()\
-					* sqrt(minf(punch_range_qdr, trajectory.length_squared()))
+			trajectory = trajectory.normalized() * launch_end_dist
 			var target = hand_l.global_position + trajectory
-			var punch_tween = create_tween()
-			punch_tween.tween_property(hand_l, "global_position", target, punch_time)
-			punch_tween.parallel().tween_property(hand_l, "scale",\
-					normal_hand_l_scale * punch_scale_factor, punch_time)
-			punch_tween.finished.connect(punch_return)
+			var launch_tween = create_tween()
+			launch_tween.tween_property(hand_l, "global_position", target, launch_time)
+			launch_tween.parallel().tween_property(hand_l, "scale",\
+					normal_hand_l_scale * launch_scale_factor, launch_time)
+			launch_tween.finished.connect(launch_finish.bind(true))
+			await get_tree().create_timer(second_launch_wait).timeout
+			launch_with_l = false
+			is_launching = false
 		else:
 			var trajectory := player.global_position - hand_r.global_position
-			trajectory = trajectory.normalized()\
-					* sqrt(minf(punch_range_qdr, trajectory.length_squared()))
+			trajectory = trajectory.normalized() * launch_end_dist
 			var target = hand_r.global_position + trajectory
-			var punch_tween = create_tween()
-			punch_tween.tween_property(hand_r, "global_position", target, punch_time)
-			punch_tween.parallel().tween_property(hand_r, "scale",\
-					normal_hand_r_scale * punch_scale_factor, punch_time)
-			punch_tween.finished.connect(punch_return)
+			var launch_tween = create_tween()
+			launch_tween.tween_property(hand_r, "global_position", target, launch_time)
+			launch_tween.parallel().tween_property(hand_r, "scale",\
+					normal_hand_r_scale * launch_scale_factor, launch_time)
+			launch_tween.finished.connect(launch_finish.bind(false))
 
 
-func punch_return() -> void:
-	is_punching = false
-	punch_count += 1
-	var punch_tween := create_tween()
-	if punch_with_l:
-		punch_tween.tween_property(hand_l, "position", normal_hand_l_position, punch_return_time)
-		punch_tween.parallel().tween_property(hand_l, "scale",\
-				normal_hand_l_scale, punch_return_time)
-		punch_tween.finished.connect(end_punch.bind(true))
-		hit_collision_l.disabled = true
+func launch_finish(with_l: bool) -> void:
+	if with_l:
+		hand_l.scale = Vector2.ZERO
+		hand_l.position = normal_hand_l_position
+		var grow_tween = create_tween()
+		grow_tween.tween_property(hand_l, "scale", normal_hand_l_scale, grow_time)
+		grow_tween.finished.connect(end_launch)
 	else:
-		punch_tween.tween_property(hand_r, "position", normal_hand_r_position, punch_return_time)
-		punch_tween.parallel().tween_property(hand_r, "scale",\
-				normal_hand_r_scale, punch_return_time)
-		punch_tween.finished.connect(end_punch.bind(false))
-		hit_collision_r.disabled = true
-	punch_with_l = not punch_with_l
+		hand_r.scale = Vector2.ZERO
+		hand_r.position = normal_hand_r_position
+		var grow_tween = create_tween()
+		grow_tween.tween_property(hand_r, "scale", normal_hand_r_scale, grow_time)
+		grow_tween.finished.connect(end_launch)
 
 
-func end_punch(from_l: bool) -> void:
-	if from_l:
-		hit_collision_l.disabled = false
-	else:
-		hit_collision_r.disabled = false
-	if punch_count >= number_of_punches:
+func end_launch() -> void:
+	if not launch_with_l:
+		launch_with_l = true
+		is_launching = false
 		animation_player.play(&"RESET")
 		phase = Phase.DELAYING
