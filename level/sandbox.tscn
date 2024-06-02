@@ -371,7 +371,7 @@ position = Vector2(7747, -2556)
 position = Vector2(7089, -2211)
 
 [node name="Trapezoink" parent="Enemies" index="2" instance=ExtResource("16_yt5sd")]
-position = Vector2(5017, -2353)
+position = Vector2(8641, -2111)
 
 [node name="Blobomb" parent="Enemies" index="3" instance=ExtResource("17_t0e3l")]
-position = Vector2(7786, -1553)
+position = Vector2(5002, -2368)
