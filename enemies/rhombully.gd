@@ -35,14 +35,12 @@ enum Phase {
 @export var second_launch_wait := 1.0
 @export var grow_time := 0.5
 @export var launch_time := 1.5
-@export var punch_return_time := 0.8
 @export var launch_scale_factor := 1.5
 @export var launch_chance_in_spin_range := 0.25
 
 var attack_delay := 0.0
 var phase := Phase.CHILLING
 var total_spin := 0.0
-var punch_count := 0
 var is_launching := false
 var launch_with_l := true
 
@@ -156,7 +154,6 @@ func init_launch_attack() -> void:
 	phase = Phase.ASYNCING
 	animation_player.play(&"telegraph_launch", -1, 0.5)
 	reset_delay()
-	punch_count = 0
 	AudioManager.play_sfx_random_pitch("enemy_attack", 1.0)
 	await animation_player.animation_finished
 	phase = Phase.LAUNCHING
