@@ -1,5 +1,997 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxugky2fbpg2a"]
+[gd_scene load_steps=19 format=3 uid="uid://bxugky2fbpg2a"]
 
 [ext_resource type="PackedScene" uid="uid://d0khb830julid" path="res://level/level_base.tscn" id="1_4ueog"]
+[ext_resource type="Texture2D" uid="uid://b0umah0mdl428" path="res://assets/tiles/tile_left.png" id="2_rwyg2"]
+[ext_resource type="Texture2D" uid="uid://bnuahas72utba" path="res://assets/otherimgs/arrow.png" id="2_sfdkg"]
+[ext_resource type="Texture2D" uid="uid://do4fr1nmarvvp" path="res://assets/tiles/tile_center.png" id="3_50wue"]
+[ext_resource type="Texture2D" uid="uid://ctnnxmsk4puap" path="res://assets/tiles/tile_right.png" id="4_gfv7o"]
+[ext_resource type="Script" path="res://level/platform.gd" id="5_p5mlw"]
+[ext_resource type="Texture2D" uid="uid://6tfgoejtujw3" path="res://assets/tiles/tile.png" id="5_wyvnr"]
+[ext_resource type="Texture2D" uid="uid://cw0fx6h1ucrc0" path="res://assets/tiles/tile_grey.png" id="6_14bpp"]
+[ext_resource type="PackedScene" uid="uid://3tw5gw5ep7xr" path="res://gameobjects/item_box.tscn" id="6_av8v2"]
+[ext_resource type="Texture2D" uid="uid://chmj55s7xy46r" path="res://assets/tiles/tile_half_left.png" id="7_a6y1a"]
+[ext_resource type="PackedScene" uid="uid://cv4s5ssa3ouue" path="res://gameobjects/launch_ramp.tscn" id="7_ty4ox"]
+[ext_resource type="Texture2D" uid="uid://bj06ubsgfqumv" path="res://assets/tiles/tile_half_center.png" id="8_mqcog"]
+[ext_resource type="Texture2D" uid="uid://cim7jtrs0dip1" path="res://assets/tiles/tile_half_right.png" id="9_8y7ha"]
+[ext_resource type="PackedScene" uid="uid://bdw3ydxrx1456" path="res://enemies/trapezoink.tscn" id="11_kvgeq"]
+[ext_resource type="PackedScene" uid="uid://cgsfxbc0vrcri" path="res://enemies/rhombully.tscn" id="14_20gd1"]
+[ext_resource type="PackedScene" uid="uid://bem4dv1hls5hn" path="res://enemies/boxer.tscn" id="15_txqh8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohppf"]
+size = Vector2(3000, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5aes"]
+size = Vector2(1560, 360)
 
 [node name="Level2" instance=ExtResource("1_4ueog")]
+
+[node name="P7" type="StaticBody2D" parent="Blockout" index="0"]
+position = Vector2(6720, -6240)
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P7" index="0"]
+position = Vector2(80, 40)
+polygon = PackedVector2Array(-60, -40, 1980, -40, 2000, 20, 2000, 120, -80, 120, -80, 20)
+
+[node name="Tiles" type="Node2D" parent="Blockout/P7" index="1"]
+
+[node name="TileLeft" type="Sprite2D" parent="Blockout/P7/Tiles" index="0"]
+position = Vector2(80, 80)
+texture = ExtResource("2_rwyg2")
+
+[node name="TileCenter" type="Sprite2D" parent="Blockout/P7/Tiles" index="1"]
+position = Vector2(240, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter2" type="Sprite2D" parent="Blockout/P7/Tiles" index="2"]
+position = Vector2(400, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter3" type="Sprite2D" parent="Blockout/P7/Tiles" index="3"]
+position = Vector2(560, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter4" type="Sprite2D" parent="Blockout/P7/Tiles" index="4"]
+position = Vector2(720, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter5" type="Sprite2D" parent="Blockout/P7/Tiles" index="5"]
+position = Vector2(880, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter6" type="Sprite2D" parent="Blockout/P7/Tiles" index="6"]
+position = Vector2(1040, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter7" type="Sprite2D" parent="Blockout/P7/Tiles" index="7"]
+position = Vector2(1200, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter8" type="Sprite2D" parent="Blockout/P7/Tiles" index="8"]
+position = Vector2(1360, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter9" type="Sprite2D" parent="Blockout/P7/Tiles" index="9"]
+position = Vector2(1520, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter10" type="Sprite2D" parent="Blockout/P7/Tiles" index="10"]
+position = Vector2(1680, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter11" type="Sprite2D" parent="Blockout/P7/Tiles" index="11"]
+position = Vector2(1840, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileRight" type="Sprite2D" parent="Blockout/P7/Tiles" index="12"]
+position = Vector2(2000, 80)
+texture = ExtResource("4_gfv7o")
+
+[node name="P8" type="StaticBody2D" parent="Blockout" index="1"]
+position = Vector2(-1760, -7360)
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P8" index="0"]
+position = Vector2(80, 40)
+polygon = PackedVector2Array(-60, -40, 1980, -40, 2000, 20, 2000, 120, -80, 120, -80, 20)
+
+[node name="Tiles" type="Node2D" parent="Blockout/P8" index="1"]
+
+[node name="TileLeft" type="Sprite2D" parent="Blockout/P8/Tiles" index="0"]
+position = Vector2(80, 80)
+texture = ExtResource("2_rwyg2")
+
+[node name="TileCenter" type="Sprite2D" parent="Blockout/P8/Tiles" index="1"]
+position = Vector2(240, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter2" type="Sprite2D" parent="Blockout/P8/Tiles" index="2"]
+position = Vector2(400, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter3" type="Sprite2D" parent="Blockout/P8/Tiles" index="3"]
+position = Vector2(560, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter4" type="Sprite2D" parent="Blockout/P8/Tiles" index="4"]
+position = Vector2(720, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter5" type="Sprite2D" parent="Blockout/P8/Tiles" index="5"]
+position = Vector2(880, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter6" type="Sprite2D" parent="Blockout/P8/Tiles" index="6"]
+position = Vector2(1040, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter7" type="Sprite2D" parent="Blockout/P8/Tiles" index="7"]
+position = Vector2(1200, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter8" type="Sprite2D" parent="Blockout/P8/Tiles" index="8"]
+position = Vector2(1360, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter9" type="Sprite2D" parent="Blockout/P8/Tiles" index="9"]
+position = Vector2(1520, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter10" type="Sprite2D" parent="Blockout/P8/Tiles" index="10"]
+position = Vector2(1680, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter11" type="Sprite2D" parent="Blockout/P8/Tiles" index="11"]
+position = Vector2(1840, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileRight" type="Sprite2D" parent="Blockout/P8/Tiles" index="12"]
+position = Vector2(2000, 80)
+texture = ExtResource("4_gfv7o")
+
+[node name="P11" type="StaticBody2D" parent="Blockout" index="2"]
+position = Vector2(-6400, -2080)
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P11" index="0"]
+position = Vector2(80, 40)
+polygon = PackedVector2Array(-60, -40, 2300, -40, 2320, 20, 2320, 120, -80, 120, -80, 20)
+
+[node name="Tiles" type="Node2D" parent="Blockout/P11" index="1"]
+
+[node name="TileLeft" type="Sprite2D" parent="Blockout/P11/Tiles" index="0"]
+position = Vector2(80, 80)
+texture = ExtResource("2_rwyg2")
+
+[node name="TileCenter" type="Sprite2D" parent="Blockout/P11/Tiles" index="1"]
+position = Vector2(240, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter2" type="Sprite2D" parent="Blockout/P11/Tiles" index="2"]
+position = Vector2(400, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter3" type="Sprite2D" parent="Blockout/P11/Tiles" index="3"]
+position = Vector2(560, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter4" type="Sprite2D" parent="Blockout/P11/Tiles" index="4"]
+position = Vector2(720, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter5" type="Sprite2D" parent="Blockout/P11/Tiles" index="5"]
+position = Vector2(880, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter6" type="Sprite2D" parent="Blockout/P11/Tiles" index="6"]
+position = Vector2(1040, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter7" type="Sprite2D" parent="Blockout/P11/Tiles" index="7"]
+position = Vector2(1200, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter8" type="Sprite2D" parent="Blockout/P11/Tiles" index="8"]
+position = Vector2(1360, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter9" type="Sprite2D" parent="Blockout/P11/Tiles" index="9"]
+position = Vector2(1520, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter10" type="Sprite2D" parent="Blockout/P11/Tiles" index="10"]
+position = Vector2(1680, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter11" type="Sprite2D" parent="Blockout/P11/Tiles" index="11"]
+position = Vector2(1840, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter12" type="Sprite2D" parent="Blockout/P11/Tiles" index="12"]
+position = Vector2(2000, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter13" type="Sprite2D" parent="Blockout/P11/Tiles" index="13"]
+position = Vector2(2160, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileRight" type="Sprite2D" parent="Blockout/P11/Tiles" index="14"]
+position = Vector2(2320, 80)
+texture = ExtResource("4_gfv7o")
+
+[node name="P12" type="StaticBody2D" parent="Blockout" index="3"]
+position = Vector2(-2880, -2400)
+rotation = -0.261799
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P12" index="0"]
+position = Vector2(80, 40)
+polygon = PackedVector2Array(-60, -40, 3740, -40, 3760, 20, 3760, 120, -80, 120, -80, 20)
+
+[node name="Tiles" type="Node2D" parent="Blockout/P12" index="1"]
+
+[node name="TileLeft" type="Sprite2D" parent="Blockout/P12/Tiles" index="0"]
+position = Vector2(80, 80)
+texture = ExtResource("2_rwyg2")
+
+[node name="TileCenter" type="Sprite2D" parent="Blockout/P12/Tiles" index="1"]
+position = Vector2(240, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter2" type="Sprite2D" parent="Blockout/P12/Tiles" index="2"]
+position = Vector2(400, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter3" type="Sprite2D" parent="Blockout/P12/Tiles" index="3"]
+position = Vector2(560, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter4" type="Sprite2D" parent="Blockout/P12/Tiles" index="4"]
+position = Vector2(720, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter5" type="Sprite2D" parent="Blockout/P12/Tiles" index="5"]
+position = Vector2(880, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter6" type="Sprite2D" parent="Blockout/P12/Tiles" index="6"]
+position = Vector2(1040, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter7" type="Sprite2D" parent="Blockout/P12/Tiles" index="7"]
+position = Vector2(1200, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter8" type="Sprite2D" parent="Blockout/P12/Tiles" index="8"]
+position = Vector2(1360, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter9" type="Sprite2D" parent="Blockout/P12/Tiles" index="9"]
+position = Vector2(1520, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter10" type="Sprite2D" parent="Blockout/P12/Tiles" index="10"]
+position = Vector2(1680, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter11" type="Sprite2D" parent="Blockout/P12/Tiles" index="11"]
+position = Vector2(1840, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter12" type="Sprite2D" parent="Blockout/P12/Tiles" index="12"]
+position = Vector2(2000, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter13" type="Sprite2D" parent="Blockout/P12/Tiles" index="13"]
+position = Vector2(2160, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter14" type="Sprite2D" parent="Blockout/P12/Tiles" index="14"]
+position = Vector2(2320, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter15" type="Sprite2D" parent="Blockout/P12/Tiles" index="15"]
+position = Vector2(2480, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter16" type="Sprite2D" parent="Blockout/P12/Tiles" index="16"]
+position = Vector2(2640, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter17" type="Sprite2D" parent="Blockout/P12/Tiles" index="17"]
+position = Vector2(2800, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter18" type="Sprite2D" parent="Blockout/P12/Tiles" index="18"]
+position = Vector2(2960, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter19" type="Sprite2D" parent="Blockout/P12/Tiles" index="19"]
+position = Vector2(3120, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter20" type="Sprite2D" parent="Blockout/P12/Tiles" index="20"]
+position = Vector2(3280, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter21" type="Sprite2D" parent="Blockout/P12/Tiles" index="21"]
+position = Vector2(3440, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter22" type="Sprite2D" parent="Blockout/P12/Tiles" index="22"]
+position = Vector2(3600, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileRight" type="Sprite2D" parent="Blockout/P12/Tiles" index="23"]
+position = Vector2(3760, 80)
+texture = ExtResource("4_gfv7o")
+
+[node name="P13" type="StaticBody2D" parent="Blockout" index="4"]
+position = Vector2(2240, -3840)
+rotation = -0.261799
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P13" index="0"]
+position = Vector2(80, 40)
+polygon = PackedVector2Array(-60, -40, 4380, -40.0002, 4400, 19.9998, 4400, 120, -80, 120, -80, 20)
+
+[node name="Tiles" type="Node2D" parent="Blockout/P13" index="1"]
+
+[node name="TileLeft" type="Sprite2D" parent="Blockout/P13/Tiles" index="0"]
+position = Vector2(80, 80)
+texture = ExtResource("2_rwyg2")
+
+[node name="TileCenter" type="Sprite2D" parent="Blockout/P13/Tiles" index="1"]
+position = Vector2(240, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter2" type="Sprite2D" parent="Blockout/P13/Tiles" index="2"]
+position = Vector2(400, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter3" type="Sprite2D" parent="Blockout/P13/Tiles" index="3"]
+position = Vector2(560, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter4" type="Sprite2D" parent="Blockout/P13/Tiles" index="4"]
+position = Vector2(720, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter5" type="Sprite2D" parent="Blockout/P13/Tiles" index="5"]
+position = Vector2(880, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter6" type="Sprite2D" parent="Blockout/P13/Tiles" index="6"]
+position = Vector2(1040, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter7" type="Sprite2D" parent="Blockout/P13/Tiles" index="7"]
+position = Vector2(1200, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter8" type="Sprite2D" parent="Blockout/P13/Tiles" index="8"]
+position = Vector2(1360, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter9" type="Sprite2D" parent="Blockout/P13/Tiles" index="9"]
+position = Vector2(1520, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter10" type="Sprite2D" parent="Blockout/P13/Tiles" index="10"]
+position = Vector2(1680, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter11" type="Sprite2D" parent="Blockout/P13/Tiles" index="11"]
+position = Vector2(1840, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter12" type="Sprite2D" parent="Blockout/P13/Tiles" index="12"]
+position = Vector2(2000, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter13" type="Sprite2D" parent="Blockout/P13/Tiles" index="13"]
+position = Vector2(2160, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter14" type="Sprite2D" parent="Blockout/P13/Tiles" index="14"]
+position = Vector2(2320, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter15" type="Sprite2D" parent="Blockout/P13/Tiles" index="15"]
+position = Vector2(2480, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter16" type="Sprite2D" parent="Blockout/P13/Tiles" index="16"]
+position = Vector2(2640, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter17" type="Sprite2D" parent="Blockout/P13/Tiles" index="17"]
+position = Vector2(2800, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter18" type="Sprite2D" parent="Blockout/P13/Tiles" index="18"]
+position = Vector2(2960, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter19" type="Sprite2D" parent="Blockout/P13/Tiles" index="19"]
+position = Vector2(3120, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter20" type="Sprite2D" parent="Blockout/P13/Tiles" index="20"]
+position = Vector2(3280, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter21" type="Sprite2D" parent="Blockout/P13/Tiles" index="21"]
+position = Vector2(3440, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter22" type="Sprite2D" parent="Blockout/P13/Tiles" index="22"]
+position = Vector2(3600, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter23" type="Sprite2D" parent="Blockout/P13/Tiles" index="23"]
+position = Vector2(3760, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter24" type="Sprite2D" parent="Blockout/P13/Tiles" index="24"]
+position = Vector2(3920, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter25" type="Sprite2D" parent="Blockout/P13/Tiles" index="25"]
+position = Vector2(4080, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileCenter26" type="Sprite2D" parent="Blockout/P13/Tiles" index="26"]
+position = Vector2(4240, 80)
+texture = ExtResource("3_50wue")
+
+[node name="TileRight" type="Sprite2D" parent="Blockout/P13/Tiles" index="27"]
+position = Vector2(4400, 80)
+texture = ExtResource("4_gfv7o")
+
+[node name="P9" type="StaticBody2D" parent="Blockout" index="5"]
+position = Vector2(-6560, -5400)
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P9" index="0"]
+polygon = PackedVector2Array(20, -40, 140, -40, 160, 20, 160, 120, 0, 120, 0, 20)
+
+[node name="Tiles" type="Node2D" parent="Blockout/P9" index="1"]
+
+[node name="TileLeft" type="Sprite2D" parent="Blockout/P9/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("2_rwyg2")
+
+[node name="TileLeft2" type="Sprite2D" parent="Blockout/P9/Tiles" index="1"]
+position = Vector2(240, 40)
+texture = ExtResource("4_gfv7o")
+
+[node name="P10" type="StaticBody2D" parent="Blockout" index="6"]
+position = Vector2(-6560, -3320)
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P10" index="0"]
+polygon = PackedVector2Array(20, -40, 140, -40, 160, 20, 160, 120, 0, 120, 0, 20)
+
+[node name="Tiles" type="Node2D" parent="Blockout/P10" index="1"]
+
+[node name="TileLeft" type="Sprite2D" parent="Blockout/P10/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("2_rwyg2")
+
+[node name="TileLeft2" type="Sprite2D" parent="Blockout/P10/Tiles" index="1"]
+position = Vector2(240, 40)
+texture = ExtResource("4_gfv7o")
+
+[node name="P14" type="StaticBody2D" parent="Blockout" index="7"]
+position = Vector2(-6400, -7480)
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blockout/P14" index="0"]
+polygon = PackedVector2Array(20, -40, 140, -40, 160, 20, 160, 120, 0, 120, 0, 20)
+
+[node name="Tiles" type="Node2D" parent="Blockout/P14" index="1"]
+
+[node name="TileLeft" type="Sprite2D" parent="Blockout/P14/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("5_wyvnr")
+
+[node name="P4" type="RigidBody2D" parent="Platforms" index="0"]
+z_index = -20
+position = Vector2(-6080, -8320)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("5_p5mlw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/P4" index="0"]
+polygon = PackedVector2Array(20, 0, 2860, 0, 2880, 80, 0, 80)
+one_way_collision = true
+
+[node name="Support" type="NinePatchRect" parent="Platforms/P4" index="1"]
+offset_top = 26.0
+offset_right = 2880.0
+offset_bottom = 11800.0
+texture = ExtResource("6_14bpp")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="Tiles" type="Node2D" parent="Platforms/P4" index="2"]
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/P4/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("7_a6y1a")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/P4/Tiles" index="1"]
+position = Vector2(240, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/P4/Tiles" index="2"]
+position = Vector2(400, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/P4/Tiles" index="3"]
+position = Vector2(560, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/P4/Tiles" index="4"]
+position = Vector2(720, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/P4/Tiles" index="5"]
+position = Vector2(880, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/P4/Tiles" index="6"]
+position = Vector2(1040, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/P4/Tiles" index="7"]
+position = Vector2(1200, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter8" type="Sprite2D" parent="Platforms/P4/Tiles" index="8"]
+position = Vector2(1360, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter9" type="Sprite2D" parent="Platforms/P4/Tiles" index="9"]
+position = Vector2(1520, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter10" type="Sprite2D" parent="Platforms/P4/Tiles" index="10"]
+position = Vector2(1680, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter11" type="Sprite2D" parent="Platforms/P4/Tiles" index="11"]
+position = Vector2(1840, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter12" type="Sprite2D" parent="Platforms/P4/Tiles" index="12"]
+position = Vector2(2000, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter13" type="Sprite2D" parent="Platforms/P4/Tiles" index="13"]
+position = Vector2(2160, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter14" type="Sprite2D" parent="Platforms/P4/Tiles" index="14"]
+position = Vector2(2320, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter15" type="Sprite2D" parent="Platforms/P4/Tiles" index="15"]
+position = Vector2(2480, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter16" type="Sprite2D" parent="Platforms/P4/Tiles" index="16"]
+position = Vector2(2640, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/P4/Tiles" index="17"]
+position = Vector2(2800, 40)
+texture = ExtResource("9_8y7ha")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/P4" index="3"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/P4/EnemyDetect" index="0"]
+position = Vector2(1440, -60)
+shape = SubResource("RectangleShape2D_ohppf")
+
+[node name="P6" type="RigidBody2D" parent="Platforms" index="1"]
+position = Vector2(-8320, -8640)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("5_p5mlw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/P6" index="0"]
+polygon = PackedVector2Array(20, 0, 1420, 0, 1440, 80, 0, 80)
+one_way_collision = true
+
+[node name="Support" type="NinePatchRect" parent="Platforms/P6" index="1"]
+offset_top = 20.0
+offset_right = 1440.0
+offset_bottom = 11940.0
+texture = ExtResource("6_14bpp")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="Tiles" type="Node2D" parent="Platforms/P6" index="2"]
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/P6/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("7_a6y1a")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/P6/Tiles" index="1"]
+position = Vector2(240, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/P6/Tiles" index="2"]
+position = Vector2(400, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/P6/Tiles" index="3"]
+position = Vector2(560, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/P6/Tiles" index="4"]
+position = Vector2(720, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/P6/Tiles" index="5"]
+position = Vector2(880, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/P6/Tiles" index="6"]
+position = Vector2(1040, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/P6/Tiles" index="7"]
+position = Vector2(1200, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/P6/Tiles" index="8"]
+position = Vector2(1360, 40)
+texture = ExtResource("9_8y7ha")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/P6" index="3"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/P6/EnemyDetect" index="0"]
+position = Vector2(720, -60)
+shape = SubResource("RectangleShape2D_r5aes")
+
+[node name="ItemBox5" parent="Platforms/P6" index="4" instance=ExtResource("6_av8v2")]
+position = Vector2(240, -400)
+
+[node name="P7" type="RigidBody2D" parent="Platforms" index="2"]
+position = Vector2(-8320, -6560)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("5_p5mlw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/P7" index="0"]
+polygon = PackedVector2Array(20, 0, 1420, 0, 1440, 80, 0, 80)
+one_way_collision = true
+
+[node name="Support" type="NinePatchRect" parent="Platforms/P7" index="1"]
+offset_top = 20.0
+offset_right = 1440.0
+offset_bottom = 8760.0
+texture = ExtResource("6_14bpp")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="Tiles" type="Node2D" parent="Platforms/P7" index="2"]
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/P7/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("7_a6y1a")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/P7/Tiles" index="1"]
+position = Vector2(240, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/P7/Tiles" index="2"]
+position = Vector2(400, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/P7/Tiles" index="3"]
+position = Vector2(560, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/P7/Tiles" index="4"]
+position = Vector2(720, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/P7/Tiles" index="5"]
+position = Vector2(880, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/P7/Tiles" index="6"]
+position = Vector2(1040, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/P7/Tiles" index="7"]
+position = Vector2(1200, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/P7/Tiles" index="8"]
+position = Vector2(1360, 40)
+texture = ExtResource("9_8y7ha")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/P7" index="3"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/P7/EnemyDetect" index="0"]
+position = Vector2(720, -60)
+shape = SubResource("RectangleShape2D_r5aes")
+
+[node name="ItemBox4" parent="Platforms/P7" index="4" instance=ExtResource("6_av8v2")]
+position = Vector2(240, -400)
+
+[node name="P8" type="RigidBody2D" parent="Platforms" index="3"]
+position = Vector2(-8320, -4480)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("5_p5mlw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/P8" index="0"]
+polygon = PackedVector2Array(20, 0, 1420, 0, 1440, 80, 0, 80)
+one_way_collision = true
+
+[node name="Support" type="NinePatchRect" parent="Platforms/P8" index="1"]
+offset_top = 20.0
+offset_right = 1440.0
+offset_bottom = 8094.0
+texture = ExtResource("6_14bpp")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="Tiles" type="Node2D" parent="Platforms/P8" index="2"]
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/P8/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("7_a6y1a")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/P8/Tiles" index="1"]
+position = Vector2(240, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/P8/Tiles" index="2"]
+position = Vector2(400, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/P8/Tiles" index="3"]
+position = Vector2(560, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/P8/Tiles" index="4"]
+position = Vector2(720, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/P8/Tiles" index="5"]
+position = Vector2(880, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/P8/Tiles" index="6"]
+position = Vector2(1040, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/P8/Tiles" index="7"]
+position = Vector2(1200, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/P8/Tiles" index="8"]
+position = Vector2(1360, 40)
+texture = ExtResource("9_8y7ha")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/P8" index="3"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/P8/EnemyDetect" index="0"]
+position = Vector2(720, -60)
+shape = SubResource("RectangleShape2D_r5aes")
+
+[node name="ItemBox3" parent="Platforms/P8" index="4" instance=ExtResource("6_av8v2")]
+position = Vector2(240, -400)
+
+[node name="P9" type="RigidBody2D" parent="Platforms" index="4"]
+position = Vector2(-8320, -2400)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("5_p5mlw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/P9" index="0"]
+polygon = PackedVector2Array(20, 0, 1420, 0, 1440, 80, 0, 80)
+one_way_collision = true
+
+[node name="Support" type="NinePatchRect" parent="Platforms/P9" index="1"]
+offset_top = 20.0
+offset_right = 1440.0
+offset_bottom = 8094.0
+texture = ExtResource("6_14bpp")
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="Tiles" type="Node2D" parent="Platforms/P9" index="2"]
+
+[node name="TileHalfLeft" type="Sprite2D" parent="Platforms/P9/Tiles" index="0"]
+position = Vector2(80, 40)
+texture = ExtResource("7_a6y1a")
+
+[node name="TileHalfCenter" type="Sprite2D" parent="Platforms/P9/Tiles" index="1"]
+position = Vector2(240, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter2" type="Sprite2D" parent="Platforms/P9/Tiles" index="2"]
+position = Vector2(400, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter3" type="Sprite2D" parent="Platforms/P9/Tiles" index="3"]
+position = Vector2(560, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter4" type="Sprite2D" parent="Platforms/P9/Tiles" index="4"]
+position = Vector2(720, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter5" type="Sprite2D" parent="Platforms/P9/Tiles" index="5"]
+position = Vector2(880, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter6" type="Sprite2D" parent="Platforms/P9/Tiles" index="6"]
+position = Vector2(1040, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfCenter7" type="Sprite2D" parent="Platforms/P9/Tiles" index="7"]
+position = Vector2(1200, 40)
+texture = ExtResource("8_mqcog")
+
+[node name="TileHalfRight" type="Sprite2D" parent="Platforms/P9/Tiles" index="8"]
+position = Vector2(1360, 40)
+texture = ExtResource("9_8y7ha")
+
+[node name="EnemyDetect" type="Area2D" parent="Platforms/P9" index="3"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/P9/EnemyDetect" index="0"]
+position = Vector2(720, -60)
+shape = SubResource("RectangleShape2D_r5aes")
+
+[node name="ItemBox2" parent="Platforms/P9" index="4" instance=ExtResource("6_av8v2")]
+position = Vector2(240, -400)
+
+[node name="Arrow" type="Sprite2D" parent="Arrows" index="0"]
+position = Vector2(7520, -8320)
+rotation = 3.14159
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow2" type="Sprite2D" parent="Arrows" index="1"]
+position = Vector2(7520, -7840)
+rotation = 3.14159
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow3" type="Sprite2D" parent="Arrows" index="2"]
+position = Vector2(7520, -7360)
+rotation = 3.14159
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow4" type="Sprite2D" parent="Arrows" index="3"]
+position = Vector2(6240, -6080)
+rotation = 4.18878
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow5" type="Sprite2D" parent="Arrows" index="4"]
+position = Vector2(396.251, -7700)
+rotation = 0.785397
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow7" type="Sprite2D" parent="Arrows" index="5"]
+position = Vector2(-7123.75, -3340)
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow13" type="Sprite2D" parent="Arrows" index="6"]
+position = Vector2(-5600, -2400)
+rotation = -1.0472
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow11" type="Sprite2D" parent="Arrows" index="7"]
+position = Vector2(-7123.75, -5440)
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow12" type="Sprite2D" parent="Arrows" index="8"]
+position = Vector2(-7123.75, -7520)
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow6" type="Sprite2D" parent="Arrows" index="9"]
+position = Vector2(40, -7440)
+rotation = 1.57079
+scale = Vector2(2.81855, 2.81855)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow8" type="Sprite2D" parent="Arrows" index="10"]
+position = Vector2(616.25, -7920)
+rotation = 0.785397
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Arrow9" type="Sprite2D" parent="Arrows" index="11"]
+position = Vector2(836.25, -8140)
+rotation = 0.785397
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("2_sfdkg")
+
+[node name="Trapezoink" parent="Enemies" index="0" instance=ExtResource("11_kvgeq")]
+position = Vector2(-4680, -8500)
+
+[node name="Rhombully4" parent="Enemies" index="1" instance=ExtResource("14_20gd1")]
+position = Vector2(-2520, -2720)
+
+[node name="Rhombully2" parent="Enemies" index="2" instance=ExtResource("14_20gd1")]
+position = Vector2(-7800, -6720)
+
+[node name="Rhombully3" parent="Enemies" index="3" instance=ExtResource("14_20gd1")]
+position = Vector2(-7800, -2560)
+
+[node name="Boxer" parent="Enemies" index="4" instance=ExtResource("15_txqh8")]
+position = Vector2(-7800, -4680)
+
+[node name="Boxer3" parent="Enemies" index="5" instance=ExtResource("15_txqh8")]
+position = Vector2(-620, -3280)
+
+[node name="Boxer4" parent="Enemies" index="6" instance=ExtResource("15_txqh8")]
+position = Vector2(3020, -4380)
+
+[node name="Boxer5" parent="Enemies" index="7" instance=ExtResource("15_txqh8")]
+position = Vector2(6200, -5200)
+
+[node name="Boxer2" parent="Enemies" index="8" instance=ExtResource("15_txqh8")]
+position = Vector2(-7800, -8840)
+
+[node name="Player" parent="GameObjects" index="0"]
+position = Vector2(7520, -8800)
+
+[node name="WinArea" parent="GameObjects" index="1"]
+z_index = -50
+position = Vector2(8540, -6460)
+rotation = 0.261799
+
+[node name="ItemBox" parent="GameObjects" index="2" instance=ExtResource("6_av8v2")]
+position = Vector2(-1520, -7920)
+
+[node name="ItemBox2" parent="GameObjects" index="3" instance=ExtResource("6_av8v2")]
+position = Vector2(-4880, -2480)
+
+[node name="ItemBox3" parent="GameObjects" index="4" instance=ExtResource("6_av8v2")]
+position = Vector2(1440, -4000)
+
+[node name="ItemBox4" parent="GameObjects" index="5" instance=ExtResource("6_av8v2")]
+position = Vector2(4420, -5040)
+
+[node name="LaunchRamp" parent="GameObjects" index="6" instance=ExtResource("7_ty4ox")]
+z_index = -50
+position = Vector2(280, -7375)
+scale = Vector2(1.15178, 1.15178)

@@ -1000,7 +1000,7 @@ position = Vector2(9160, -4040)
 position = Vector2(7360, -6540)
 
 [node name="Player" parent="GameObjects" index="0"]
-position = Vector2(7740, -5840)
+position = Vector2(-7500, -1800)
 
 [node name="WinArea" parent="GameObjects" index="1"]
 z_index = -50
@@ -1018,5 +1018,3 @@ position = Vector2(7360, -3200)
 
 [node name="ItemBox4" parent="GameObjects" index="5" instance=ExtResource("6_rj06u")]
 position = Vector2(7360, -4160)
-
-[connection signal="unpause" from="Layers/UILayer/PauseScreen" to="." method="unpause"]
