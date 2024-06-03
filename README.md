@@ -1,4 +1,4 @@
-# GamJam2024-GameDevTV
+# About
 My submission for GameDevTV's 2024 10-day game jam! This is my first game jam ever, and I'll be using Godot Engine to make a simple game based on the given theme: Last Stand.
 
 ## CREDITS:
