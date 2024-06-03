@@ -92,7 +92,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if position.y > body_radius:
+	if global_position.y > body_radius\
+			or global_position.x > camera_2d.limit_right + body_radius + 2000\
+			or global_position.y < camera_2d.limit_left - body_radius - 2000:
 		die()
 	_process_parrying(delta)
 	if stun_time <= 0.0:
