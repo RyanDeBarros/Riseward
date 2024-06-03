@@ -94,7 +94,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if global_position.y > body_radius\
 			or global_position.x > camera_2d.limit_right + body_radius + 2000\
-			or global_position.y < camera_2d.limit_left - body_radius - 2000:
+			or global_position.x < camera_2d.limit_left - body_radius - 2000:
 		die()
 	_process_parrying(delta)
 	if stun_time <= 0.0:
@@ -315,6 +315,7 @@ func swing_bat(left_handed: bool) -> void:
 		else:
 			animation_player.play(&"swing_r")
 	await animation_player.animation_finished
+	animation_player.play(&"RESET")
 	can_let_go_left[left_handed] = true
 	(left_hand_node if left_handed else right_hand_node).is_attacking(null)
 	await get_tree().create_timer(swing_cooldown).timeout
@@ -369,6 +370,7 @@ func parry() -> void:
 		check_for_itembox()
 		animation_player.play(&"parry", -1, parry_window_scale_factor)
 		await animation_player.animation_finished
+		animation_player.play(&"RESET")
 		is_parrying = false
 
 

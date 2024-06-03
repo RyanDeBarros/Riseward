@@ -527,7 +527,7 @@ _data = {
 [node name="Boxer" type="RigidBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 13
-mass = 3.5
+mass = 3.4
 gravity_scale = 2.0
 linear_damp = 1.0
 angular_damp = 1.0

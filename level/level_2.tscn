@@ -945,7 +945,7 @@ scale = Vector2(6.25, 6.25)
 texture = ExtResource("2_sfdkg")
 
 [node name="Trapezoink" parent="Enemies" index="0" instance=ExtResource("11_kvgeq")]
-position = Vector2(-4680, -8500)
+position = Vector2(-3232, -8966)
 
 [node name="Rhombully4" parent="Enemies" index="1" instance=ExtResource("14_20gd1")]
 position = Vector2(-2520, -2720)
@@ -995,3 +995,5 @@ position = Vector2(4420, -5040)
 z_index = -50
 position = Vector2(280, -7375)
 scale = Vector2(1.15178, 1.15178)
+
+[connection signal="unpause" from="Layers/UILayer/PauseScreen" to="." method="unpause"]

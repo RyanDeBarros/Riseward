@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bpmgr7ew7h6jl" path="res://assets/tiles/tile_ramp_left.png" id="1_rese6"]
 
 [node name="LaunchRamp" type="StaticBody2D"]
-collision_mask = 15
+collision_mask = 7
 script = ExtResource("1_0hxny")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

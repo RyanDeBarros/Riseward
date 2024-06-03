@@ -142,8 +142,8 @@ visible = false
 [node name="BackgroundImg" type="Sprite2D" parent="Layers" groups=["bkg"]]
 modulate = Color(0.63, 0.63, 0.63, 0.647059)
 z_index = -1000
-position = Vector2(0, -5319)
-scale = Vector2(3, 3)
+position = Vector2(0, -8868)
+scale = Vector2(5, 5)
 texture = ExtResource("4_4rp07")
 metadata/_edit_lock_ = true
 

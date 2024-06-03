@@ -1018,3 +1018,5 @@ position = Vector2(7360, -3200)
 
 [node name="ItemBox4" parent="GameObjects" index="5" instance=ExtResource("6_rj06u")]
 position = Vector2(7360, -4160)
+
+[connection signal="unpause" from="Layers/UILayer/PauseScreen" to="." method="unpause"]
