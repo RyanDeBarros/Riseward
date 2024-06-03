@@ -53,7 +53,7 @@ offset_bottom = 824.0
 grow_horizontal = 2
 size_flags_vertical = 0
 text = "You made it to
-the final stand!"
+the last stand!"
 label_settings = SubResource("LabelSettings_c2xrs")
 horizontal_alignment = 1
 vertical_alignment = 1

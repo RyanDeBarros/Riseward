@@ -969,7 +969,11 @@ collision_mask = 15
 position = Vector2(80, 40)
 polygon = PackedVector2Array(-60, -40, 4700, -40, 4720, 20, 4720, 120, -80, 120, -80, 20)
 
-[node name="Support" type="NinePatchRect" parent="Blockout/P12" index="1"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Blockout/P12" index="1"]
+position = Vector2(80, -680)
+polygon = PackedVector2Array(-60, -40, 220, -40, 240, 40, -80, 40)
+
+[node name="Support" type="NinePatchRect" parent="Blockout/P12" index="2"]
 offset_top = -700.0
 offset_right = 320.0
 offset_bottom = 160.0
@@ -979,7 +983,7 @@ patch_margin_top = 60
 patch_margin_right = 100
 patch_margin_bottom = 100
 
-[node name="Tiles" type="Node2D" parent="Blockout/P12" index="2"]
+[node name="Tiles" type="Node2D" parent="Blockout/P12" index="3"]
 
 [node name="TileLeft" type="Sprite2D" parent="Blockout/P12/Tiles" index="0"]
 position = Vector2(80, 80)
@@ -1109,7 +1113,7 @@ texture = ExtResource("3_inua6")
 position = Vector2(4720, 80)
 texture = ExtResource("4_i6p1m")
 
-[node name="LaunchRamp" parent="Blockout/P12" index="3" instance=ExtResource("10_32x1v")]
+[node name="LaunchRamp" parent="Blockout/P12" index="4" instance=ExtResource("10_32x1v")]
 show_behind_parent = true
 position = Vector2(40, -720)
 scale = Vector2(-1, 1)
@@ -1125,7 +1129,12 @@ script = ExtResource("7_ir3bw")
 polygon = PackedVector2Array(20, 0, 2380, 0, 2400, 80, 0, 80)
 one_way_collision = true
 
-[node name="Support" type="NinePatchRect" parent="Platforms/P5" index="1"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Platforms/P5" index="1"]
+position = Vector2(2080, -480)
+polygon = PackedVector2Array(20, 0, 300, 0, 320, 80, 0, 80)
+one_way_collision = true
+
+[node name="Support" type="NinePatchRect" parent="Platforms/P5" index="2"]
 offset_top = 20.0
 offset_right = 2400.0
 offset_bottom = 1920.0
@@ -1135,7 +1144,7 @@ patch_margin_top = 60
 patch_margin_right = 100
 patch_margin_bottom = 100
 
-[node name="Support2" type="NinePatchRect" parent="Platforms/P5" index="2"]
+[node name="Support2" type="NinePatchRect" parent="Platforms/P5" index="3"]
 offset_left = 2080.0
 offset_top = -480.0
 offset_right = 2400.0
@@ -1146,7 +1155,7 @@ patch_margin_top = 60
 patch_margin_right = 100
 patch_margin_bottom = 100
 
-[node name="Tiles" type="Node2D" parent="Platforms/P5" index="3"]
+[node name="Tiles" type="Node2D" parent="Platforms/P5" index="4"]
 
 [node name="TileHalfLeft" type="Sprite2D" parent="Platforms/P5/Tiles" index="0"]
 position = Vector2(80, 40)
@@ -1216,7 +1225,7 @@ texture = ExtResource("9_246wa")
 position = Vector2(2320, -440)
 texture = ExtResource("9_246wa")
 
-[node name="EnemyDetect" type="Area2D" parent="Platforms/P5" index="4"]
+[node name="EnemyDetect" type="Area2D" parent="Platforms/P5" index="5"]
 collision_layer = 0
 collision_mask = 8
 
@@ -1224,7 +1233,7 @@ collision_mask = 8
 position = Vector2(1200, -60)
 shape = SubResource("RectangleShape2D_8pcok")
 
-[node name="LaunchRamp" parent="Platforms/P5" index="5" instance=ExtResource("10_32x1v")]
+[node name="LaunchRamp" parent="Platforms/P5" index="6" instance=ExtResource("10_32x1v")]
 show_behind_parent = true
 position = Vector2(2360, -480)
 
@@ -1562,7 +1571,12 @@ script = ExtResource("7_ir3bw")
 polygon = PackedVector2Array(20, 0, 2380, 0, 2400, 80, 0, 80)
 one_way_collision = true
 
-[node name="Support" type="NinePatchRect" parent="Platforms/P6" index="1"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Platforms/P6" index="1"]
+position = Vector2(2080, -640)
+polygon = PackedVector2Array(20, 0, 300, 0, 320, 80, 0, 80)
+one_way_collision = true
+
+[node name="Support" type="NinePatchRect" parent="Platforms/P6" index="2"]
 offset_top = -140.0
 offset_right = 2400.0
 offset_bottom = 2820.0
@@ -1572,7 +1586,7 @@ patch_margin_top = 60
 patch_margin_right = 100
 patch_margin_bottom = 100
 
-[node name="Support2" type="NinePatchRect" parent="Platforms/P6" index="2"]
+[node name="Support2" type="NinePatchRect" parent="Platforms/P6" index="3"]
 offset_left = 2080.0
 offset_top = -640.0
 offset_right = 2400.0
@@ -1583,7 +1597,7 @@ patch_margin_top = 60
 patch_margin_right = 100
 patch_margin_bottom = 100
 
-[node name="Tiles" type="Node2D" parent="Platforms/P6" index="3"]
+[node name="Tiles" type="Node2D" parent="Platforms/P6" index="4"]
 position = Vector2(0, -160)
 
 [node name="TileHalfLeft" type="Sprite2D" parent="Platforms/P6/Tiles" index="0"]
@@ -1654,7 +1668,7 @@ texture = ExtResource("9_246wa")
 position = Vector2(2320, -440)
 texture = ExtResource("9_246wa")
 
-[node name="EnemyDetect" type="Area2D" parent="Platforms/P6" index="4"]
+[node name="EnemyDetect" type="Area2D" parent="Platforms/P6" index="5"]
 collision_layer = 0
 collision_mask = 8
 
@@ -1662,7 +1676,7 @@ collision_mask = 8
 position = Vector2(1200, -60)
 shape = SubResource("RectangleShape2D_8pcok")
 
-[node name="P5" type="StaticBody2D" parent="Platforms/P6" index="5"]
+[node name="P5" type="StaticBody2D" parent="Platforms/P6" index="6"]
 position = Vector2(0, 1440)
 collision_mask = 15
 
@@ -1745,7 +1759,7 @@ texture = ExtResource("9_246wa")
 [node name="ItemBox" parent="Platforms/P6/P5" index="3" instance=ExtResource("12_0w2fr")]
 position = Vector2(1280, -720)
 
-[node name="LaunchRamp" parent="Platforms/P6" index="6" instance=ExtResource("10_32x1v")]
+[node name="LaunchRamp" parent="Platforms/P6" index="7" instance=ExtResource("10_32x1v")]
 show_behind_parent = true
 position = Vector2(2360, -640)
 

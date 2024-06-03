@@ -474,7 +474,7 @@ offset_left = 343.0
 offset_top = 778.0
 offset_right = 1209.0
 offset_bottom = 1019.0
-text = "Pickup Item
+text = "Pick up Item
 in Left Hand"
 label_settings = ExtResource("16_s3wd3")
 horizontal_alignment = 1
@@ -497,7 +497,7 @@ offset_left = 1141.0
 offset_top = 778.0
 offset_right = 2007.0
 offset_bottom = 1019.0
-text = "Pickup Item
+text = "Pick up Item
 in Right Hand"
 label_settings = ExtResource("16_s3wd3")
 horizontal_alignment = 1
