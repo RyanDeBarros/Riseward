@@ -119,9 +119,6 @@ func _reload_scene() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	# TODO remove input to reload scene
-	if event.is_action_pressed("ui_text_backspace"):
-		_reload_scene()
 	if event.is_action_pressed("pickup_left"):
 		pickup(true)
 	elif event.is_action_pressed("action_left"):

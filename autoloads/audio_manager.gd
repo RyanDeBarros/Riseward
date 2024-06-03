@@ -60,8 +60,6 @@ func play_sfx_random_pitch(track: String, volume_offset_db := 0.0, start_at := 0
 
 
 func play_music(track: String, loop := true) -> void:
-	# TODO remove early return
-	return
 	if song_end_callback:
 		soundtrack_player.finished.disconnect(song_end_callback)
 	if loop:
