@@ -1,5 +1,5 @@
 # About
-My submission for GameDevTV's 2024 10-day game jam! This is my first game jam ever, and I'll be using Godot Engine to make a simple game based on the given theme: Last Stand.
+My submission for GameDevTV's 2024 10-day game jam! This is my first game jam ever, and I'll be using Godot Engine to make a simple game based on the given theme: Last Stand. The web build and built executables for Windows can be found here: (itch.io)[https://ryandebarros.itch.io/riseward].
 
 ## CREDITS:
 Massive thanks to Kenney.nl for providing a free source of great assets.

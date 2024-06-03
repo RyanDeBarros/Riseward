@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://ctdjsic3ejiwu"]
+[gd_scene load_steps=73 format=3 uid="uid://ctdjsic3ejiwu"]
 
 [ext_resource type="Texture2D" uid="uid://br2fayytdnysj" path="res://assets/bkg/factory-7541157_1280.jpg" id="1_8klde"]
 [ext_resource type="Script" path="res://ui/tutorial_screen.gd" id="1_xihd4"]
@@ -60,6 +60,7 @@
 [ext_resource type="Texture2D" uid="uid://ckrup0yudvbls" path="res://assets/inputicons/mouse_right_outline.png" id="58_rdb5b"]
 [ext_resource type="Texture2D" uid="uid://bri0n1wew777f" path="res://assets/inputicons/keyboard_shift_outline.png" id="59_w30c4"]
 [ext_resource type="Texture2D" uid="uid://cfufs6troxwwh" path="res://assets/tiles/tile_coin.png" id="60_co3uq"]
+[ext_resource type="Texture2D" uid="uid://pv1dyirx4d3k" path="res://assets/inputicons/keyboard_ctrl_outline.png" id="60_hrl2h"]
 [ext_resource type="Texture2D" uid="uid://bgs8cjtk70jsi" path="res://assets/inputicons/keyboard_escape.png" id="61_pawdy"]
 [ext_resource type="Texture2D" uid="uid://b5khlhaa2fnfn" path="res://assets/otherimgs/baseball bat.png" id="61_pvaar"]
 [ext_resource type="Texture2D" uid="uid://ddmrht0y7621g" path="res://assets/inputicons/keyboard_ctrl.png" id="62_buii7"]
@@ -457,15 +458,37 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
+[node name="Label8" type="Label" parent="Page2 - Item controls"]
+offset_left = 849.0
+offset_top = 455.0
+offset_right = 966.0
+offset_bottom = 550.0
+text = "OR"
+label_settings = ExtResource("18_xtuxs")
+
+[node name="Label9" type="Label" parent="Page2 - Item controls"]
+offset_left = 1650.0
+offset_top = 455.0
+offset_right = 1767.0
+offset_bottom = 550.0
+text = "OR"
+label_settings = ExtResource("18_xtuxs")
+
 [node name="PickupLeft" type="Node2D" parent="Page2 - Item controls"]
 position = Vector2(908, 588)
 scale = Vector2(2.8, 2.8)
 
+[node name="KeyboardCtrl" type="Sprite2D" parent="Page2 - Item controls/PickupLeft"]
+position = Vector2(0, 24)
+scale = Vector2(1, 1)
+texture = ExtResource("62_buii7")
+
 [node name="KeyboardShift" type="Sprite2D" parent="Page2 - Item controls/PickupLeft"]
+position = Vector2(0, -80)
 texture = ExtResource("56_nwx0f")
 
 [node name="MouseLeftOutline" type="Sprite2D" parent="Page2 - Item controls/PickupLeft"]
-position = Vector2(-108.929, 0)
+position = Vector2(-108.929, -25)
 texture = ExtResource("57_fhnhs")
 
 [node name="Label" type="Label" parent="Page2 - Item controls"]
@@ -485,11 +508,17 @@ position = Vector2(1706, 588)
 scale = Vector2(2.8, 2.8)
 
 [node name="KeyboardShift" type="Sprite2D" parent="Page2 - Item controls/PickupRight"]
+position = Vector2(0, -80)
 texture = ExtResource("56_nwx0f")
 
 [node name="MouseLeftOutline" type="Sprite2D" parent="Page2 - Item controls/PickupRight"]
-position = Vector2(-108.929, 0)
+position = Vector2(-108.929, -25)
 texture = ExtResource("58_rdb5b")
+
+[node name="KeyboardCtrl" type="Sprite2D" parent="Page2 - Item controls/PickupRight"]
+position = Vector2(0, 24)
+scale = Vector2(1, 1)
+texture = ExtResource("62_buii7")
 
 [node name="Label2" type="Label" parent="Page2 - Item controls"]
 layout_mode = 0
@@ -508,11 +537,17 @@ position = Vector2(2891, 588)
 scale = Vector2(2.8, 2.8)
 
 [node name="KeyboardShift" type="Sprite2D" parent="Page2 - Item controls/UseLeft"]
+position = Vector2(0, -64.2143)
 texture = ExtResource("59_w30c4")
 
 [node name="MouseLeftOutline" type="Sprite2D" parent="Page2 - Item controls/UseLeft"]
-position = Vector2(-108.929, 0)
+position = Vector2(-108.929, -25)
 texture = ExtResource("57_fhnhs")
+
+[node name="KeyboardCtrl" type="Sprite2D" parent="Page2 - Item controls/UseLeft"]
+position = Vector2(0, 17.5714)
+scale = Vector2(1, 1)
+texture = ExtResource("60_hrl2h")
 
 [node name="Label3" type="Label" parent="Page2 - Item controls"]
 layout_mode = 0
@@ -531,11 +566,17 @@ position = Vector2(3689, 588)
 scale = Vector2(2.8, 2.8)
 
 [node name="KeyboardShift" type="Sprite2D" parent="Page2 - Item controls/UseRight"]
+position = Vector2(0, -64.2143)
 texture = ExtResource("59_w30c4")
 
 [node name="MouseLeftOutline" type="Sprite2D" parent="Page2 - Item controls/UseRight"]
-position = Vector2(-108.929, 0)
+position = Vector2(-108.929, -25)
 texture = ExtResource("58_rdb5b")
+
+[node name="KeyboardCtrl" type="Sprite2D" parent="Page2 - Item controls/UseRight"]
+position = Vector2(0, 17.5714)
+scale = Vector2(1, 1)
+texture = ExtResource("60_hrl2h")
 
 [node name="Label4" type="Label" parent="Page2 - Item controls"]
 layout_mode = 0
